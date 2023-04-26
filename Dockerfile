@@ -7,4 +7,4 @@ COPY . .
 EXPOSE 5001
 RUN chown -R node /usr/src/app
 USER node
-CMD ["node", "main.js"]
+CMD ["node", "/database/queries.js", "main.js"]

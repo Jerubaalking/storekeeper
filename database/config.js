@@ -1,10 +1,10 @@
 module.exports = {
 
-    "HOST": "127.0.0.1",
+    "HOST": "http://srv-captain--storekeeper-db",
 
-    "USER": "laravel",
+    "USER": "root",
 
-    "PASSWORD": "thina",
+    "PASSWORD": "thina2023",
 
     "DB": "storekeeper247_db",
 
