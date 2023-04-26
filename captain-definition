@@ -1,6 +1,7 @@
 {
 "schemaVersion": 2,
 "templateId": "node/8.7.0",
+"dockerfilePath": "./Dockerfile",
 "dockerfileLines": [
 "FROM node:8.7.0-alpine",
 "RUN apt-get install wkhtmltopdf",
