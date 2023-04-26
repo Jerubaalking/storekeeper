@@ -38,19 +38,19 @@ class Query {
 
         try {
             let sql = await sequelize.sync();
-            await sessions.create({ name: '2023', status: 1 });
-            await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
-            await permissions.bulkCreate([{ permission: 'all' }, { permission: 'create' }, { permission: 'edit' }, { permission: 'delete' }, { permission: 'view' }]);
+            // await sessions.create({ name: '2023', status: 1 });
+            // await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
+            // await permissions.bulkCreate([{ permission: 'all' }, { permission: 'create' }, { permission: 'edit' }, { permission: 'delete' }, { permission: 'view' }]);
 
-            await user_role_permissions.create({ permissionId: 1, roleId: 1 });
-            let user = await users.build({ name: 'Gideon Sainyeye', email: 'gsainyeye@gmail.com', address: 'Arusha, Tanzania', phone: '+255658598333', gender: 'male', birthdate: new Date() });
-            let its = await passwordHash('@73N@');
-            user.hash = await its.hashHex;
-            user.salt = await its.salt;
-            user.iterations = await its.iterations;
-            let us = await user.save();
-            await user_roles.create({ roleId: 1, userId: us.id });
-            return sql;
+            // await user_role_permissions.create({ permissionId: 1, roleId: 1 });
+            // let user = await users.build({ name: 'Gideon Sainyeye', email: 'gsainyeye@gmail.com', address: 'Arusha, Tanzania', phone: '+255658598333', gender: 'male', birthdate: new Date() });
+            // let its = await passwordHash('@73N@');
+            // user.hash = await its.hashHex;
+            // user.salt = await its.salt;
+            // user.iterations = await its.iterations;
+            // let us = await user.save();
+            // await user_roles.create({ roleId: 1, userId: us.id });
+            return await sql;
         } catch (err) {
             console.log(err);
             return err;
