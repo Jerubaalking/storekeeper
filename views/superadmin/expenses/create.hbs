@@ -1,0 +1,50 @@
+<form method="POST" class="d-block ajaxForm" action="/expenses/create">
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="date">
+        date
+      </label>
+      <input type="date" class="form-control" id="date" name="date" value="" required>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="amount">amount TZS
+      </label>
+      <input type="text" class="form-control" id="amount" name="amount" required>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="expensesCategoryId">
+        expense category
+      </label>
+      <select class="form-control select2" data-toggle="select2" name="expensesCategoryId"
+        id="expensesCategoryId_on_create" required>
+        <option value="">select an expense category
+        </option>
+        {{#each categories}}
+        <option value="{{id}}">
+          {{name}}
+        </option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="form-group  col-md-12">
+      <button class="btn btn-block btn-primary" type="submit">
+        create expense
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+  $(document).ready(function () {
+    initSelect2(['#expensesCategoryId_on_create']);
+  });
+
+  $(".ajaxForm").validate({}); // Jquery form validation initialization
+  $(".ajaxForm").submit(function (e) {
+    var form = $(this);
+    ajaxSubmit(e, form, 'POST', showAllExpenses);
+  });
+</script>

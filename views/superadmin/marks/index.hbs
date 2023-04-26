@@ -1,0 +1,117 @@
+<!--title-->
+
+
+<div class="row ">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="page-title">
+                    <i class="mdi mdi-format-list-numbered title_icon"></i>Manage marks
+                </h4>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="row mt-3">
+                <div class="col-md-1 mb-1"></div>
+                <div class="col-md-2 mb-1">
+                    <select name="examId" id="examId" class="form-control select2" data-toggle="select2" required>
+                        <option value="">Select Exam</option>
+                        {{#each exams}}
+                        <option value="{{id}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-md-2 mb-1">
+                    <select name="classId" id="classId" class="form-control select2" data-toggle="select2" required
+                        onchange="classWiseSection(this.value)">
+                        <option value="">
+                            select a class
+                        </option>
+                        {{#each classes}}
+                        <option value="{{id}}">
+                            {{name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-md-2 mb-1">
+                    <select name="sectionId" onchange="classWiseSubject(this.value)" id="sectionId"
+                        class="form-control select2" data-toggle="select2" required>
+                        <option value="">
+                            select section
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-1">
+                    <select name="subjectId" id="subjectId" class="form-control select2" data-toggle="select2" required>
+                        <option value="">
+                            select subject
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-secondary" onclick="filter_attendance()">
+                        filter
+                    </button>
+                </div>
+            </div>
+            <div class="card-body mark_content">
+                <div class="empty_box">
+                    <img class="mb-3" width="150px" src="/public/assets/backend/images/empty_box.png" />
+                    <br>
+                    <span class="">
+                        no data found!
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('document').ready(function () {
+        initSelect2(['#classId', '#examId', '#sectionId', '#subjectId']);
+    });
+
+    function classWiseSection(classId) {
+        $.ajax({
+            url: "/sections/list/class/" + classId,
+            success: function (response) {
+                $('#sectionId').html(response);
+                classWiseSubject(classId)
+            }
+        });
+    }
+
+    function classWiseSubject(classId) {
+        $.ajax({
+            url: "/subjects/list/class/" + classId,
+            success: function (response) {
+                $('#subjectId').html(response);
+            }
+        });
+    }
+
+    function filter_attendance() {
+        var exam = $('#examId').val();
+        var classId = $('#classId').val();
+        var sectionId = $('#sectionId').val();
+        var subject = $('#subjectId').val();
+        if (classId != "" && sectionId != "" && exam != "" && subject != "") {
+            $.ajax({
+                type: 'POST',
+                url: '/marks/list',
+                data: { classId: classId, sectionId: sectionId, subjectId: subject, examId: exam },
+                success: function (response) {
+                    $('.mark_content').html(response);
+                    initDataTable('basic-datatable');
+                }
+            });
+        } else {
+            toastr.error('please fill all field with your selections!');
+        }
+    }
+</script>

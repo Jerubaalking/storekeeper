@@ -1,0 +1,78 @@
+<form method="POST" class="d-block ajaxForm" onloadstart="nowDate()" action="/exams/create">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="exam_name">
+                Exam name
+            </label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="name" required>
+            <small id="name_help" class="form-text text-muted">
+                provide exam name
+            </small>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="starting_date">
+                Starting date
+            </label>
+            <input type="text" class="form-control date" id="starting_date" data-toggle="date-picker"
+                data-single-date-picker="true" name="starting_date" value="" required>
+            <small id="name_help" class="form-text text-muted">
+                provide starting date time
+            </small>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="ending_date">
+                Ending date
+            </label>
+
+            <input type="text" class="form-control date" id="ending_date" data-toggle="date-picker"
+                data-single-date-picker="true" name="ending_date" value="" required>
+            <small id="name_help" class="form-text text-muted">
+                provide ending date time
+            </small>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="category">
+                Select category
+            </label>
+            <select name="category" id="category" class="form-control select2" data-toggle="select2" required>
+                <option value="" selected disabled>
+                    select category
+                </option>
+                <option value="weekly">
+                    weekly
+                </option>
+                <option value="monthly">
+                    monthly
+                </option>
+                <option value="terminal">
+                    terminal
+                </option>
+                <option value="annual">
+                    annual
+                </option>
+            </select>
+        </div>
+        <div class="form-group  col-md-12">
+            <button class="btn btn-block btn-primary" type="submit">
+                create exam
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllExams);
+    });
+    $("#starting_date").daterangepicker();
+    $("#ending_date").daterangepicker();
+    function nowDate() {
+        $('#ending_date').val((new Date().toLocaleString()).split(', ')[0]);
+        $('#starting_date').val((new Date().toLocaleString()).split(', ')[0]);
+    }
+    nowDate();
+</script>

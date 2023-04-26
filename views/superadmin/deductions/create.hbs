@@ -1,0 +1,39 @@
+<form method="POST" class="d-block ajaxForm" action="/deductions/create">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="name">name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+            <small id="name_help" class="form-text text-muted">provide deduction name</small>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="amount">amount</label>
+            <input type="number" value="0" class="form-control" id="amount" name="amount" required>
+            <small id="name_help" class="form-text text-muted">
+                fill deduction amount
+            </small>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="precent">
+                percent %
+            </label>
+            <input type="number" value="0" class="form-control" id="percent" name="percent" min="0" max="100" required>
+            <small id="name_help" class="form-text text-muted">
+                fill deduction percent
+            </small>
+        </div>
+    </div>
+    <div class="form-group  col-md-12">
+        <button class="btn btn-block btn-primary" type="submit">
+            add deduction
+        </button>
+    </div>
+    </div>
+</form>
+
+<script>
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllDeductions);
+    });
+</script>

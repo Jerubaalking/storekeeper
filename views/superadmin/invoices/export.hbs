@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title style="">Student Fee Report</title>
+  <link rel="shortcut icon" href="#">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <style type="text/css">
+    /* Center tables for demo */
+    table {
+      margin: 0 auto;
+    }
+
+    /* Default Table Style */
+    table {
+      color: #333;
+      background: white;
+      border: 1px solid grey;
+      font-size: 12pt;
+      border-collapse: collapse;
+    }
+
+    table thead th,
+    table tfoot th {
+      color: #777;
+      background: rgba(0, 0, 0, .1);
+    }
+
+    table caption {
+      padding: .5em;
+    }
+
+    table th,
+    table td {
+      padding: .5em;
+      border: 1px solid lightgrey;
+    }
+
+    /* Zebra Table Style */
+    [data-table-theme*=zebra] tbody tr:nth-of-type(odd) {
+      background: rgba(0, 0, 0, .05);
+    }
+
+    [data-table-theme*=zebra][data-table-theme*=dark] tbody tr:nth-of-type(odd) {
+      background: rgba(255, 255, 255, .05);
+    }
+
+    /* Dark Style */
+    [data-table-theme*=dark] {
+      color: #ddd;
+      background: #333;
+      font-size: 12pt;
+      border-collapse: collapse;
+    }
+
+    [data-table-theme*=dark] thead th,
+    [data-table-theme*=dark] tfoot th {
+      color: #aaa;
+      background: rgba(0255, 255, 255, .15);
+    }
+
+    [data-table-theme*=dark] caption {
+      padding: .5em;
+    }
+
+    [data-table-theme*=dark] th,
+    [data-table-theme*=dark] td {
+      padding: .5em;
+      border: 1px solid grey;
+    }
+
+    table {
+      page-break-inside: auto !important;
+    }
+
+    tr {
+      page-break-inside: avoid !important;
+      page-break-after: auto !important;
+    }
+
+    thead {
+      display: table-header-group !important;
+    }
+
+    tfoot {
+      display: table-footer-group !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 style="text-align: center;" class="text-dark">Student fee report</h2>
+  <p style="text-align: center; font-weight:600;" class="text-dark">{{setHomeDate start}} to : {{setHomeDate end}}</p>
+  <p style="text-align: center;" class="text-dark">
+    class : {{class.name}}
+  </p>
+  <p style="text-align: center;" class="text-dark">
+    status : {{status}}
+  </p>
+
+  <table width="100%" style="font-size: 14px;">
+    <thead style="display: table-head-group;">
+      <tr>
+        <th class="text-dark">
+          No
+        </th>
+        <th class="text-dark">Student
+        </th>
+        <th class="text-dark">
+          Class
+        </th>
+        <th class="text-dark">
+          Title
+        </th>
+        <th class="text-dark">
+          Total amount
+        </th>
+        <th class="text-dark">
+          Paid amount
+        </th>
+        <th class="text-dark">Creation date
+        </th>
+        <th class="text-dark">
+          Payment date
+        </th>
+        <th class="text-dark">
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tfoot style="display: table-footer-group;">
+      <tr>
+        <td>Total</td>
+        <td>--</td>
+        <td>--</td>
+        <td>--</td>
+        <td>--</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>--</td>
+        <td>--</td>
+      </tr>
+    </tfoot>
+    {{#each invoices}}
+    <tr>
+      <td>
+        {{id}}
+      </td>
+      <td>
+        {{student.user.name}}
+      </td>
+      <td>
+        {{class.name}}
+      </td>
+      <td>
+        {{title}}
+      </td>
+      <td>
+        {{money total_amount}}
+      </td>
+      <td>
+        {{money paid_amount}}
+      </td>
+      <td>
+        {{setHomeDate createdAt}}
+      </td>
+      <td>
+        {{setHomeDate updatedAt}}
+      </td>
+      <td>{{status}}
+      </td>
+    </tr>
+    {{/each}}
+  </table>
+</body>
+
+</html>

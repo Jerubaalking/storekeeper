@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Fee Report</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <base href="{{body.url}}">
+    <link rel="stylesheet" href="{{body.url}}/public/css/app.css">
+</head>
+
+<body>
+    <h2 style="font-family:'Times New Roman', Times, serif; text-align: center; text-decoration:underline;">STUDENTS
+        ACADEMIC
+        REPORT
+    </h2>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-2">
+                <img src="{{body.url}}/public/uploads/images/users/{{kaimage enrol.student.user.name}}.jpg" />
+            </div>
+            <div class="col-8">
+                <table class="table table-bordered td-responsive nowrap" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name : {{enrol.student.user.name}}</th>
+                            <th>Class : {{enrol.class.name}}</th>
+                        </tr>
+                        <tr>
+                            <th>From:{{setHomeDate body.start}}</th>
+                            <th>To: {{setHomeDate body.end}}</th>
+                        </tr>
+                    </thead>
+                    </tbody>
+                </table>
+            </div>
+            <style>
+                img {
+                    transform: rotate(90deg);
+                    -ms-transform: rotate(90deg);
+                    -moz-transform: rotate(90deg);
+                    -webkit-transform: rotate(90deg);
+                    -o-transform: rotate(90deg);
+                    width: 110px;
+                    height: 105px;
+                    border: 2px solid #03254c;
+                }
+            </style>
+            <div class="col-2">
+                <img src="{{body.url}}/public/uploads/images/users/{{kaimage enrol.student.user.name}}.jpg" />
+            </div>
+        </div>
+        <!-- right table beside attendance -->
+        <div class="row">
+            <div class="col-12 mt-5">
+                <table id="basic-datatable" class="table table-bordered dt-responsive nowrap" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                subject
+                            </th>
+                            <th>Exam
+                            </th>
+                            <th>Average
+                            </th>
+                            <th>
+                                Grade
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each subjects}}
+                        <tr>
+                            <th>{{name}}</th>
+                            <td style="padding:0px;">
+                                <table id="basic-datatable" class="table table-bordered dt-responsive nowrap"
+                                    width="100%" height="100%">
+                                    <tr>
+                                        {{#each exams}}
+                                        <td>{{name}}</td>
+                                        {{/each}}
+                                    </tr>
+                                    <tr>
+                                        {{#each exams}}
+                                        {{#each marks}}
+                                        <td>{{marks_obtained}}</td>
+                                        {{/each}}
+                                        {{/each}}
+                                    </tr>
+                                </table>
+                            </td>
+                            {{!-- <td style="padding:0px;margin:0px;">
+
+                                <table id="basic-datatable" class="table table-bordered dt-responsive nowrap"
+                                    width="100%" height="100%">
+                                    <tr>
+                                        {{#each exams}}
+                                        <td>{{name}}</td>
+                                        {{/each}}
+                                    </tr>
+                                    <tr>
+                                        {{#each exams}}
+                                        {{#each marks}}
+                                        <td>{{marks_obtained}}</td>
+                                        {{/each}}
+                                        {{/each}}
+                                    </tr>
+                                </table>
+                            </td> --}}
+                            <td>{{average}}</td>
+                            <td>{{grade}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8 mt-3">
+            <table id="basic-datatable" class="table table-bordered dt-responsive nowrap" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Attendance : {{enrol.student.user.name}}
+                        </th>
+                        <th>
+                            Year:{{enrol.session.name}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Class: {{enrol.class.name}}
+                        </th>
+                        <th>
+                            Term: All
+                        </th>
+                    </tr>
+                </thead>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</body>
+
+</html>

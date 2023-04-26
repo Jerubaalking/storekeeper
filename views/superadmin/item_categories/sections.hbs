@@ -1,0 +1,79 @@
+<form method="POST" class="d-block ajaxForm" action="/classes/sections/{{class.id}}">
+    {{#each class.sections}}
+    <div class="form-row mr-2">
+        <div class="form-group col-10">
+            <input type="hidden" class="form-control" id="section" name="sectionId[]" value="{{id}}">
+            <input type="text" class="form-control" id="name" name="name[]" value="{{name}}" required>
+        </div>
+        <div class="form-group col-2">
+            <!-- <button class="btn btn-icon btn-danger" type="button" onclick="deleteSection(this)"><i class="mdi mdi-window-close"></i></button> -->
+            <button class="btn btn-icon btn-danger" type="button" onclick="removeSectionDatabase({{id}})"><i
+                    class="mdi mdi-window-close"></i></button>
+        </div>
+    </div>
+
+    {{/each}}
+
+    <div class="form-row mr-2">
+        <div class="form-group col-10">
+            <input type="hidden" class="form-control" name="sectionId[]" value="0">
+            <input type="text" class="form-control" name="name[]" value="" required>
+        </div>
+        <div class="form-group col-2">
+            <button class="btn btn-icon btn-success" type="button" onclick="appendSection()"><i
+                    class="mdi mdi-plus"></i></button>
+        </div>
+    </div>
+    <div id="section_area"></div>
+    <div class="row no-gutters">
+        <div class="form-group  col-md-12 p-0 mt-2">
+            <button class="btn btn-block btn-primary" type="submit"> update
+            </button>
+        </div>
+    </div>
+</form>
+
+<div id="blank_section">
+    <div class="form-row mr-2">
+        <div class="form-group col-10">
+            <input type="hidden" class="form-control" name="sectionId[]" value="0">
+            <input type="text" class="form-control" name="name[]" value="" required>
+        </div>
+        <div class="form-group col-2">
+            <button class="btn btn-icon btn-danger" type="button" onclick="removeSectionDatabase({{id}})"><i
+                    class="mdi mdi-window-close"></i></button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    //update form
+    // Jquery form validation initialization
+    $(".ajaxForm").validate({});
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllClasses);
+    });
+
+    var blank_section_field = $('#blank_section').html();
+
+    $(document).ready(function () {
+        $('#blank_section').hide();
+    });
+
+
+    function appendSection() {
+        $('#section_area').append(blank_section_field);
+    }
+
+    function removeSection(elem) {
+        $(elem).closest('.form-row').remove();
+    }
+
+    function removeSectionDatabase(sectionId) {
+        $('#sectionDatabase' + sectionId).hide();
+        $('#section' + sectionId).val(sectionId + 'delete');
+    }
+</script>

@@ -1,0 +1,97 @@
+<!-- Topbar Start -->
+<div class="navbar-custom topnav-navbar topnav-navbar-dark">
+    <div class="container-fluid">
+        <!-- LOGO -->
+        <a href="/" class="topnav-logo" style="min-width: unset;">
+            <span class="topnav-logo-lg">
+                <img src="/public/images/logo-dark.jpg" alt="" height="40">
+            </span>
+            <span class="topnav-logo-sm">
+                <img src="/public/images/logo-dark.jpg" alt="" height="40">
+            </span>
+        </a>
+
+        <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+            {{!-- <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
+                    aria-haspopup="false" aria-expanded="false" onclick="getLanguageList()">
+                    <i class="mdi mdi-translate noti-icon"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="m-0">
+                            language
+                        </h5>
+                    </div>
+
+                    <div class="slimscroll" id="language-list" style="min-height: 150px;">
+                        <div>English</div>
+                    </div>
+                </div>
+            </li> --}}
+
+
+            {{!-- profile naviagation --}}
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#"
+                    role="button" aria-haspopup="false" aria-expanded="false">
+                    <span class="account-user-avatar">
+                        <img src="/public/uploads/images/users/{{{kaimage viewManager.name}}}.jpg" alt=""
+                            class="rounded-circle">
+                    </span>
+                    <span>
+                        <span class="account-user-name">{{viewManager.name}}</span>
+                        <span class="account-position">{{viewManager.role}}</span>
+
+                    </span>
+                </a>
+
+                <div
+                    class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                    <!-- item-->
+                    <div class=" dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">welcome!<br>{{viewManager.email}}</h6>
+                    </div>
+
+                    <!-- item-->
+                    <a href="#" onclick="loadPage('/profile', 'id', 'Profile')" class="dropdown-item notify-item">
+                        <i class="mdi mdi-account-circle mr-1"></i>
+                        <span>My Account</span>
+                    </a>
+                    <!-- item-->
+                    <a href="#" onclick="loadPage('/settings','Settings')" class="dropdown-item notify-item">
+                        <i class="mdi mdi-account-edit mr-1"></i>
+                        <span>settings</span>
+                    </a>
+                    <!-- item-->
+                    <a href="mailto:support@saincrafttechnologies.com?Subject=Help%20On%20This" target="_blank"
+                        class="dropdown-item notify-item">
+                        <i class="mdi mdi-lifebuoy mr-1"></i>
+                        <span>Support</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="/auth/logout" class="dropdown-item notify-item">
+                        <i class="mdi mdi-logout mr-1"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+        </ul>
+        <a class="button-menu-mobile disable-btn">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </a>
+        <div class="visit_website">
+            <h4 style="color: #fff; float: left;">Stock-Keeper MS</h4>
+            <a href="/" target="" class="btn btn-outline-light ml-3">Visit Website</a>
+            <img class="hidden content-placeholder" src="/public/images/loader.gif" alt="" height="35px;">
+        </div>
+    </div>
+</div>

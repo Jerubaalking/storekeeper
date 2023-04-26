@@ -1,0 +1,11 @@
+{{#each enrols}}
+{{#ifEquals id select}}
+<option value="{{customerId}}">
+  {{customer.user.name}}
+</option>
+{{else}}
+<option value="{{customerId}}">
+  {{customer.user.name}}
+</option>
+{{/ifEquals}}
+{{/each}}

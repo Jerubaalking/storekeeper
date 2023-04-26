@@ -1,0 +1,263 @@
+<form method="POST" class="d-block ajaxForm" action="/stocks/in/create">
+    <div class="form-row">
+        <div class="col-md-12 row">
+            <div class="form-group col-md-6">
+                <label for="item_batch_number">batch</label>
+                <input type="text" class="form-control" value="{{batch_number}}" id="item_batch_number"
+                    name="item_batch_number" required disabled>
+                <small class="form-text text-muted">our batch number</small>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="date">received date</label>
+                <input type="datetime-local" class="form-control" id="receive_date" name="receive_date" required>
+                <small class="form-text text-muted">stock receive date</small>
+            </div>
+        </div>
+        <div class="col-md-12 row">
+            <div class="form-group col-md-6">
+                <label for="storeId">store</label>
+                <select class="form-control select2" id="storeId" name="storeId" required>
+                    <option value="">select store</option>
+                    {{#each stores}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+                <small class="form-text text-muted">provide store</small>
+            </div>
+        </div>
+        <div class="customer-row row">
+            <div id="first-row" class="col-md-12">
+                <hr>
+                <div class="row">
+                    <div class="col-xl-1 col-lg-1 col-md-1 mb-1 mb-lg-0" style="margin-left:15px;">
+                        <label for="indexer">#</label>
+                        <p id="indexer">1</p>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 mb-1 mb-lg-0">
+                        <div class="row justify-content-md-left customer-row-items">
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-1 mb-lg-0">
+                                <label for="manufacturer_batch_number">batch</label>
+                                <input type="text" class="form-control" id="manufacturer_batch_number[]"
+                                    placeholder="batch number" name="manufacturer_batch_number[]" required>
+                                <small class="form-text text-muted">batch from manufacturer</small>
+                            </div>
+                            <div class="form-group col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-1 mb-lg-0">
+                                <label for="itemId">Item</label>
+                                <select class="form-control select2" id="itemId[]" name="itemId[]" required>
+                                    <option value="">select item</option>
+                                    {{#each items}}
+                                    <option value="{{id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                                <small class="form-text text-muted">provide item</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                                <label for="qty">Qty</label>
+                                <input type="number" class="form-control" id="qty[]" placeholder="quantity..."
+                                    name="qty[]" required>
+                                <small class="form-text text-muted">provide quantity</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <label for="amount">cost</label>
+                                <input type="text" class="form-control" id="amount[]" placeholder="amount"
+                                    name="amount[]" required>
+                                <small class="form-text text-muted">amount per item</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <label for="selling_price">Price</label>
+                                <input type="text" class="form-control" id="selling_price[]" placeholder="selling_price"
+                                    name="selling_price[]" required>
+                                <small class="form-text text-muted">selling price per item</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <label for="receipt">Receipt</label>
+                                <input type="text" class="form-control" id="receipt[]" placeholder="receipt"
+                                    name="receipt[]" required>
+                                <small class="form-text text-muted">receipt-number</small>
+                            </div>
+                            <div class="form-group col-xl-1 col-lg-1 col-md-6 col-sm-12">
+                                <label for="inspected[]">Inspected</label><br>
+
+                                <input type="checkbox" name="inspected[]" value="false" onchange="toogle(this)"
+                                    id="inspected1" data-switch="success">
+                                <label for="inspected1" data-on-label="Yes" data-off-label="No"></label>
+                                <small class="form-text text-muted">inspection status</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <label for="manufacturer">Manufacturer</label>
+                                <input type="text" class="form-control" id="manufacturer[]" placeholder="manufacturer"
+                                    name="manufacturer[]" required>
+                                <small class="form-text text-muted">manufacturer-number</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <label for="expire_date">Expire Date</label>
+                                <input type="date" class="form-control" id="expire_date[]" placeholder="expire date"
+                                    name="expire_date[]" required>
+                                <small class="form-text text-muted">expire date</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <label for="item_weight">Unit/Item weight</label>
+                                <input type="text" class="form-control" id="item_weight[]" placeholder="item weight"
+                                    name="item_weight[]" required>
+                                <small class="form-text text-muted">unit weight or volume</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                                <label for="other_specs">other specs</label>
+                                <textarea type="other_specs" name="other_specs[]" class="form-control" value=""
+                                    placeholder="other specs..."></textarea>
+                                <small class="form-text text-muted">other specifications</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                                <label for="comment">Comment</label>
+                                <textarea type="comment" name="comment[]" class="form-control" value=""
+                                    placeholder="comment..."></textarea>
+                                <small class="form-text text-muted">comment or note</small>
+                            </div>
+                            <div class="form-group col-xl-1 col-lg-1 col-md-12 col-sm-12 ">
+                                <label for="">Remove </label>
+                                <button type="button" class="btn btn-icon btn-danger disabled"
+                                    onclick="removeRow(this)"> <i class="mdi mdi-window-close"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group  col-md-12">
+            <hr>
+            <button type="button" class="btn btn-icon btn-success col-2" onclick="appendRow(this)"> <i
+                    class="mdi mdi-plus"></i> add </button>
+            <button class="btn btn-icon btn-primary col-3" type="submit"><i class="mdi mdi-database"></i>
+                save stock
+            </button>
+            <button type="reset" class="btn btn-icon btn-light col-3"><i class="mdi mdi-refresh"></i>
+                clear
+            </button>
+            <button type="reset" class="btn btn-sm btn-icon btn-light col-3" data-dismiss="modal"><i
+                    class="mdi mdi-window-close"></i>
+                cancel
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    var blank_field = function (id) {
+
+        return `<div id="blank-row" class="col-md-12"><hr>
+    <div class="row">
+        <div class="col-xl-1 col-lg-1 col-md-1 mb-1 mb-lg-0" style="margin-left:15px;">
+                            <p id="indexer">${id + 1}</p>
+                        </div>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
+                
+            <div class="row justify-content-md-left customer-row-items">
+                <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-1 mb-lg-0">
+                                <input type="text" class="form-control" id="manufacturer_batch_number[]"
+                                    placeholder="batch number" name="manufacturer_batch_number[]" required>
+                                <small class="form-text text-muted">batch from manufacturer</small>
+                            </div>
+                            <div class="form-group col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-1 mb-lg-0">
+                                <select class="form-control select2" id="itemId[]" name="itemId[]" required>
+                                    <option value="">select item</option>
+                                    {{#each items}}
+                                    <option value="{{id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                                <small class="form-text text-muted">provide item</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                                <input type="number" class="form-control" id="qty[]" placeholder="quantity..."
+                                    name="qty[]" required>
+                                <small class="form-text text-muted">provide quantity</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <input type="text" class="form-control" id="amount[]" placeholder="amount"
+                                    name="amount[]" required>
+                                <small class="form-text text-muted">amount per item</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <input type="text" class="form-control" id="receipt[]" placeholder="receipt"
+                                    name="receipt[]" required>
+                                <small class="form-text text-muted">receipt-number</small>
+                            </div>
+                             <div class="form-group col-xl-1 col-lg-1 col-md-6 col-sm-12">
+                                <input type="checkbox" value="false" name="inspected[]" onchange="toogle(this)" id="inspected${id + 1}"
+                                    data-switch="success">
+                                <label for="inspected${id + 1}" data-on-label="Yes" data-off-label="No"></label>
+                                <small class="form-text text-muted">inspection status</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <input type="text" class="form-control" id="manufacturer[]" placeholder="manufacturer"
+                                    name="manufacturer[]" required>
+                                <small class="form-text text-muted">manufacturer name</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <input type="date" class="form-control" id="expire_date[]" placeholder="expire date"
+                                    name="expire_date[]" required>
+                                <small class="form-text text-muted">expire date</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                                <input type="text" class="form-control" id="item_weight[]" placeholder="item weight"
+                                    name="item_weight[]" required>
+                                <small class="form-text text-muted">unit weight or volume</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                                <textarea type="other_specs" name="other_specs[]" class="form-control" value=""
+                                    placeholder="other specs..."></textarea>
+                                <small class="form-text text-muted">other specifications</small>
+                            </div>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                                <textarea type="comment" name="comment[]" class="form-control" value=""
+                                    placeholder="comment..."></textarea>
+                                <small class="form-text text-muted">comment or note</small>
+                            </div>
+                <div class="form-group col-xl-1 col-lg-1 col-md-12 col-sm-12 mb-1 mb-lg-0">
+                    <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="removeRow(this)"> <i
+                            class="mdi mdi-window-close"></i> </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`;
+    };
+
+
+    function appendRow() {
+        let t = $('.customer-row');
+        let children = $('.customer-row').children().length;
+        t.append(blank_field(t.children().length));
+    }
+    function toogle(item) {
+        let t1 = $(item);
+        let t = t1.val();
+        console.log(t1, t);
+        if (t == 'false') {
+            $(item).val('true');
+        } else {
+            $(item).val('false');
+        }
+    }
+
+    function removeRow(elem) {
+        let t = $('.customer-row').children();
+        let i = 0;
+        let itemArrays = [];
+        $(elem).closest('#blank-row').remove();
+        for (let item of $('.customer-row').children()) {
+            i += 1;
+            $(item).find('#indexer').text(i);
+            itemArrays.push(item);
+        }
+        $('.customer-row').append(...itemArrays);
+    }
+    $(".ajaxForm").validate({});
+    $(".ajaxForm").submit(function (e) {
+        $('#item_batch_number').removeAttr('disabled');
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllStockIns);
+        $('#item_batch_number').attr('disabled');
+    });
+</script>

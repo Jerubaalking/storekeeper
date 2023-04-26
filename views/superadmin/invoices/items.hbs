@@ -1,0 +1,104 @@
+<h4 class="page-title">
+    <i class="mdi mdi-file title_icon"></i> {{invoice.level}} for {{invoice.customer.name}} <small>
+        <option>Date: <p class="text-primary" style="text-decoration: underline;">{{setHomeDate
+                invoice.createdAt}}</p>
+        </option>
+        <option>TIN: <p class="text-primary" style="text-decoration: underline;">{{invoice.customer.tin}}</p>
+        </option>
+        <option>contact: <p class="text-primary" style="text-decoration: underline;">{{invoice.customer.phone}}</p>
+        </option>
+        <option>address: <p class="text-primary" style="text-decoration: underline;">{{invoice.customer.address}}</p>
+        </option>
+    </small>
+
+    <button type="button" class=" mb-1 mr-1 btn btn-outline-default btn-rounded alignToTitle"
+        onclick="largerModal('/invoices/add/items/{{invoice.id}}', 'add items to invoice')"> <i class="mdi mdi-cog"></i>
+        settings
+    </button>
+    <button type="button" class=" mb-1 mr-1 btn btn-outline-default btn-rounded alignToTitle"
+        onclick="largerModal('/invoices/add/items/{{invoice.id}}', 'add items to invoice')"> <i
+            class="mdi mdi-email"></i>
+        send
+    </button>
+    <button type="button" class="mb-1 mr-1 btn btn-outline-default btn-rounded alignToTitle"
+        onclick="largerModal('/invoices/add/items/{{invoice.id}}', 'add items to invoice')"> <i
+            class="mdi mdi-briefcase-edit"></i>
+        add items
+    </button>
+</h4>
+<div class="table-responsive-sm">
+    <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
+        <thead class="thead-dark">
+            <tr>
+                <th>item</th>
+                <th>model/version/tye</th>
+                <th>version</th>
+                <th>price</th>
+                <th>qty</th>
+                <th>value</th>
+                <th>date</th>
+                <th>options</th>
+            </tr>
+        </thead>
+        <tfoot class="tfoot" style="background-color: rgb(231, 228, 225);">
+            <tr>
+                <td> <small><strong>invoice number</strong></small>
+                </td>
+                <td> <small><strong>{{invoice.invoice_id}}</strong></small>
+                </td>
+                <td> <small><strong>--</strong></small>
+                </td>
+                <td> <small><strong>value: {{money invoice.total_buying_amount}}</strong></small>
+                </td>
+                <td> <small><strong>quantity: {{invoice.total_qty}}</strong></small>
+                </td>
+                <td> <strong>gross: {{money invoice.total_amount}}</strong>
+                </td>
+                <td> --
+                </td>
+                <td> --
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+            {{#each stockOuts}}
+            <tr>
+                <td>
+                    <option>{{item.name}}</option>
+                    <option>{{invoice_id}}</option>
+
+                </td>
+                <td>
+                    {{item.model}}
+                </td>
+                <td>
+                    {{item.version}}
+                </td>
+                <td>{{money stock_in.selling_price}}
+
+                </td>
+                <td>{{qty}}
+                </td>
+                <td>{{money value}}
+                </td>
+                <td>{{setHomeDate createdAt}}
+                </td>
+                <td>
+                    <div class="dropdown text-center">
+                        <button type="button"
+                            class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+                            data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item"
+                                onclick="confirmModalId('/invoices/items/remove/{{id}}', showAllInvoiceItems, '{{invoice.id}}')">
+                                remove
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

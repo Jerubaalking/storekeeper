@@ -1,0 +1,178 @@
+<form method="POST" class="d-block ajaxForm table-responsive-sm  row" action="/stocks/in/create">
+
+    <div class="col-md-12 form-group row">
+        <div class="form-group col-md-6">
+            <label for="item_batch_number">batch</label>
+            <input type="text" class="form-control" value="{{batch_number}}" id="item_batch_number"
+                name="item_batch_number" required disabled>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="date">received date</label>
+            <input type="datetime-local" class="form-control" id="receive_date" name="receive_date" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="storeId">store</label>
+            <select class="form-control select2" id="storeId" name="storeId" required>
+                <option value="">select store</option>
+                {{#each stores}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+
+    <table id="creator-datatable" class="form-group col-md-12 table table-striped dt-responsive nowrap m-1"
+        width="100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>batch</th>
+                <th>item</th>
+                <th>qty</th>
+                <th>manufacturer</th>
+                <th>manufacture</th>
+                <th>expire</th>
+                <th>weight</th>
+                <th>receipt</th>
+                <th>comment</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="first-row">
+            <tr class="form-group">
+                <td id="indexer">1</td>
+                <td class="form-group">
+                    <input type="text" class=" form-control col-md-12 " id="manufacturer_batch_number[]"
+                        placeholder="batch number" name="manufacturer_batch_number[]" required>
+                </td>
+                <td class="form-group">
+                    <select class="col-xl-12 col-md-12 col-sm-12 form-control select2" id="itemId[]" name="itemId[]"
+                        required>
+                        <option value="">select item</option>
+                        {{#each items}}
+                        <option value="{{id}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+                <td class="form-group">
+                    <input type="number" class="col-md-12 form-control" id="qty[]" placeholder="quantity..."
+                        name="qty[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="text" class="col-md-12 form-control" id="manufacturer[]"
+                        placeholder="manufacturer name" name="manufacturer[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="date" class="col-md-12 form-control" id="manufacture_date[]"
+                        placeholder="manufacture date" name="manufacture_date[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="date" class="col-md-12 form-control" id="expire_date[]" placeholder="expire date"
+                        name="expire_date[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="text" class="col-md-12 form-control" id="weight[]" placeholder="batch number"
+                        name="weight[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="text" class="col-md-12 form-control" id="receipt[]" placeholder="receipt"
+                        name="receipt[]" required>
+                </td>
+                <td class="form-group">
+                    <textarea type="comment" name="comment[]" class="col-md-12 form-control" value=""
+                        placeholder="comment..."></textarea>
+                </td>
+                <td class="form-group">
+                    <button type="button" class="btn btn-icon btn-danger" onclick="removeRow(this)"> <i
+                            class="mdi mdi-window-close"></i> </button>
+                </td>
+            </tr>
+        </tbody>
+
+        <caption class="form-group">
+            <button type="button" class="btn btn-icon btn-success col-2" onclick="appendRow(this)"> <i
+                    class="mdi mdi-plus"></i> add </button>
+
+            <button class="btn btn-icon btn-primary col-3" type="submit"><i class="mdi mdi-database"></i>
+                save stock
+            </button>
+            <button type="reset" class="btn btn-icon btn-light col-3"><i class="mdi mdi-refresh"></i>
+                clear
+            </button>
+        </caption>
+    </table>
+</form>
+
+
+
+<script>
+
+    var blank_field = function (id) {
+        return `<tr class="form-group customer-row">
+            <td id="indexer">${id}</td>
+                <td class="form-group">
+                    <input type="text" class="col-md-12 form-control" id="manufacturer_batch_number[]" placeholder="batch number"
+                        name="manufacturer_batch_number[]" required>
+                </td>
+                <td class="form-group">
+                    <select class="col-md-12 form-control select2" id="itemId[]" name="itemId[]" required>
+                        <option value="">select item</option>
+                        {{#each items}}
+                        <option value="{{id}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+                <td class="form-group">
+                    <input type="number" class="col-md-12 form-control" id="qty[]" placeholder="quantity..." name="qty[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="text" class="col-md-12 form-control" id="manufacturer[]" placeholder="manufacturer name"
+                        name="manufacturer[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="date" class="col-md-12 form-control" id="manufacture_date[]" placeholder="manufacture date"
+                        name="manufacture_date[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="date" class="col-md-12 form-control" id="expire_date[]" placeholder="expire date"
+                        name="expire_date[]" required>
+                </td>
+                <td class="form-group">
+                    <input type="text" class="col-md-12 form-control" id="weight[]" placeholder="batch number" name="weight[]"
+                        required>
+                </td>
+                <td class="form-group">
+                    <input type="text" class="col-md-12 form-control" id="receipt[]" placeholder="receipt" name="receipt[]" required>
+                </td>
+                <td class="form-group">
+                    <textarea type="comment" name="comment[]" class="col-md-12 form-control" value=""
+                        placeholder="comment..."></textarea>
+                </td>
+                <td class="form-group">
+                    <button type="button" class="btn btn-icon btn-danger" onclick="removeRow(this)"> <i
+                            class="mdi mdi-window-close"></i> </button>
+                </td>
+            </tr>`;
+    };
+
+    function appendRow() {
+        let t = $('#first-row');
+        console.log(t);
+        let children = $('tbody').children().length
+        t.append(blank_field(children + 1));
+        initDataTable('creator-datatable');
+        //alert('am on');
+    }
+
+    function removeRow(elem) {
+        let el = $(elem).parent();
+        console.log("element", el);
+        $(elem).parent().closest('.customer-row').remove();
+    }
+    // initDataTable('creator-datatable');
+    $(".ajaxForm").validate({});
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllStockIns);
+    });
+</script>

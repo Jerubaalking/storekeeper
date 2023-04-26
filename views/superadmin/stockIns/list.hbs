@@ -1,0 +1,81 @@
+<div class="table-responsive-sm">
+  <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
+    <thead class="thead-dark">
+      <tr>
+        <th>item</th>
+        <th>model</th>
+        <th>version</th>
+        <th>amount</th>
+        <th>available</th>
+        <th>date</th>
+        <th>inspected</th>
+        <th>options</th>
+      </tr>
+    </thead>
+    <tfoot style="background-color: rgb(231, 228, 225);">
+      <tr>
+        <td><strong>Available value</strong>
+        </td>
+        <td><strong style="color:rgb(2, 166, 15);">{{money gross}}</strong>
+        </td>
+        <td><strong>Sold</strong>
+        </td>
+        <td><strong style="color:rgb(97, 50, 50);">{{sold}}</strong>
+        </td>
+        <td><strong style="color:red;">Sold value</strong>
+        </td>
+        <td><strong style="color:rgb(255, 2, 2);">{{money soldValue}}</strong>
+        </td>
+        <td>
+          --
+        </td>
+        <td>
+          --
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      {{#each stockIns}}
+      <tr>
+        <td>
+          {{item.name}}
+        </td>
+        <td>
+          {{item.model}}
+        </td>
+        <td>
+          {{item.version}}
+        </td>
+        <td>
+          {{money amount}}
+        </td>
+        <td>{{available}}
+        </td>
+        <td>{{setHomeDate receive_date}}
+        </td>
+        <td>{{inspected}}
+        </td>
+        <td>
+          <div class="dropdown text-center">
+            <button type="button"
+              class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+              data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item"
+                onclick="rightModal('/stocks/in/edit/{{id}}', 'update stock')">
+                edit
+              </a>
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item"
+                onclick="confirmModal('/stocks/in/delete/{{id}}', showAllStockIns )">
+                delete
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

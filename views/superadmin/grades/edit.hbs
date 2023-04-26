@@ -1,0 +1,45 @@
+<form method="POST" class="d-block ajaxForm" action="/grades/edit/{{grade.id}}">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="name">Grades</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="grade" value="{{grade.name}}"
+                required>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="grade_points">Grade points</label>
+            <input type="number" class="form-control" name="grade_points" id="grade_points"
+                name="{{grade.grade_points}}" placeholder="Grade points" value="Grade point" required>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="mark_from">
+                Marks from
+            </label>
+            <input type="number" class="form-control" id="marks_from" name="marks_from" placeholder="marks from"
+                value="{{grade.marks_from}}" required>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="mark_upto">
+                Marks to
+            </label>
+            <input type="number" class="form-control" id="marks_to" name="marks_to" placeholder="marks to"
+                value="{{grade.marks_to}}" required>
+        </div>
+
+        <div class="form-group  col-md-12">
+            <button class="btn btn-block btn-primary" type="submit">
+                update grade
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllGrades);
+    });
+</script>

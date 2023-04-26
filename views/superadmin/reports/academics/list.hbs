@@ -1,0 +1,110 @@
+<h2 style="text-align: center;">STUDENTS ACADEMIC REPORT</h2>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
+        <table id="basic-datatable" class="table table-bordered dt-responsive nowrap" width="100%">
+            <thead>
+                <tr>
+                    <th>Name : {{enrol.student.user.name}}</th>
+                    <th>Class : {{enrol.class.name}}</th>
+                </tr>
+                <tr>
+                    <th>From:{{setHomeDate body.start}}</th>
+                    <th>To: {{setHomeDate body.end}}</th>
+                </tr>
+            </thead>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-2">
+        <img src="/public/uploads/images/users/{{kaimage enrol.student.user.name}}.jpg"
+            style="width:100px; height:105px; border:2px solid #03254c;" />
+    </div>
+    <!-- right table beside attendance -->
+    <div class="col-sm-12">
+        <table id="basic-datatable" class="table table-bordered dt-responsive nowrap" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        subject
+                    </th>
+                    <th>Exam
+                    </th>
+                    <th>Average
+                    </th>
+                    <th>
+                        Grade
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each subjects}}
+                <tr>
+                    <th>{{name}}</th>
+                    <td style="padding:0px;">
+                        <table id="basic-datatable" class="table table-bordered dt-responsive nowrap" width="100%"
+                            height="100%">
+                            <tr>
+                                {{#each exams}}
+                                <td>{{name}}</td>
+                                {{/each}}
+                            </tr>
+                            <tr>
+                                {{#each exams}}
+                                {{#each marks}}
+                                <td>{{marks_obtained}}</td>
+                                {{/each}}
+                                {{/each}}
+                            </tr>
+                        </table>
+                    </td>
+                    {{!-- <td style="padding:0px;margin:0px;">
+
+                        <table id="basic-datatable" class="table table-bordered dt-responsive nowrap" width="100%"
+                            height="100%">
+                            <tr>
+                                {{#each exams}}
+                                <td>{{name}}</td>
+                                {{/each}}
+                            </tr>
+                            <tr>
+                                {{#each exams}}
+                                {{#each marks}}
+                                <td>{{marks_obtained}}</td>
+                                {{/each}}
+                                {{/each}}
+                            </tr>
+                        </table>
+                    </td> --}}
+                    <td>{{average}}</td>
+                    <td>{{grade}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
+        <table id="basic-datatable" class="table table-bordered dt-responsive nowrap" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        Attendance : {{enrol.student.user.name}}
+                    </th>
+                    <th>
+                        Year:{{enrol.session.name}}
+                    </th>
+                </tr>
+                <tr>
+                    <th>Class: {{enrol.class.name}}
+                    </th>
+                    <th>
+                        Term: All
+                    </th>
+                </tr>
+            </thead>
+            </tbody>
+        </table>
+    </div>
+</div>

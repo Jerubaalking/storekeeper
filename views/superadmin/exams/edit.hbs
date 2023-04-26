@@ -1,0 +1,112 @@
+<form method="POST" class="d-block ajaxForm" action="/exams/edit/{{exam.id}}">
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="exam_name">
+        Exam name
+      </label>
+      <input type="text" value="{{exam.name}}" class="form-control" id="exam_name" name="exam_name" placeholder="name"
+        required>
+      <small id="name_help" class="form-text text-muted">
+        provide exam name
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="starting_date">
+        Starting date
+      </label>
+      <input type="date" value="{{setDate exam.starting_date}}" class="form-control datetime" id="starting_date"
+        data-single-date-picker="true" name="starting_date" required>
+      <small id="name_help" class="form-text text-muted">
+        provide starting date
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="ending_date">
+        Ending date
+      </label>
+      <input type="date" value="{{setDate exam.ending_date}}" class="form-control date" id="ending_date"
+        data-toggle="date-picker" data-single-date-picker="true" name="ending_date" required>
+      <small id="name_help" class="form-text text-muted">
+        provide ending date
+      </small>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="category">
+        select category
+      </label>
+      <select name="category" id="category" class="form-control select2" data-toggle="select2" required>
+        {{#ifEquals 'weekly' exam.category}}
+        <option value="weekly" selected>
+          weekly
+        </option>
+        <option value="monthly">
+          monthly
+        </option>
+        <option value="terminal">
+          terminal
+        </option>
+        <option value="annual">
+          annual
+        </option>
+        {{/ifEquals}}
+        {{#ifEquals 'monthly' exam.category}}
+        <option value="weekly">
+          weekly
+        </option>
+        <option value="monthly" selected>
+          monthly
+        </option>
+        <option value="terminal">
+          terminal
+        </option>
+        <option value="annual">
+          annual
+        </option>
+        {{/ifEquals}}
+        {{#ifEquals 'terminal' exam.category}}
+        <option value="weekly">
+          weekly
+        </option>
+        <option value="monthly">
+          monthly
+        </option>
+        <option value="terminal" selected>
+          terminal
+        </option>
+        <option value="annual">
+          annual
+        </option>
+        {{/ifEquals}}
+        {{#ifEquals 'annual' exam.category}}
+        <option value="weekly">
+          weekly
+        </option>
+        <option value="monthly">
+          monthly
+        </option>
+        <option value="terminal">
+          terminal
+        </option>
+        <option value="annual" selected>
+          annual
+        </option>
+        {{/ifEquals}}
+      </select>
+
+    </div>
+    <div class="form-group  col-md-12">
+      <button class="btn btn-block btn-primary" type="submit">create exam
+      </button>
+    </div>
+  </div>
+</form>
+<script>
+  $(".ajaxForm").validate({}); // Jquery form validation initialization
+  $(".ajaxForm").submit(function (e) {
+    var form = $(this);
+    ajaxSubmit(e, form, 'POST', showAllExams);
+  });
+
+</script>

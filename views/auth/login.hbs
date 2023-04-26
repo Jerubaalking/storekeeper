@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Store M System |login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="#">
+    <!-- App css -->
+    <link href="/public/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/public/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!--Notify for ajax-->
+    <link rel="stylesheet" href="/public/css/toastr.min.css">
+
+</head>
+
+<body class="auth-fluid-pages pb-0">
+
+    <div class="auth-fluid">
+        <!--Auth fluid left content -->
+        <div class="auth-fluid-form-box">
+            <div class="align-items-center d-flex h-100">
+                <div class="card-body">
+                    <!-- Logo -->
+                    <div class="text-center text-lg-left mb-3">
+                        <a href="/">
+                            <span><img src="<?php //echo $this->settings_model->get_logo_dark(); ?>" alt=""
+                                    height=" 35"></span>
+                        </a>
+                    </div>
+                    <!-- title-->
+                    <h4 class="mt-0">Sign in</h4>
+                    <p class="text-muted mb-4">Enter your email"</p>
+
+                    <!-- form -->
+                    <form action="/auth/signin" method="post" id="loginForm">
+                        <div class="form-group">
+                            <label for="emailaddress">email</label>
+                            <input class="form-control" type="email" name="email" id="emailaddress" required=""
+                                placeholder="enter your email">
+                        </div>
+                        <div class="form-group">
+                            <a href="javascript: void(0);" class="text-muted float-right"
+                                onclick="forgotPass();"><small>forgot password</small></a>
+                            <label for="password">password</label>
+                            <input class="form-control" type="password" name="password" required="" id="password"
+                                placeholder=" enter your password">
+                            <span class="text-danger" id="error_message"></span>
+                        </div>
+                        <div class="form-group mb-0 text-center">
+                            <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i>
+                                login </button>
+                            <a href="/auth/signup" class="text-muted float-right"><small> register? </small></a>
+                        </div>
+                    </form>
+
+                    <form action="/forgot" method="post" id="forgotForm" style="display: none;">
+                        <div class="form-group">
+                            <a href="/signin" class="text-muted float-right"><small>back to
+                                    login</small></a>
+                            <label for="forgotEmail">email</label>
+                            <input class="form-control" type="email" name="email" required="" id="forgotEmail"
+                                placeholder="enter your email">
+                        </div>
+                        <div class="form-group mb-0 text-center">
+                            <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i>sent
+                                password reset link</button>
+                        </div>
+
+                    </form>
+                    <!-- end form-->
+                </div> <!-- end .card-body -->
+            </div> <!-- end .align-items-center.d-flex.h-100-->
+        </div>
+        <!-- end auth-fluid-form-box-->
+
+        <!-- Auth fluid right content -->
+        <!-- end Auth fluid right content -->
+    </div>
+    <!-- end auth-fluid-->
+
+    <!-- App js -->
+    <script src="public/js/app.min.js"></script>
+
+    <!--Notify for ajax-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+</html>

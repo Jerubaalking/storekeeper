@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- all the meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{> includes_top}}
+
+    <title id="mainTitle">{{viewManager.business_name}} | Home</title>
+    <!-- all the css files -->
+</head>
+
+<body data-layout="detached">
+    <!-- HEADER -->
+    {{>header}}
+    <div class="container-fluid">
+        <div class="wrapper">
+            <!-- BEGIN CONTENT -->
+            <!-- SIDEBAR -->
+            {{> navigation}}
+
+            <!-- PAGE CONTAINER-->
+            <div class="content-page">
+                <div class="content content-main">
+                    <div class="loadings hidden"></div>
+                    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                    <div class="content_holder">
+                        {{{body}}}
+                    </div>
+                    <!-- END PLACE PAGE CONTENT HERE -->
+                </div>
+                <!-- Footer -->
+                {{>footer}}
+            </div>
+            <!-- END CONTENT -->
+        </div>
+    </div>
+    <!-- all the js files -->
+    {{>includes_bottom}}
+    {{>notify}}
+    {{>modals}}
+    <script>
+        $(document).ready(() => {
+
+        })
+        function loadPage(route, name, title) {
+
+            if (typeof name == 'string' && parseInt(name) == NaN) {
+                $(name).preventDefault;
+                $.ajax({
+                    url: route,
+                    success: (data) => {
+                        $('.content_holder').html('');
+                        $('.content_holder').html(data);
+                        $('#mainTitle').html('{{viewManager.business_name}} | ' + title);
+                    }
+                })
+            } else {
+                $.ajax({
+                    url: route,
+                    success: (data) => {
+                        $('.content_holder').html('');
+                        $('.content_holder').html(data);
+                        $('#mainTitle').html('{{viewManager.business_name}} | ' + name);
+                    }
+                })
+            }
+
+        }
+    </script>
+</body>
+
+</html>

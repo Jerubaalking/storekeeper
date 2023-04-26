@@ -1,0 +1,92 @@
+<table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
+    <thead class="thead-dark">
+        {{!-- invoice has to be a diff table that is filled first then the stockOut will have invoice ID. --}}
+        <tr>
+            <th>invoice number</th>
+            <th>customer</th>
+            <th>total amount</th>
+            <th>paid amount</th>
+            <th>balance</th>
+            <th>status</th>
+            <th>options</th>
+        </tr>
+    </thead>
+    <tbody>{{#each invoices}}
+        <tr>
+            <td> {{invoice_id}}</td>
+            <td>
+                {{customer.name}}<br>
+                <small> <strong>
+                        store:
+                    </strong>{{store.name}}
+                </small>
+            </td>
+            <td>
+                {{total_amount}} <br>
+                <small> <strong>
+                        created at :
+                    </strong>{{setHomeDate createdAt}}
+                </small>
+            </td>
+            <td>
+                {{paid_amount}}<br>
+                <small>
+                    <strong>
+                        payment date :
+                    </strong>{{setHomeDate updatedAt}}
+
+                </small>
+            </td>
+            <td>
+                {{balance_amount}}<br>
+                <small>
+                    <strong>
+                        updated date :
+                    </strong>{{setHomeDate updatedAt}}
+
+                </small>
+            </td>
+            <td>
+                {{#ifEquals level 'profoma'}}
+                <span class="badge badge-danger-lighten">{{level}}
+                </span>
+                {{/ifEquals}}
+                {{#ifEquals level 'invoice'}}
+                <span class="badge badge-success">{{level}}
+                </span>
+                {{/ifEquals}}
+                {{#ifEquals level 'sale'}}
+                <span class="badge badge-info-lighten">
+                    {{level}}
+                </span>
+                {{/ifEquals}}
+            </td>
+            <td>
+                <div class="dropdown text-center">
+                    <button type="button"
+                        class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+                        data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/invoices/export?type=invoice&id={{id}}" class="dropdown-item" target="_blank">
+                            print invoice
+                        </a>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item" onclick="showAllInvoiceItems('{{id}}');">
+                            manage
+                        </a>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="rightModal('/invoices/edit/{{id}}', 'update invoice');">
+                            edit
+                        </a>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="confirmModal(/invoices/delete/{{id}}', showAllInvoices )">
+                            delete
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>{{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,170 @@
+<!-- start page title -->
+<div class="row ">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="page-title">
+          <i class="mdi mdi-file-document title_icon"></i> Invoice Manager
+          <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle"
+            onclick="largerModal('/invoices/single', 'add profoma invoice')"> <i class="mdi mdi-plus"></i>
+            add profoma invoice
+          </button>
+          <button type="button" class="btn btn-outline-success btn-rounded alignToTitle" style="margin-right: 10px;"
+            onclick="rightModal('/invoices/mass', 'add mass invoice')">
+            <i class="mdi mdi-plus"></i>
+            add mass profoma invoice
+          </button>
+        </h4>
+      </div> <!-- end card body-->
+    </div> <!-- end card -->
+  </div><!-- end col-->
+</div>
+<!-- end page title -->
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row justify-content-md-center" style="margin-bottom: 10px;">
+          <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-0">
+            <input type="date" class="date form-control" id="startDate">
+          </div>
+          <strong>TO </strong>
+          <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 mb-3 mb-lg-0">
+            <input type="date" class="date form-control" id="endDate">
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-3 mb-lg-0">
+            <div class="form-group">
+              <select name="class" id="indexStoreId" class="form-control select2" data-toggle="select2">
+                <option value="all">all stores
+                </option>
+                {{#each stores}}
+                <option value="{{id}}">
+                  {{name}}
+                </option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-3 mb-lg-0">
+            <div class="form-group">
+              <select name="status" id="status" class="form-control select2" data-toggle="select2">
+                <option value="all">
+                  all status
+                </option>
+                <option value="profoma">
+                  profoma
+                </option>
+                <option value="invoice">
+                  invoice
+                </option>
+                <option value="sale">
+                  sale
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 mb-3 mb-lg-0">
+            <button type="button" class="btn btn-icon btn-secondary form-control" onclick="showAllInvoices()">
+              filter
+            </button>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center" style="margin-bottom: 10px;">
+          <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 mb-3 mb-lg-0">
+            <button type="button" class="btn btn-icon btn-primary form-control dropdown-toggle" data-toggle="dropdown"
+              aria-expanded="false">
+              export report
+            </button>
+            <div class="dropdown-menu" x-placement="bottom-start"
+              style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+              <a class="dropdown-item" id="export-csv" href="javascript:0" onclick="getExportUrl('csv')">CSV</a>
+              <a class="dropdown-item" id="export-pdf" href="javascript:0" onclick="getExportUrl('pdf')">PDF</a>
+              <a class="dropdown-item" id="export-print" href="javascript:0" onclick="getExportUrl('print')">Print</a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive-sm">
+          <div class="invoice_content">
+          </div>
+        </div> <!-- end table-responsive-->
+      </div> <!-- end card body-->
+    </div> <!-- end card -->
+  </div><!-- end col-->
+</div>
+
+<script>
+
+  initSelect2(['#indexStoreId', '#status']);
+  var showAllInvoices = function () {
+    var url = '/invoices/list';
+    var start = $('#startDate').val();
+    var end = $('#endDate').val();
+    var selectedStore = $('#indexStoreId').val();
+    var selectedStatus = $('#status').val();
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data: { start: start, end: end, selectedStore: selectedStore, selectedStatus: selectedStatus },
+      success: function (response) {
+        $('.invoice_content').html(response);
+        initDataTable("basic-datatable");
+      }
+    });
+  }
+  var showAllInvoiceItems = function (id) {
+    if (id) {
+      var url = '/invoices/items/' + id;
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (response) {
+          $('.invoice_content').html(response);
+          initDataTable("basic-datatable");
+        }
+      });
+    }
+  }
+
+  var st = new Date();
+  st.setDate(1);
+  st = st.toISOString().split('T')[0];
+  var ed = new Date();
+  ed.setDate(31);
+  ed = ed.toISOString().split('T')[0];
+  console.log(ed);
+  $('#startDate').val(st);
+  $('#endDate').val(ed)
+
+  function getExportUrl(type) {
+    var url = '/invoices/export';
+    var start = $('#startDate').val();
+    var end = $('#endDate').val();
+    var selectedStore = $('#indexStoreId').val();
+    var selectedStatus = $('#status').val();
+
+    window.open(`/invoices/export?type=${type}&start=${start}&end=${end}&storeId=${selectedStore}&status=${selectedStatus}&limit=29&page=1`, 'Invoice Report');
+    /**
+    $.ajax({
+      url=url,
+      type: 'GET',
+      responseType: 'blob',
+      async: true,
+      data: { type: type, start: start, end: end, indexStoreId: selectedStore, status: selectedStatus },
+      success: function (response) {
+        //console.log(response);
+        if (type == 'csv') {
+          let ob = new Object([response], { type: 'application/pdf' });
+          win.document.body.innerHTML = ob;
+        } else {
+          console.log('am already here!');
+          var blob = new Blob([response], { type: 'application/pdf' }),
+            fileUrl = URL.createObjectURL(blob);
+          console.log(fileUrl);
+          let win = window.open('/invoices/export', 'Title', 'height=650, width=840');
+          win.document.body.innerHTML = response;
+        }
+      }
+    });**/
+  }
+</script>

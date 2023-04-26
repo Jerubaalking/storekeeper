@@ -1,0 +1,165 @@
+<div class="h-200 w-300">
+    <div class="row align-items-center h-200 w-200">
+        <div class="col-md-4 pb-2">
+            <div class="text-center">
+                <img class="rounded-circle" width="50" height="50"
+                    src="/public/uploads/images/logos/{{{kaimage enrol.customer.title}}}.png">
+                <br>
+                <span style="font-weight: bold;">
+                    name:{{enrol.customer.title}}
+                </span>
+                <br>
+                <span style="font-weight: bold;">
+                    customer code:{{enrol.customer.code}}
+                </span>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                        aria-controls="profile" aria-selected="false">
+                        Customer-profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="personel-tab" data-toggle="tab" href="#personel_info" role="tab"
+                        aria-controls="personel_info" aria-selected="false">
+                        Customer-{{enrol.personel.title}}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="registration-tab" data-toggle="tab" href="#registration_info" role="tab"
+                        aria-controls="registration_info" aria-selected="false">
+                        Customer-registration
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="trading-tab" data-toggle="tab" href="#trading_info" role="tab"
+                        aria-controls="trading_info" aria-selected="false">
+                        Customer-Trading info
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <table class="table table-centered mb-0">
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    name
+                                </td>
+                                <td>
+                                    {{enrol.customer.name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    phone:
+                                </td>
+                                <td>
+                                    {{enrol.customer.phone}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    email:
+                                </td>
+                                <td>
+                                    {{enrol.customer.email}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    address:
+                                </td>
+                                <td>
+                                    {{enrol.customer.address}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    registered on:
+                                </td>
+                                <td>
+                                    {{setHomeDate enrol.customer.createdAt}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade show" id="personel_info" role="tabpanel" aria-labelledby="personel-tab">
+                    <table class="table table-centered mb-0">
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    personel:
+                                </td>
+                                <td>{{enrol.personel.user.name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    personel email:
+                                </td>
+                                <td>{{enrol.personel.user.email}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    personel phone:
+                                </td>
+                                <td>{{enrol.personel.user.phone}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade show" id="registration_info" role="tabpanel"
+                    aria-labelledby="registation-tab">
+                    <table class="table table-centered mb-0">
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    TIN:
+                                </td>
+                                <td>{{enrol.customer.tin}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade show" id="trading_info" role="tabpanel" aria-labelledby="trading-tab">
+                    <table class="table table-centered mb-0">
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    Trade value:
+                                </td>
+                                <td>{{money invoice.total}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    Pending payment:
+                                </td>
+                                <td>{{money invoice.paid}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">
+                                    Trade status %:
+                                </td>
+                                <td class="text-success">2%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

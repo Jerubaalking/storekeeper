@@ -1,0 +1,73 @@
+{{!--
+<?php if($working_page == 'filter'): ?> --}}
+<!--title-->
+<div class="row d-print-none">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="page-title">
+                    <i class="mdi mdi-calendar-today title_icon"></i> customers
+                    <a href="#" onclick="loadPage('/customers/create','customers')"
+                        class="btn btn-outline-primary btn-rounded alignToTitle"> <i class="mdi mdi-plus"></i>
+                        add new customer
+                    </a>
+
+                </h4>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+
+<div class="row d-print-none">
+    <div class="card col-12">
+        <div class="row">
+            <div class="col-md-4 row m-3 ">
+                <select name="storeId" id="storeId" class="form-control select2" data-toggle="select2" required>
+                    <option value="" disabled selected>select store</option>
+                    <option value="all">all stores</option>
+                    {{#each stores}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col-md-2 mt-3">
+                <button class="btn btn-block btn-secondary" onclick="filter_customer()">
+                    filter
+                </button>
+            </div>
+        </div>
+        <div class="card-body customer_content">
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+    $('document').ready(function () {
+        initSelect2(['#storeId', '#sectionId']);
+    });
+
+
+    function filter_customer() {
+        var storeId = $('#storeId').val();
+        if (storeId != "") {
+            showAllCustomers();
+        } else {
+            toastr.error('select a store');
+        }
+    }
+
+    var showAllCustomers = function () {
+        var storeId = $('#storeId').val();
+        console.log(storeId);
+        if (storeId != "") {
+            $.ajax({
+                url: '/customers/list/' + storeId,
+                success: function (response) {
+                    $('.customer_content').html(response);
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,108 @@
+<!--title-->
+<div class="row ">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="page-title">
+          <i class="mdi mdi-format-list-numbered title_icon"></i> Reports
+        </h4>
+      </div> <!-- end card body-->
+    </div> <!-- end card -->
+  </div><!-- end col-->
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card" style="background:#f2f2f2;">
+      <div class="row mt-3">
+        <div class="col-md-3 mb-1"></div>
+        <div class="col-md-5 mb-1">
+          <div class="form-group">
+            <select name="userId" id="userId" class="form-control select2" data-toggle="select2" required>
+              <option value="">select a student</option>
+              {{#each enrols}}
+              <option value="{{student.id}}">{{student.user.name}} - {{class.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 mb-1"></div>
+        <div class="col-md-3 mb-1"></div>
+        <div class="col-md-5 mb-1 row">
+          <small class="text-center col-xl-2 col-lg-2 col-md-4 col-sm-6"><strong>from </strong></small>
+          <div class="form-group text-center col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <input type="date" class="date form-control" id="startDate">
+          </div>
+          <small class="text-center col-xl-2 col-lg-2 col-md-4 col-sm-6"><strong>TO </strong></small>
+          <div class="form-group text-center col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <input type="date" class="date form-control" id="endDate">
+          </div>
+        </div>
+        <div class="col-md-4 mb-1"></div>
+        <div class="col-md-3 mb-1"></div>
+
+        <div class="col-md-3">
+          <button class="btn btn-block btn-secondary" onclick="getViewReport()" id="export-csv1">filter
+          </button>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-block btn-success" onclick="getExportUrl('pdf')" id="export-csv"><i
+              class="mdi mdi-download"></i>
+            download
+          </button>
+        </div>
+      </div>
+      <div class="row" style="margin-top:15px;">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <div class="card">
+            <div class="card-body report_content">
+              <div class="empty_box">
+                <img class="mb-3" width="150px" src="/public/assets/backend/images/empty_box.png" />
+                <br>
+                <span class="">
+                  no data found!
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    function getViewReport() {
+      var url = '/academics/list';
+      var start = $('#startDate').val();
+      var end = $('#endDate').val();
+      var selectedUser = $('#userId').val();
+      $.ajax({
+        type: 'post',
+        url: url,
+        data: { start: start, end: end, studentId: selectedUser },
+        success: function (response) {
+          $('.report_content').html(response);
+        }
+      });
+    }
+    // $(document).ready(function(){
+    //   $('#export-csv').on('click', function(){
+    //   // alert('find the hill');
+    //     getExportUrl('pdf');
+    //   });
+    // });
+
+    function getExportUrl(type) {
+      var url = '/academics/url';
+      var start = $('#startDate').val();
+      var end = $('#endDate').val();
+      var selectedUser = $('#userId').val();
+      window.open(`/academics/url?type=${type}&start=${start}&end=${end}&studentId=${selectedUser}`, 'Student Academic Report', '_blank');
+
+    }
+// function getDocument(url) {
+//         const blobTest =  new Blob([url], { type: 'application/pdf' });
+//         const fileUrl = URL.createObjectURL(blobTest );
+//         return fileUrl;
+//     }
+  </script>

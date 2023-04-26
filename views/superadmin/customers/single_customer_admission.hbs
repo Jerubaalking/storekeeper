@@ -1,0 +1,225 @@
+<div class="row">
+    <div class="col-12 ">
+        <div class="card pt-0">
+            <div class="page-title-box">
+                <h4 class="page-title text-center mx-0 ">
+                    <i class="mdi mdi-file text-info title_icon"></i>
+                    admission form
+                    add customer information
+                </h4>
+            </div>
+            <h4 class="  text-center py-2 mx-0 mt-1 mb-3 px-0 text-warning bg-light">
+                *******************
+            </h4>
+            <form method="POST" class="col-12 d-block ajaxForm bg-white" action="/customers/create/single"
+                id="customer_admission_form" enctype="multipart/form-data">
+                <div class="col-md-12 row">
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="name">name</label>
+                        <div class="col-md-9">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="email">email</label>
+                        <div class="col-md-9">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="email"
+                                required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12 row">
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="password">password</label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="personelId">personels</label>
+                        <div class="col-md-9">
+                            <select id="personelId" name="personelId" class="form-control select2" data-toggle="select2"
+                                required>
+                                <option value="" disabled selected>select personel</option>
+                                {{#each personels}}
+                                <option value="{{id}}">
+                                    {{user.name}}
+                                </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="classId">
+                            class
+                        </label>
+                        <div class="col-md-9">
+                            <select name="classId" id="classId" class="form-control select2" data-toggle="select2"
+                                required onchange="classWiseSection(this.value)">
+                                <option value="">
+                                    select a class
+                                </option>
+                                {{#each classes}}
+                                <option value="{{id}}">
+                                    {{name}}
+                                </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="sectionId">
+                            section
+                        </label>
+                        <div class="col-md-9" id="section_content">
+                            <select name="sectionId" id="sectionId" class="form-control select2" data-toggle="select2"
+                                required>
+                                <option value="">
+                                    select section
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+
+
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="birthdatepicker">
+                            birthday
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control date" id="birthdatepicker" data-toggle="date-picker"
+                                data-single-date-picker="true" name="birthday" value="" required>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="gender">
+                            gender
+                        </label>
+                        <div class="col-md-9">
+
+                            <select name="gender" id="gender" class="form-control select2" data-toggle="select2"
+                                required>
+                                <option value="">
+                                    select gender
+                                </option>
+                                <option value="Male">
+                                    male
+                                </option>
+                                <option value="Female">
+                                    female
+                                </option>
+                            </select>
+                            <small id="" class="form-text text-muted">
+                                provide customer gender
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="blood_group">
+                            blood group
+                        </label>
+                        <div class="col-md-9">
+                            <select name="blood_group" id="blood_group" class="form-control select2"
+                                data-toggle="select2">
+                                <option value="" selected disabled>
+                                    blood group
+                                </option>
+                                <option value="a+">A+</option>
+                                <option value="a-">A-</option>
+                                <option value="b+">B+</option>
+                                <option value="b-">B-</option>
+                                <option value="ab+">AB+</option>
+                                <option value="ab-">AB-</option>
+                                <option value="o+">O+</option>
+                                <option value="o-">O-</option>
+                            </select>
+                            <small id="" class="form-text text-muted">
+                                provide customer blood group
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="example-textarea">
+                            address
+                        </label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" id="example-textarea" rows="5" name="address"
+                                placeholder="address..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="phone">
+                            phone
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" id="phone" name="phone" class="form-control" placeholder="phone"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="form-group row mb-2 col-md-6">
+                        <label class="col-md-3 col-form-label" for="example-fileinput">
+                            customer profile image
+                        </label>
+                        <div class="col-md-9 custom-file-upload">
+                            <div class="wrapper-image-preview" style="margin-left: -6px;">
+                                <div class="box" style="width: 250px;">
+                                    <div class="js--image-preview"
+                                        style="background-image: url(/public/images/users/avatar-2.jpg); background-color: #F5F5F5;">
+                                    </div>
+                                    <div class="upload-options">
+                                        <label for="customer_image" class="btn"> <i class="mdi mdi-camera"></i>
+                                            upload an image
+                                        </label>
+                                        <input id="customer_image" style="visibility:hidden;" type="file"
+                                            class="image-upload" name="customer_image" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-secondary col-md-4 col-sm-12 mb-4">
+                        add customer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        initSelect2(['#personelId', '#gender', '#blood_group', '#classId', '#sectionId']);
+    });
+    function classWiseSection(classId) {
+        $.ajax({
+            url: "/sections/list/class/" + classId,
+            success: function (response) {
+                $('#sectionId').html(response);
+            }
+        });
+    }
+    var form;
+    $(".ajaxForm").submit(function (e) {
+        form = $(this);
+        ajaxSubmit(e, form, 'POST', refreshForm);
+    });
+    var refreshForm = function () {
+        form.trigger("reset");
+    }
+</script>

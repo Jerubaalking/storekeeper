@@ -1,0 +1,54 @@
+<form method="POST" class="d-block ajaxForm" action="/items/edit/{{item.id}}">
+    <div class="form-row">
+
+        <div class="form-group col-md-12">
+            <label for="classId_on_create">Class
+            </label>
+            <select name="classId" id="classId_on_create" class="form-control select2" data-toggle="select2" required>
+                <option value="">select class
+                </option>
+                {{#each classes}}
+                {{#ifEquals id ../item.classId}}
+                <option value="{{id}}" selected>
+                    {{name}}
+                </option>
+                {{else}}
+                <option value="{{id}}">
+                    {{name}}
+                </option>
+                {{/ifEquals}}
+                {{/each}}
+            </select>
+            <small id="class_help" class="form-text text-muted">
+                provide classes
+            </small>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="name">
+                Item name
+            </label>
+            <input type="text" class="form-control" id="name" value="{{item.name}}" name="name" required>
+            <small id="name_help" class="form-text text-muted">
+                provide item name
+            </small>
+        </div>
+
+        <div class="form-group  col-md-12">
+            <button class="btn btn-block btn-primary" type="submit">
+                update item
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        initSelect2(['#classId_on_create']);
+    });
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllItems);
+    });
+</script>

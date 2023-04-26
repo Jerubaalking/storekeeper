@@ -1,0 +1,118 @@
+<div class="row justify-content-center" onfocus='filter_customer();'>
+  <div class="col-md-12">
+    <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
+      <thead>
+        <tr style="background-color: #313a46; color: #ababab;">
+          <th width=25%>customer</th>
+          <th width=10%>Details</th>
+          <th width=10%>Enrolment</th>
+          <th width=25%>personel</th>
+          <th width=10%>options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each customers}}
+        <tr>
+          <td class="row">
+            {{!-- <div class="col-2">
+              <img class="rounded-circle" loading="lazy" importance="high" width="50" height="50"
+                src="/public/uploads/images/users/{{{kaimage customer.name}}}.jpg">
+            </div> --}}
+            <div class="col-7"><strong>{{customer.name}}</strong>
+              <br>
+              <small> <strong>
+                  customer code
+                </strong>
+                {{customer.code}}
+              </small>
+            </div>
+          </td>
+          <td>
+
+            <small> <strong>
+
+                address:
+              </strong>
+              {{customer.address}}
+            </small><br>
+            <small> <strong>
+                phone:
+              </strong>
+              {{customer.phone}}
+            </small><br>
+            <small> <strong>
+                email:
+              </strong>
+              {{customer.email}}
+            </small><br>
+            <small> <strong>
+                TIN:
+              </strong>
+              {{customer.tin}}
+            </small>
+          </td>
+          <td>
+            <small> <strong>
+
+                {{personel.title}}:
+              </strong>
+              {{personel.user.name}}
+            </small><br>
+            <small> <strong>
+                Store:
+              </strong>
+              {{store.name}}
+            </small>
+          </td>
+          <td>{{personel.user.name}}
+            <br>
+            <small> <strong>
+                Number:
+              </strong>
+              {{personel.user.phone}}
+            </small> <br>
+            <small> <strong>
+                Email:
+              </strong>
+              {{personel.user.email}}
+            </small>
+          </td>
+          <td>
+            <div class="dropdown text-center">
+              <button type="button"
+                class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+                data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item"
+                  onclick="largeModal('/customers/profile/{{id}}', '{{customer.name}} profile')">
+                  profile
+                </a>
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item"
+                  onclick="rightModal('/customers/invoice/create/{{id}}', '{{customer.name}} invoice')">
+                  add invoice
+                </a>
+                <!-- item-->
+                <a href="javascript:void(0);" onclick="largeModal('customers/edit/{{id}}', 'update customer')"
+                  class="dropdown-item">
+                  edit
+                </a>
+                <!-- item -->
+                <a href="javascript:;" class="dropdown-item"
+                  onclick="confirmModal('customer/delete/{{id}}', showAllCustomers)">
+                  delete
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+  initDataTable('basic-datatable');
+</script>

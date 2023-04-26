@@ -1,0 +1,85 @@
+<div class="row mb-3">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 toll-free-box text-center text-white pb-2"
+        style="background-color: #6c757d; border-radius: 10px;">
+        <h4>manage marks</h4>
+        <span>Class : {{class.name}}</span><br>
+        <span>Section : {{section.name}}</span><br>
+        <span>Subject : {{subject.name}}</span><br>
+        <span>Exam : {{exam.name}}</span>
+    </div>
+</div>
+<table class="table table-bordered table-responsive-sm" id="basic-datatable" width="100%">
+    <thead class="thead-dark">
+        <tr>
+            <th>student name
+            </th>
+            <th>
+                mark
+            </th>
+            <th>
+                grade
+            </th>
+            <th>
+                points
+            </th>
+            <th>
+                comment!
+            </th>
+            <th>action
+            </th>
+        </tr>
+    </thead>
+    <tbody>{{#each students}}
+        <tr>
+            <td>{{student.user.name}}
+            </td>
+            <td><input class="form-control" type="number" id="mark-{{student.id}}" name="marks_obtained"
+                    placeholder="mark" min="0" value="{{marks.marks_obtained}}"
+                    onchange="get_grade(this.value, this.id)" required></td>
+            <td><span id="grade-for-mark-{{student.id}}">
+                    {{marks.grade.name}}
+                </span> </td>
+            <td><span id="point-for-mark-{{student.id}}">{{marks.grade.grade_points}}
+                       </strong>
+                </span> </td>
+            <td><input class="form-control" type="text" id="comment-{{student.id}}" name="comment" placeholder="comment"
+                    value="{{marks.comment}}"></td>
+            <td class="text-center"><button class="btn btn-success" onclick="mark_update('{{student.id}}')"><i
+                        class="mdi mdi-checkbox-marked-circle"></i></button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script>
+    function mark_update(studentId) {
+        var classId = $('#classId').val();
+        var sectionId = $('#sectionId').val();
+        var subjectId = $('#subjectId').val();;
+        var examId = $('#examId').val();;
+        var mark = $('#mark-' + studentId).val();
+        var comment = $('#comment-' + studentId).val();
+        if (subjectId != "") {
+            $.ajax({
+                type: 'POST',
+                url: '/marks/edit',
+                data: { studentId: studentId, classId: classId, sectionId: sectionId, subjectId: subjectId, examId: examId, marks_obtained: mark, comment: comment },
+                success: function (response) {
+                    toastr.success('marks has been updated successfully');
+                }
+            });
+        } else {
+            toastr.error('required mark field');
+        }
+    }
+
+    function get_grade(exam_mark, id) {
+        $.ajax({
+            url: '/grades/of/' + exam_mark,
+            success: function (response) {
+                $('#grade-for-' + id).text(response);
+            }
+        });
+    }
+</script>

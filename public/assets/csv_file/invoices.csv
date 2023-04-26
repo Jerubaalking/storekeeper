@@ -1,0 +1,2 @@
+Invoice-no,Student,Class,Invoice-Title,Total-Amount,Paid-Amount,Creation-Date,Payment-Date,Status
+00000001,"Athena Sainyeye","Class 1",Testing,$250000,$250000,09-Aug-2021,09-Aug-2021,Paid

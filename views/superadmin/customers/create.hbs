@@ -1,0 +1,77 @@
+<!--title-->
+<div class="row ">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="page-title">
+                    <i class="mdi mdi-account-multiple-plus title_icon"></i> Customer admission
+                    <a href="#" onclick="loadPage('/customers','customers')"
+                        class="btn btn-outline-primary btn-rounded alignToTitle"> <i class="mdi mdi-arrow-left"></i>
+                        to customers
+                    </a>
+                </h4>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card pt-0">
+            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+
+                <li class="nav-item">
+                    <a href="#" onclick="loadCreator('bulk')" class="nav-link bulk rounded-0 active">
+                        <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">
+                            bulk customer admission
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" onclick="loadCreator('excel')" class="nav-link excel rounded-0 ">
+                        <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">excel upload</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active displayPanel">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready((e) => {
+        loadCreator('bulk');
+        initSelect2(['#storeId[]']);
+    })
+    function loadCreator(name) {
+        switch (name) {
+            case 'excel':
+                console.log('excel here', name);
+                $('.excel').addClass('active');
+                $('.bulk').removeClass('active');
+                $('.single').removeClass('active');
+                break;
+
+            default:
+                console.log('bulk here', name);
+                $('.bulk').addClass('active');
+                $('.single').removeClass('active');
+                $('.excel').removeClass('active');
+                break;
+        }
+        let url = '/customers/create/' + name;
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: (data) => {
+                $('.displayPanel').html('');
+                $('.displayPanel').html(data);
+            }
+        });
+        name = '';
+    }
+</script>

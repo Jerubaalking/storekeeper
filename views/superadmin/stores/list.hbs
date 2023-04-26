@@ -1,0 +1,54 @@
+<table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
+    <thead>
+        <tr style="background-color: #313a46; color: #ababab;">
+            <th>store name</th>
+            <th>store registration</th>
+            <th>store TIN</th>
+            <th>store address</th>
+            <th>store business</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody>{{#each stores}}
+        <tr>
+            <td>
+                {{name}}
+            </td>
+            <td>
+                {{registration}}
+            </td>
+            <td>
+                {{business.tin}}
+            </td>
+            <td>
+                {{address}}
+            </td>
+            <td>
+                {{business.name}}
+            </td>
+
+            <td>
+                <div class="dropdown text-center">
+                    <button type="button"
+                        class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+                        data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="rightModal('/stores/edit/{{id}}', 'update store')">
+                            edit
+                        </a>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="confirmModal('/stores/delete/{{id}}', showAllstores )">
+                            delete
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+<div class="table-responsive-sm">
+  <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
+    <thead class="thead-dark">
+      <tr>
+        <th>date</th>
+        <th>amount</th>
+        <th>expense categories</th>
+        <th>option</th>
+      </tr>
+    </thead>
+    <tbody>{{#each expenses}}
+      <tr>
+        <td>
+          {{setHomeDate date}}
+        </td>
+        <td>
+          {{amount}}
+        </td>
+        <td>
+          {{expenses_category.name}}
+        </td>
+        <td>
+          <div class="dropdown text-center">
+            <button type="button"
+              class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+              data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item"
+                onclick="rightModal('/expenses/edit/{{id}}', 'update expense');">
+                edit
+              </a>
+              <!-- item-->
+              <a href="javascript:void(0);" class="dropdown-item"
+                onclick="confirmModal('/expenses/delete/{{id}}', showAllExpenses )">
+                delete
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

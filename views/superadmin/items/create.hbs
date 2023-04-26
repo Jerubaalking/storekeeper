@@ -1,0 +1,139 @@
+<form method="POST" class="d-block ajaxForm" action="/items/create">
+  <div class="form-row">
+
+    <div class="form-group col-md-12">
+      <label for="classId_on_create">Items category
+      </label>
+      <select name="itemCategoryId" id="classId_on_create" class="form-control select2" data-toggle="select2" required>
+        <option value="">select category
+        </option>
+        {{#each categories}}
+        <option value="{{id}}">
+          {{name}}
+        </option>
+        {{/each}}
+      </select>
+      <small id="class_help" class="form-text text-muted">
+        provide category
+      </small>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="storeId">Store
+      </label>
+      <select name="storeId" id="storeId" class="form-control select2" data-toggle="select2" required>
+        <option value="all" disabled>all stores
+        </option>
+        {{#each stores}}
+        <option value="{{id}}">
+          {{name}}
+        </option>
+        {{/each}}
+      </select>
+      <small id="class_help" class="form-text text-muted">
+        provide store
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="name">
+        Item name
+      </label>
+      <input type="text" class="form-control" id="name" name="name" required>
+      <small id="name_help" class="form-text text-muted">
+        provide item name
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="model">
+        Item model
+      </label>
+      <input type="text" class="form-control" id="model" name="model" required>
+      <small id="model_help" class="form-text text-muted">
+        provide item model
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="version">
+        Item version
+      </label>
+      <input type="text" class="form-control" id="version" name="version" required>
+      <small id="version_help" class="form-text text-muted">
+        provide item version
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="barcode">
+        Item barcode
+      </label>
+      <input type="text" class="form-control" id="barcode" name="barcode" required>
+      <small id="barcode_help" class="form-text text-muted">
+        provide item barcode
+      </small>
+    </div>
+
+
+    <div class="form-group col-md-12">
+      <label for="batch">
+        Item batch
+      </label>
+      <input type="text" class="form-control" id="batch" name="batch" required>
+      <small id="batch_help" class="form-text text-muted">
+        provide item batch
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="serial_number">
+        Item serial number
+      </label>
+      <input type="text" class="form-control" id="serial_number" name="serial_number" required>
+      <small id="serial_number_help" class="form-text text-muted">
+        provide item serial number
+      </small>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="type">
+        type
+      </label>
+      <select class="form-control select2" data-toggle="select2" name="type" id="type" required>
+        <option value="unknown" selected>unknown
+        </option>
+        <option value="liquid"><i class="mdi mdi-account"></i>
+          liquid
+        </option>
+        <option value="solid"><i class="mdi mdi-toxic"></i>
+          solid
+        </option>
+        <option value="gas"><i class="mdi mdi-gas"></i>
+          gas
+        </option>
+        <option value="powder"><i class="mdi mdi-powder"></i>
+          powder
+        </option>
+        <option value="organic"><i class="mdi mdi-organic"></i>
+          organic
+        </option>
+      </select>
+    </div>
+    <div class="form-group  col-md-12">
+      <button class="btn btn-block btn-primary" type="submit">
+        create item
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+  $(document).ready(function () {
+    initSelect2(['#classId_on_create']);
+  });
+  $(".ajaxForm").validate({}); // Jquery form validation initialization
+  $(".ajaxForm").submit(function (e) {
+    var form = $(this);
+    ajaxSubmit(e, form, 'POST', showAllItems);
+  });
+</script>

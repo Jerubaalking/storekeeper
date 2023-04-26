@@ -1,0 +1,162 @@
+<form method="POST" class="d-block ajaxForm" action="/salaries/create">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="employeeId">
+                select employee
+            </label>
+            <select name="employeeId" id="employeeId" class="form-control select2" data-toggle="select2">
+                <option value="">select employee
+                </option>
+                {{#each teachers}}
+                <option value="{{user.id}}">
+                    {{user.name}}
+                </option>
+                {{/each}}
+            </select>
+            <small id="employeeId" class="form-text text-muted">
+                select employee
+            </small>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="month">
+                select salary month
+            </label>
+            <select name="month" id="month" class="form-control select2" data-toggle="select2">
+                <option value="">select month
+                </option>
+                <option value="January"> January
+                </option>
+                <option value="February"> February
+                </option>
+                <option value="March">
+                    March
+                </option>
+                <option value="April">April
+                </option>
+                <option value="May">May
+                </option>
+                <option value="June">June
+                </option>
+                <option value="July">July
+                </option>
+                <option value="August">August
+                </option>
+                <option value="September">September
+                </option>
+                <option value="October">October
+                </option>November
+                </option>
+                <option value="December">December
+                </option>
+            </select>
+            <small id="month" class="form-text text-muted">
+                select salary month
+            </small>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="date_paid">
+                date
+            </label>
+            <input type="text" class="form-control date" id="date" data-toggle="date-picker"
+                data-single-date-picker="true" name="date_paid" value="" required>
+            <small id="date_paid" class="form-text text-muted">
+                provide date
+            </small>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="amount">amount
+            </label>
+            <input type="number" value="0" class="form-control" id="amount" name="amount" required>
+            <small id="name_help" class="form-text text-muted">fill salary amount
+            </small>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="ss_deduction">
+                select deductions
+            </label>
+            {{#each deductions}}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="checkId['{{id}}']" value="{{id}}"
+                    id="checkId{{id}}">
+                <label class="form-check-label" for="checkId{{id}}">
+                    {{name}} <small class="text-mute"> -{{percent}}%</small>
+                </label>
+            </div>
+            {{/each}}
+        </div>
+        <div class="form-group col-md-12">
+            <label for="take_home">
+                take home
+            </label>
+            <input type="number" value="0" class="form-control" id="take_home" name="take_home" readonly>
+            <small id="name_help" class="form-text text-muted">take home amount
+            </small>
+        </div>
+    </div>
+    <div class="form-group  col-md-12">
+        <button class="btn btn-block btn-primary" type="submit">
+            add salary
+        </button>
+    </div>
+    </div>
+</form>
+
+<script>
+    var amount;
+    var takehome;
+    var totalDeduction;
+    $(document).ready(function () {
+        initSelect2(['#employeeId', '#month']);
+        $('#amount').change(function () {
+            amount = $('#amount').val();
+            $('#take_home').val(amount);
+        });
+        const deductions = ((`
+        {{#each deductions}}
+            id:{{this.id}},name:{{this.name}},amount:{{this.amount}},percent:{{this.percent}}
+        {{/each}}
+        `).trim()).split('\n');
+        //let deductions = JSON.parse(r);
+        for (let dd of deductions) {
+            let deduction = {};
+            let ddeduction = dd.trimStart().trimEnd().split(',');
+            ddeduction.forEach(s => { deduction[s.split(':')[0]] = s.split(':')[1] });
+            //console.log("deductionsssss:::", deduction.name)
+            $('#checkId' + deduction.id).val(this.checked);
+
+            $('#checkId' + deduction.id).change(function () {
+
+                var newtakehome = $('#take_home').val();
+                console.log(deduction);
+                var deduction_percent = parseFloat(deduction.percent);
+                if (this.checked) {
+                    if (deduction_percent <= 0) {
+                        return;
+                    } else {
+                        totalDeduction = + (amount * (deduction_percent / 100)) + (amount - newtakehome);
+                    }
+                } else {
+                    if (deduction_percent <= 0) {
+                        return;
+                    } else {
+                        totalDeduction = (amount - takehome) - (amount * (deduction_percent / 100));
+                    }
+                }
+                takehome = + amount - totalDeduction;
+
+
+                $('#ss_deduction').val(totalDeduction);
+                $('#take_home').val(takehome);
+            });
+        }
+
+    });
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllSalaries);
+    });
+
+    $("#date").daterangepicker();
+</script>

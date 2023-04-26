@@ -1,0 +1,69 @@
+<form method="POST" class="d-block ajaxForm" action="/categories/create">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="name">category name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+            <small id="name_help" class="form-text text-muted">provide category name</small>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="warning">
+                warning
+            </label>
+            <select class="form-control select2" data-toggle="select2" name="warning" id="warning" required>
+                <option value="none" selected>none
+                </option>
+                <option value="harzadous"><i class="mdi mdi-account"></i>
+                    harzadous
+                </option>
+                <option value="toxic"><i class="mdi mdi-toxic"></i>
+                    toxic
+                </option>
+                <option value="radioactive"><i class="mdi mdi-radioactive"></i>
+                    radioactive
+                </option>
+                <option value="poisonous"><i class="mdi mdi-poisonous"></i>
+                    poisonous
+                </option>
+            </select>
+        </div>
+
+
+        <div class="form-group col-md-12">
+            <label for="reaction">
+                reaction
+            </label>
+            <select class="form-control select2" data-toggle="select2" name="reaction" id="reaction" required>
+                <option value="none" selected>none
+                </option>
+                <option value="flamable"><i class="mdi mdi-account"></i>
+                    flamable
+                </option>
+                <option value="conditional"><i class="mdi mdi-toxic"></i>
+                    conditional
+                </option>
+                <option value="corrosive"><i class="mdi mdi-corrosive"></i>
+                    corrosive
+                </option>
+                <option value="catalyst"><i class="mdi mdi-catalyst"></i>
+                    catalyst
+                </option>
+            </select>
+        </div>
+        <div class="form-group  col-md-12">
+            <button class="btn btn-block btn-primary" type="submit">create category</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    $('document').ready(function () {
+        initSelect2(['#warning', '#reaction']);
+    });
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllCategories);
+    });
+</script>

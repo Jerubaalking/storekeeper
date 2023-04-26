@@ -1,0 +1,340 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="left-side-menu left-side-menu-detached content-main">
+
+  <div class="leftbar-user">
+    <a href="javascript: void(0);">
+      <span class="leftbar-user-name">{{profile.firstname}} {{profile.lastname}}</span>
+    </a>
+  </div>
+  <!--- Sidemenu -->
+  <ul class="metismenu side-nav side-nav-light">
+    <li class="side-nav-title side-nav-item">Navigation</li>
+
+    {{#ifEquals viewManager.role 'superadmin'}}
+    {{#each menus}}
+    {{#ifEquals superadmin_access 1}}
+    <li class="side-nav-item">
+      {{#ifEquals route_name '/home'}}
+      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{else}}
+      <a class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{/ifEquals}}
+      <ul class="side-nav-second-level" aria-expanded="false">
+        {{#each ../sub_menu}}
+
+        {{#ifEquals parent ../id}}
+
+        {{#ifEquals superadmin_access 1}}
+        <li class="side-nav-item _item" +{{display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" aria-expanded="false">
+            <i class="{{icon}}"></i>
+            <span>{{display_name}}</span>
+          </a>
+        </li>
+        {{/ifEquals}}
+        {{/ifEquals}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/ifEquals}}
+    {{/each}}
+    {{/ifEquals}}
+    <!-- another loop-->
+
+    {{#ifEquals viewManager.role 'admin'}}
+    {{#each menus}}
+    {{#ifEquals admin_access 1}}
+    <li class="side-nav-item">
+
+      {{#ifEquals route_name '/home'}}
+      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{else}}
+      <a class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{/ifEquals}}
+      <ul class="side-nav-second-level" aria-expanded="false">
+        {{#each ../sub_menu}}
+
+        {{#ifEquals parent ../id}}
+
+        {{#ifEquals admin_access 1}}
+        <li class="side-nav-item _item" +{{display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+            <i class="{{icon}}"></i>
+            <span>{{display_name}}</span>
+          </a>
+        </li>
+        {{/ifEquals}}
+        {{/ifEquals}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/ifEquals}}
+    {{/each}}
+    {{/ifEquals}}
+
+    <!-- another loop-->
+
+    {{#ifEquals viewManager.role 'accountant'}}
+    {{#each menus}}
+    {{#ifEquals accountant_access 1}}
+    <li class="side-nav-item">
+
+      {{#ifEquals route_name '/home'}}
+      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{else}}
+      <a class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{/ifEquals}}
+      <ul class="side-nav-second-level" aria-expanded="false">
+        {{#each ../sub_menu}}
+
+        {{#ifEquals parent ../id}}
+
+        {{#ifEquals accountant_access 1}}
+        <li class="side-nav-item _item" +{{display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+            <i class="{{icon}}"></i>
+            <span>{{display_name}}</span>
+          </a>
+        </li>
+        {{/ifEquals}}
+        {{/ifEquals}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/ifEquals}}
+    {{/each}}
+    {{/ifEquals}}
+
+
+    <!-- another loop-->
+
+    {{#ifEquals viewManager.role 'teacher'}}
+    {{#each menus}}
+    {{#ifEquals teacher_access 1}}
+    <li class="side-nav-item">
+
+      {{#ifEquals route_name '/home'}}
+      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{else}}
+      <a class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{/ifEquals}}
+      <ul class="side-nav-second-level" aria-expanded="false">
+        {{#each ../sub_menu}}
+
+        {{#ifEquals parent ../id}}
+
+        {{#ifEquals teacher_access 1}}
+        <li class="side-nav-item _item" +{{display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+            <i class="{{icon}}"></i>
+            <span>{{display_name}}</span>
+          </a>
+        </li>
+        {{/ifEquals}}
+        {{/ifEquals}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/ifEquals}}
+    {{/each}}
+    {{/ifEquals}}
+
+    <!-- another loop-->
+
+    {{#ifEquals viewManager.role 'parent'}}
+    {{#each menus}}
+    {{#ifEquals parent_access 1}}
+    <li class="side-nav-item">
+
+      {{#ifEquals route_name '/home'}}
+      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{else}}
+      <a class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{/ifEquals}}
+      <ul class="side-nav-second-level" aria-expanded="false">
+        {{#each ../sub_menu}}
+
+        {{#ifEquals parent ../id}}
+
+        {{#ifEquals parent_access 1}}
+        <li class="side-nav-item _item" +{{display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+            <i class="{{icon}}"></i>
+            <span>{{display_name}}</span>
+          </a>
+        </li>
+        {{/ifEquals}}
+        {{/ifEquals}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/ifEquals}}
+    {{/each}}
+    {{/ifEquals}}
+
+
+    <!-- another loop-->
+
+    {{#ifEquals viewManager.role 'student'}}
+    {{#each menus}}
+    {{#ifEquals student_access 1}}
+    <li class="side-nav-item">
+
+      {{#ifEquals route_name '/home'}}
+      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{else}}
+      <a class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{/ifEquals}}
+      <ul class="side-nav-second-level" aria-expanded="false">
+        {{#each ../sub_menu}}
+
+        {{#ifEquals parent ../id}}
+
+        {{#ifEquals student_access 1}}
+        <li class="side-nav-item _item" +{{display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+            <i class="{{icon}}"></i>
+            <span>{{display_name}}</span>
+          </a>
+        </li>
+        {{/ifEquals}}
+        {{/ifEquals}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/ifEquals}}
+    {{/each}}
+    {{/ifEquals}}
+
+
+    <!-- another loop-->
+
+    {{#ifEquals viewManager.role 'librarian'}}
+    {{#each menus}}
+    {{#ifEquals librarian_access 1}}
+    <li class="side-nav-item">
+
+      {{#ifEquals route_name '/home'}}
+      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{else}}
+      <a class="side-nav-link">
+        <i class="{{icon}}"></i>
+        <span>
+          {{display_name}}
+        </span>
+        <span class="menu-arrow"></span>
+      </a>
+      {{/ifEquals}}
+      <ul class="side-nav-second-level" aria-expanded="false">
+        {{#each ../sub_menu}}
+
+        {{#ifEquals parent ../id}}
+
+        {{#ifEquals librarian_access 1}}
+        <li class="side-nav-item _item" +{{display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+            <i class="{{icon}}"></i>
+            <span>{{display_name}}</span>
+          </a>
+        </li>
+        {{/ifEquals}}
+        {{/ifEquals}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/ifEquals}}
+    {{/each}}
+    {{/ifEquals}}
+
+  </ul>
+  <div class="clearfix">
+    {{!--
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          © <a href="/footer_link" target="_blank">
+            footer text
+          </a>
+        </div>
+      </div>
+    </div> --}}
+  </div>
+</div>

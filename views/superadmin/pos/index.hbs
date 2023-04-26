@@ -1,0 +1,115 @@
+<!--title-->
+<div class="row ">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="page-title">
+          <i class="mdi mdi-sale text-primary title_icon"></i> POINT OF SALES
+          <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle"
+            onclick="rightModal('/admin/create', 'create admin')"> <i class="mdi mdi-cart"></i>
+            cart
+          </button>
+          <button type="button" class="mr-1 btn btn-outline-primary btn-rounded alignToTitle"
+            onclick="rightModal('/admin/create', 'create admin')"> <i class="mdi mdi-view-list"></i>
+            today sales
+          </button>
+        </h4>
+      </div> <!-- end card body-->
+    </div> <!-- end card -->
+  </div><!-- end col-->
+</div>
+
+<div class="row">
+  <div class="col-8">
+    <div class="card">
+      <div class="card-body">
+        <div class=" admin_content">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="page-title"><i class="mdi mdi-cart"></i> cart</h4>
+        <div class="admin_semi_content">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(() => {
+    showAllPos();
+    showAllSales();
+  });
+  var showAllPos = function () {
+    var url = '/pos/list';
+
+    $.ajax({
+      type: 'GET',
+      url: url,
+      success: function (response) {
+        //console.log('response', response)
+        $('.admin_content').html(response);
+        initDataTable('basic-datatable1');
+      }
+    });
+  }
+  var showAllSales = function () {
+    var url = '/pos/sale';
+
+    $.ajax({
+      type: 'GET',
+      url: url,
+      success: function (response) {
+        //console.log('response', response)
+        $('.admin_semi_content').html(response);
+      }
+    });
+  }
+  var checking = (item, max) => {
+    let v = $(item).val();
+    if (v > parseInt(max)) {
+      toastr.error('quantity cannot exceed available!');
+      $(item).val(0);
+    }
+
+  }
+
+  var objs = (item, id, value) => {
+    return `
+        <div div class="card mb-1 salesItem${id}">
+        <div class="card-header collapsed page-title bg-light text-dark" data-toggle="collapse"
+            href="#collapseOne${id}">
+            <a class="card-title ">
+                ${item.name}
+            </a>
+            <span class="badge badge-info alignToTitle">
+                TZS ${item.price * value}
+            </span>
+            <span class="mr-1 badge badge-danger alignToTitle">
+                ${value}
+            </span>
+        </div>
+        <div id="collapseOne${id}" class="card-body collapse" data-parent="#accordion">
+            <table class="table table-bordered">
+                <col>
+                <tr>
+                    <th scope="row">Category</th>
+                    <td>${item.category}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Price</th>
+                    <td>${item.price}</td>
+                </tr>
+            </table>
+        </div>
+    </div >
+    `;
+  }
+</script>

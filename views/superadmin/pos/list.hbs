@@ -1,0 +1,108 @@
+<table id="basic-datatable1" class="table table-striped dt-responsive nowrap" width="100%">
+    <thead>
+        <tr style="background-color: #313a46; color: #ababab;">
+            <th>item</th>
+            <th>category</th>
+            <th>available</th>
+            <th>qty</th>
+            <th>action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each items}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{item_category.name}}</td>
+            <td>{{available}}</td>
+            <td class="form-group qty{{id}}">
+                <input type="number" max="{{available}}" value="0" onchange="checking(this, '{{available}}')"
+                    class="form-control" id="qty{{id}}" placeholder="quantity">
+            </td>
+            <td class="form-group">
+                <a href="javascript:void(0);" class="btn btn-primary add{{id}}" id="add{{id}}"
+                    onclick="addToCart(this, '{{id}}')">
+                    add
+                </a>
+                <a href="javascript:void(0);" class="btn btn-danger collapse remove{{id}}"
+                    onclick="removeFromCart(this, '{{id}}')">
+                    remove
+                </a>
+            </td>
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>
+
+<script>
+    var itemArray = [];
+    var Cart = [];
+    var removeFromCart = (itemss, id) => {
+
+        console.log(itemArray, dt);
+        //alert('am removed');
+        $('#qty' + id).removeClass('collapse');
+        $('.value' + id).addClass(`collapse`);
+        $('.salesItem' + id).addClass(`collapse`);
+        $('.add' + id).removeClass('collapse');
+        $(itemss).addClass('collapse');
+        console.log(Cart);
+        if (Cart.length <= 1) { Cart = []; } else {
+            var cart = Cart.reduce((prev, cur, index) => {
+                console.log('current::', cur, prev);
+                if (cur.id != id) {
+                    return cur;
+                }
+            });
+            console.log('cart items', cart);
+        }
+        console.log(Cart);
+        toastr.warning('removed!');
+    }
+
+    var addToCart = (itemsss, id) => {
+
+        for (let i = 0; i < itemArray.length; i++) {
+            console.log('all atterations', itemArray[i], i);
+            if (id === itemArray[i].id) {
+                console.log('am here', id, itemArray[i].id);
+                (!Cart.includes(itemArray[i])) ?
+                    Cart.push(itemArray[i]) : null;
+                toastr.success('added!');
+                let value = parseInt($('#qty' + id).val());
+                $('#qty' + id).addClass('collapse');
+                $(itemsss).addClass('collapse');
+                $('.remove' + id).removeClass('collapse');
+                $('.qty' + id).append(`<span class="value${id}" > ${value}</span>`);
+
+                $('#sales').append(objs(itemArray[i], id, value));
+            }
+        }
+
+    }
+
+    var checkOut = () => {
+        $(".ajaxForm").validate({}); // Jquery form validation initialization
+        $(".ajaxForm").submit(function (e) {
+            var form = $(this);
+            ajaxSubmit(e, form, 'POST', showAllAdmins);
+        });
+    }
+</script>
+{{#each items}}
+<script>
+    var dt = {};
+</script>
+<script>
+    dt.id = '{{ id }}';
+    dt.available = '{{ available }}';
+    dt.price = parseFloat('{{ stock_ins.0.selling_price }}');
+    dt.batch = '{{ batch }}';
+    dt.barcode = '{{ barcode }}';
+    dt.type = '{{ type }}';
+    dt.name = '{{ name }}';
+    dt.category = '{{ item_category.name }}';
+    itemArray.push(dt);
+    dt = {};
+</script>
+{{/each}}

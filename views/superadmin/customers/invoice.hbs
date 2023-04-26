@@ -1,0 +1,53 @@
+<form method="POST" class="d-block ajaxForm" action="/customers/invoice/create/{{customer.id}}">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="invoice_id">invoice identifier {{customer.id}}
+            </label>
+            <input type="text" class="form-control" id="invoice_id" value="{{invoice_number}}" name="invoice_id"
+                required>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="level">invoice level</label>
+            <select name="level" id="level" class="form-control select2" required>
+                <option value="profoma" selected>proforma</option>
+                <option value="invoice">invoice</option>
+                <option value="sale">sales</option>
+            </select>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="comment">invoice comment
+            </label>
+            <textarea type="text" class="form-control" id="comment" name="comment"
+                placeholder="any comment ...."></textarea>
+            <small class="text-mute">comments won't appear on invoice</small>
+        </div>
+
+
+        <div class="form-group col-md-12">
+            <label for="info">invoice info & conditions
+            </label>
+            <textarea class="form-control" id="info" name="info" placeholder="invoice terms & conditions"
+                required></textarea>
+        </div>
+
+
+        <div class="form-group  col-md-12">
+            <button class="btn btn-block btn-primary" type="submit">
+                create invoice
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        //initSelect2(['#expensesCategoryId_on_create']);
+    });
+
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllCustomers);
+    });
+</script>
