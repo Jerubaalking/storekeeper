@@ -7,6 +7,6 @@ RUN npm install --production --silent && mv node_modules ../
 COPY . .
 EXPOSE 5001
 RUN chown -R node /usr/src/app
-RUN node /usr/src/app/database/queries.js
+RUN node /usr/src/app/database/queries.js timeout 2
 USER node
 CMD ["node", "main-https.js"]
