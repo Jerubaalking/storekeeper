@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     environment:
-      NODE_ENV: development
+      NODE_ENV: Production
     ports:
       - 5001:5001
       - 9229:9229
