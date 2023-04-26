@@ -8,4 +8,4 @@ EXPOSE 5001
 RUN chown -R node /usr/src/app
 RUN node /usr/src/app/database/queries.js
 USER node
-CMD ["node", "main.js"]
+CMD ["node", "main-https.js"]
