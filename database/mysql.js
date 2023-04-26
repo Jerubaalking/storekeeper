@@ -10,11 +10,13 @@ const initializeSequalize = async () => {
 
 }
 
-
+const sequelize = initializeSequalize().then(async seq => await seq).catch(err => {
+  console.log(err);
+})
 // connect to db
 
 // init models and add them to the exported db object
 
 const Op = Sequelize.Op;
 
-module.exports = { Sequelize, initializeSequalize, DataTypes, Op, Model };
+module.exports = { Sequelize, sequelize, DataTypes, Op, Model };
