@@ -44,10 +44,7 @@ const _env = process.env.NODE_ENV;
 const corsOptions = {
     //To allow requests from client
     origin: [
-        `http://localhost:${port}`,
-        "http://127.0.0.1",
-        `https://localhost:${port}`,
-        "https://127.0.0.1:5006",
+        `http://localhost:${port}`
     ],
     credentials: true,
     exposedHeaders: ["set-cookie"],
