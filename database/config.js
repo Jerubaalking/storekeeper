@@ -1,5 +1,5 @@
 module.exports = {
-    "DB_HOST": "srv-captain--database-db",
+    "DB_HOST": "0.0.0.0",
     "DB_USER": "root",
     "DB_PASSWORD": "thina2023",
     "DB_NAME": "storekeeper_db",
