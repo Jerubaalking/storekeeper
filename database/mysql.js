@@ -1,18 +1,16 @@
 const dbConfig = require("../database/config");
-
+const mysql = require('mysql2/promise');
 const { Sequelize, DataTypes, Model } = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.DB_USER, dbConfig.DB_PASSWORD, {
-  host: dbConfig.DB_HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: false,
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  },
-  logging: false
-});
+
+const { DB_NAME, DB_HOST, DB_USER, DB_PASSWORD, DB_PORT } = dbConfig;
+const connection = await mysql.createConnection({ DB_HOST, DB_PORT, DB_USER, DB_PASSWORD });
+await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbConfig}\`;`);
+
+// connect to db
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, { dialect: dbConfig.dialect });
+
+// init models and add them to the exported db object
+
 const Op = Sequelize.Op;
 
 module.exports = { Sequelize, sequelize, DataTypes, Op, Model };
