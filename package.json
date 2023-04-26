@@ -2,18 +2,18 @@
   "name": "storekeeper",
   "version": "1.0.0",
   "description": "storekeeper",
-  "main": "index.js",
+  "main": "main-https.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "school",
+    "storekeeper",
     "system",
-    "tz",
+    "tzs",
     "tanzania",
     "mfumo",
     "wa",
-    "shule"
+    "biashara"
   ],
   "author": "Gideon Sainyeye",
   "license": "ISC",

@@ -16,7 +16,8 @@ const spawnJwtPayload = async (token, est_) => {
         // Note that we are passing the key in this method as well. This method will throw an error
         // if the token is invalid (if it has expired according to the expiry time we set on sign in),
         // or if the signature does not match
-        return await jwt.verify(token, est_);
+        let fsd = await jwt.verify(token, est_);
+        return await fsd;
     } catch (e) {
         if (e instanceof jwt.JsonWebTokenError) {
             // if the error thrown is because the JWT is unauthorized, return a 401 error
@@ -72,7 +73,8 @@ const isLoggedIn = async (req, res, next) => {
             req.body['sessionId'] = payload.sessionId;
 
             next()
-        } catch (err) {superadmin
+        } catch (err) {
+            superadmin
             return res.redirect('/auth/signin');
         }
     }
