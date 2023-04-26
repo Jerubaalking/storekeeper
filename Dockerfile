@@ -1,5 +1,6 @@
 FROM node:lts-alpine
-ENV NODE_ENV=production
+ARG SOME_ARG
+ENV SOME_EVN=$SOME_ARG
 WORKDIR /usr/src/app
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm install --production --silent && mv node_modules ../
