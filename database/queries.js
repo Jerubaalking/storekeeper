@@ -1,5 +1,5 @@
 
-const { Sequelize, initializeSequalize } = require('./mysql');
+const { Sequelize, sequelize } = require('./mysql');
 const customeTable = require('./tables');
 const {
     roles,
@@ -26,7 +26,6 @@ class Query {
     }
     async syncForceTable() {
         try {
-            let sequelize = await initializeSequalize();
             return await sequelize.sync({ force: true });
 
         } catch (err) {
@@ -38,7 +37,6 @@ class Query {
         // let table = new Table(this.Model);
 
         try {
-            let sequelize = await initializeSequalize();
             let sql = await sequelize.sync();
             // await sessions.create({ name: '2023', status: 1 });
             // await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
