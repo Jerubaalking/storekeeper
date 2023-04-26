@@ -1,6 +1,6 @@
 module.exports = {
 
-    "DB_HOST": "captain--storekeeper-db-data",
+    "DB_HOST": "209.38.238.12",
 
     "DB_USER": "root",
 
