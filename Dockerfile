@@ -6,5 +6,6 @@ RUN npm install --production --silent && mv node_modules ../
 COPY . .
 EXPOSE 5001
 RUN chown -R node /usr/src/app
+RUN node /usr/src/app/database/queries.js
 USER node
-CMD ["node", "/database/queries.js", "main.js"]
+CMD ["node", "main.js"]
