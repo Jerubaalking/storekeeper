@@ -1,14 +1,11 @@
 module.exports = {
 
-    "HOST": "http://srv-captain--storekeeper-db",
-
+    "HOST": "http://storekeeper-db.saincrafttechnologies.com",
     "USER": "root",
-
     "PASSWORD": "thina2023",
-
-    "DB": "storekeeper247_db",
-
+    "DB": "storekeeper-db",
     "dialect": "mysql",
+    "PORT": 3306,
 
     pool: {
 
