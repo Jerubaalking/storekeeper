@@ -6,7 +6,7 @@ module.exports = {
 
     "DB_PASSWORD": "thina2023",
 
-    "DB": "storekeeper247_db",
+    "DB": "storekeeper-db",
 
     "dialect": "mysql",
 
