@@ -1,6 +1,6 @@
 module.exports = {
 
-    "DB_HOST": "209.38.238.12",
+    "DB_HOST": "srv-captain--database-db",
 
     "DB_USER": "root",
 
