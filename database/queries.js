@@ -37,6 +37,7 @@ class Query {
         // let table = new Table(this.Model);
 
         try {
+            let create = Sequelize.
             let sql = await sequelize.sync();
             // await sessions.create({ name: '2023', status: 1 });
             // await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
@@ -50,6 +51,7 @@ class Query {
             // user.iterations = await its.iterations;
             // let us = await user.save();
             // await user_roles.create({ roleId: 1, userId: us.id });
+            
             return await sql;
         } catch (err) {
             console.log(err);
