@@ -18,11 +18,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 dotenv.config({ path: `./config/config.env` });
-app.use(cors({
-    origin: 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com'
-}));
+// app.use(cors({
+//     origin: 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com'
+// }));
 
-app.use('/public', express.static(`https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public`));
+app.use('/public', express.static(path.resolve(__dirname + '/public')));
 app.set('view engine', 'hbs');
 app.set('views', './views');
 

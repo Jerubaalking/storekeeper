@@ -87,7 +87,7 @@ class Single {
         return JSON.parse(JSON.stringify(await sections.findOne({ where: { id: id } })));
     }
     async user(id) {
-        return JSON.parse(JSON.stringify(await users.findOne({ where: { id: id, businessId: this._session.businessId } })));
+        return JSON.parse(JSON.stringify(await users.findOne({ where: { id: id } })));
     }
     async smtp_setting(opt) {
         return JSON.parse(JSON.stringify(await smtp_settings.findOne(opt)))

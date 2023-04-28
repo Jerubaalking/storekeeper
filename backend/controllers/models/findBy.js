@@ -33,6 +33,17 @@ class FindBy {
         // opt.where['sessionId'] = this._session.sessionId.toString();
         return JSON.parse(JSON.stringify(await stores.findAll(opt)));
     }
+    async role(opt) {
+        switch (this._session.businessId) {
+            case undefined:
+                return JSON.parse(JSON.stringify(await roles.findAll(opt)));
+                break;
+            default:
+                return JSON.parse(JSON.stringify(await roles.findAll(opt)));
+        }
+        opt.where['businessId'] = this._session.businessId;
+        // opt.where['sessionId'] = this._session.sessionId.toString();
+    }
     async customer(opt) {
         opt.where['businessId'] = this._session.businessId.toString();
         opt.where['sessionId'] = this._session.sessionId.toString();
@@ -176,7 +187,7 @@ class FindBy {
         if (this._session) {
             console.log('session', this._session);
             console.log(await this._session);
-            opt.where['businessId'] = this._session.businessId.toString();
+            opt.where['businessId'] = (this._session.businessId) ? this._session.businessId.toString() : null;
             // opt.where['sessionId'] = this._session.sessionId.toString();
             return JSON.parse(JSON.stringify(await departments.findAll(opt)));
         }

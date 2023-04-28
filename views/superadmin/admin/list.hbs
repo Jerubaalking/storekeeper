@@ -13,9 +13,11 @@
             <td>{{name}}</td>
             <td>{{email}}</td>
             <td>
-                {{business.name}}
-                <br><small> <strong>phone</strong>:{{business.phone}}</small>
-                <br><small> <strong>address</strong>: {{business.address}}</small>
+                {{#each businesses}}
+                {{name}}
+                <br><small> <strong>phone</strong>:{{phone}}</small>
+                <br><small> <strong>address</strong>: {{address}}</small>
+                {{/each}}
             </td>
             <td>
                 <div class="dropdown text-center">

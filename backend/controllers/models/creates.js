@@ -272,14 +272,20 @@ class Creates {
     async user(data) {
         if (this._instance.businessId, this._instance.sessionId) {
             let usrPass = data.password;
+            console.log(data);
             let hash = await passwordHash(usrPass);
             let nUser = await users.build(data);
             nUser.hash = hash.hashHex;
             nUser.salt = hash.salt;
             nUser.iterations = hash.iterations;
-            nUser.businessId = await this._instance.businessId;
+            nUser.businessId = await data.businessId;
             nUser.sessionId = await this._instance.sessionId;
-            return await nUser.save()
+            await nUser.save();
+            let role = await roles.findOne({ where: { role: data.role } });
+            let user_role = JSON.parse(JSON.stringify(await nUser.addRole(role)));
+            console.log('user role....', user_role);
+            await user_roles.update({ businessId: data.businessId }, { where: { id: user_role[0].id } })
+            return nUser;
         } else {
             throw new Error('user not authenticated!');
         }

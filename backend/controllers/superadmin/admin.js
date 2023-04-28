@@ -6,6 +6,7 @@ const findby = require("../models/findBy");
 const { Op } = require("../../../database/mysql");
 const businesses = require("../../../database/models/businesses");
 const Controllers = require("../models/control");
+const users = require("../../../database/models/users");
 let _many_module = 'businesses';
 let _single_module = 'school';
 module.exports = {
@@ -15,11 +16,12 @@ module.exports = {
     },
     list: async (req, res) => {
 
-        let admins = await (await new Controllers(req).findBy()).user({ where: { [Op.or]: [{ role: "admin" }] }, include: [{ model: businesses }] });
-        if (admins.status) {
-            res.render('superadmin/superadmin/list', { layout: false, superadmins: admins.data, message: admins.notification });
+        let roles = await (await new Controllers(req).findBy()).role({ where: { role: "admin" }, include: [{ model: users, include: [{ model: businesses, nested: true }] }] });
+        console.log(roles[0].users[0]);
+        if (roles[0].users) {
+            res.render('superadmin/admin/list', { layout: false, admins: roles[0].users, message: "success!" });
         } else {
-            res.render('superadmin/superadmin/list', { layout: false, superadmins: admins.data, message: admins.notification });
+            res.render('superadmin/admin/list', { layout: false, admins: roles[0].users, message: "success!" });
         }
     },
     create: async (req, res) => {
@@ -45,7 +47,7 @@ module.exports = {
     edit: async (req, res) => {
 
         if (req.method == 'GET' && req.url.includes('/edit')) {
-            let admin = await single.user(req.params.id);
+            let admin = await (await new Controllers(req).single()).user(req.params.id);
             let businesses = await (await new Controllers(req).find()).businesses();
             res.render('superadmin/admin/edit', { layout: false, admin: JSON.parse(JSON.stringify(admin)), businesses: JSON.parse(JSON.stringify(businesses)) });
         } else {
