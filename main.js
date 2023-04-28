@@ -74,8 +74,8 @@ const _env = process.env.NODE_ENV;
 // https.globalAgent.options.cert = fs.readFileSync('./security/localhost+1.pem');
 const server = http.createServer(app)
     .listen(port, async () => {
-        // let Q = new Query();
-        // await Q.syncTable();
-        // await executiveQueries();
+        let Q = new Query();
+        await Q.syncTable();
+        await executiveQueries();
         console.log(`server running in ${_env} mode on port ${port}`);
     });

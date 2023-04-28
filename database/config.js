@@ -1,8 +1,8 @@
 module.exports = {
-    "DB_HOST": "127.0.0.1",
+    "DB_HOST": "srv-captain--mysql-db",
     "DB_USER": "root",
     "DB_PASSWORD": "thina@2023",
-    "DB_HOST2":"172.17.0.1",
+    "DB_HOST2":"srv-captain--mysql-db",
     "DB_NAME": "storekeeper247_db",
     "DB_PORT": 3306,
     "dialect": "mysql",
