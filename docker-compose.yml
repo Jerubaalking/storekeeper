@@ -9,4 +9,4 @@ services:
     environment:
       NODE_ENV: Production
     ports:
-      - 5001:5001
+      - 3001:3001
