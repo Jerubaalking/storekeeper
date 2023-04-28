@@ -24,6 +24,7 @@ function upload() {
             destination: function (req, file, cb) {
                 cb(null, folder);
             },
+
             filename: function (req, file, cb) {
                 (req.body.name) ?
                     cb(null, req.body.name.split(' ').join('_') + path.extname(file.originalname)) :

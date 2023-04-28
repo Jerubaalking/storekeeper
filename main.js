@@ -18,9 +18,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 dotenv.config({ path: `./config/config.env` });
-// app.use(cors());
+app.use(cors({
+    origin: 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com'
+}));
 
-app.use('/public', express.static(path.resolve(__dirname + '/public')));
+app.use('/public', express.static(`https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public`));
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
@@ -36,19 +38,21 @@ app.engine('hbs', engine({
 // const r = require('./backend/controllers/services/requestHandler');
 // app.use('/church', r);
 let routeManager = require('./routeManager');
+const Query = require('./database/queries');
+const executiveQueries = require('./database/executiveQueries');
 routeManager(app);
 
 
 const port = process.env.PORT;
 const _env = process.env.NODE_ENV;
-const corsOptions = {
-    //To allow requests from client
-    origin: [
-        `http://localhost:${port}`
-    ],
-    credentials: true,
-    exposedHeaders: ["set-cookie"],
-};
+// const corsOptions = {
+//     //To allow requests from client
+//     origin: [
+//         `http://localhost:${port}`
+//     ],
+//     credentials: true,
+//     exposedHeaders: ["set-cookie"],
+// };
 
 // app.use(cors(corsOptions));
 
@@ -69,6 +73,9 @@ const corsOptions = {
 // https.globalAgent.options.key = fs.readFileSync('./security/localhost+1-key.pem');
 // https.globalAgent.options.cert = fs.readFileSync('./security/localhost+1.pem');
 const server = http.createServer(app)
-    .listen(port, () => {
+    .listen(port, async () => {
+        // let Q = new Query();
+        // await Q.syncTable();
+        // await executiveQueries();
         console.log(`server running in ${_env} mode on port ${port}`);
     });

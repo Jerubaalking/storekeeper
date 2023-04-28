@@ -61,11 +61,12 @@ router.post('/signin', async (req, res) => {
         res.render('auth/login', { layout: 'auth', message: `Users with email ${email} dont exist. Please register` });
     } else {
         //check if password match
+        console.log(oldUser.salt);
         let validPass = await passwordHashVerify(password, oldUser.salt, oldUser.hash);
         console.log('valid password', validPass);
         let session = await (await new Controllers(req).findBy()).session({ where: { status: 1 } });
         session = JSON.parse(JSON.stringify(session[0]));
-        console.log('session values::', oldUser);
+        console.log('session values::', oldUser, session);
         const data = {
             name: oldUser.name,
             email: oldUser.email,
