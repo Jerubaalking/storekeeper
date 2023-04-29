@@ -26,7 +26,7 @@ connection.query(
 // Close the connection
 console.log(dbConfig);
 const sequelize = new Sequelize(dbConfig.DB_NAME, dbConfig.DB_USER, dbConfig.DB_PASSWORD, {
-  host: dbConfig.DB_HOST2,
+  host: dbConfig.DB_HOST,
   port: dbConfig.DB_PORT,
   dialect: dbConfig.dialect,
   operatorsAliases: false,
