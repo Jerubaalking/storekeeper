@@ -28,11 +28,10 @@ module.exports = async executeInitialQueries => {
             for (const key in arrayIndex) {
                 dataObject[arrayIndex[key]] = arrayList[array][key];
             }
-            console.log(dataObject);
-            menuArray.push(dataObject);
+            // console.log(dataObject);
+            await menus.create(dataObject);
         }
-        console.log(menuArray);
-        await menus.bulkCreate(menuArray);
+        // console.log(menuArray);
         await sessions.create({ name: '2023', status: 1 });
         await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
         await permissions.bulkCreate([{ permission: 'all' }, { permission: 'create' }, { permission: 'edit' }, { permission: 'delete' }, { permission: 'view' }]);
