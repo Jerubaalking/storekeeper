@@ -22,7 +22,7 @@ dotenv.config({ path: `./config/config.env` });
 //     origin: 'https://storekeeper.saincrafttechnologies.com'
 // }));
 
-app.use('/public', express.static(path.resolve(__dirname + '/public')));
+app.use('/public', express.static('https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public'));
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
