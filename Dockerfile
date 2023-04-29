@@ -7,4 +7,4 @@ RUN npm install --production --silent && mv node_modules ../
 COPY . .
 EXPOSE 3001
 USER node
-CMD ["NODE_ENV=production", "node", "main.js"]
+CMD ["node", "main.js"]
