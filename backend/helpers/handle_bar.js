@@ -16,9 +16,9 @@ var register = function (Handlebars) {
         },
         cdn: function () {
             if (process.env.NODE_ENV === 'development') {
-                return '/public'
+                return process.env.D_PUBLIC;
             } else {
-                return 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public';
+                return process.env.PUBLIC;
             }
         },
         setLanguage: function (code) {
