@@ -1,11 +1,17 @@
+const host = process.env.DB_HOST;
+const user = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
+const name = process.env.DB_NAME;
+const port = process.env.DB_PORT;
+const dialect = process.env.DB_DILECT;
 
 module.exports = {
-    "DB_HOST": process.env.DB_HOST,
-    "DB_USER": process.env.DB_USER,
-    "DB_PASSWORD": process.env.DB_PASSWORD,
-    "DB_NAME": process.env.DB_NAME,
-    "DB_PORT": process.env.DB_PORT,
-    "dialect": "mysql",
+    "DB_HOST": host,
+    "DB_USER": user,
+    "DB_PASSWORD": password,
+    "DB_NAME": name,
+    "DB_PORT": port,
+    "dialect": dialect,
     pool: {
 
         max: 5,
