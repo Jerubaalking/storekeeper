@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 dotenv.config({ path: `./config/config.env` });
 app.use(cors({
-    origin: 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com'
+    origin: 'storekeeper.saincrafttechnologies.com'
 }));
 
 app.use('/public', express.static(path.resolve(__dirname + '/public')));
