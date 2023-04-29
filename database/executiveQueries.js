@@ -32,14 +32,14 @@ module.exports = async executeInitialQueries => {
             menuArray.push(dataObject);
         }
         console.log(menuArray);
-        // await menus.bulkCreate(menuArray);
-        // await sessions.create({ name: '2023', status: 1 });
-        // await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
-        // await permissions.bulkCreate([{ permission: 'all' }, { permission: 'create' }, { permission: 'edit' }, { permission: 'delete' }, { permission: 'view' }]);
+        await menus.bulkCreate(menuArray);
+        await sessions.create({ name: '2023', status: 1 });
+        await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
+        await permissions.bulkCreate([{ permission: 'all' }, { permission: 'create' }, { permission: 'edit' }, { permission: 'delete' }, { permission: 'view' }]);
 
-        // await user_role_permissions.create({ permissionId: 1, roleId: 1 });
-        //// await users.destroy({ where: { [Op.not]: { id: 1 } }, paranoid: false })
-        //// await user_roles.destroy({ where: { [Op.not]: { userId: 1 } }, paranoid: false })
+        await user_role_permissions.create({ permissionId: 1, roleId: 1 });
+        // await users.destroy({ where: { [Op.not]: { id: 1 } }, paranoid: false })
+        // await user_roles.destroy({ where: { [Op.not]: { userId: 1 } }, paranoid: false })
         let user = await users.build({ name: 'Gideon Sainyeye', email: 'gsainyeye@gmail.com', address: 'Arusha, Tanzania', phone: '+255658598333', gender: 'male', birthdate: new Date() });
         let its = await passwordHash('@73N@');
         user.hash = await its.hashHex;
