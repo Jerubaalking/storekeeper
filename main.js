@@ -72,7 +72,8 @@ const _env = process.env.NODE_ENV;
 // https.globalAgent.options.ca = __dirname + '/security';
 // https.globalAgent.options.key = fs.readFileSync('./security/localhost+1-key.pem');
 // https.globalAgent.options.cert = fs.readFileSync('./security/localhost+1.pem');
-const server = http.createServer(app)
+
+http.createServer(app)
     .listen(port, async () => {
         // let Q = new Query();
         // await Q.syncTable();
