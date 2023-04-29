@@ -8,4 +8,4 @@ COPY . .
 RUN export NODE_ENV=production
 EXPOSE 3001
 USER node
-CMD ["node", "main.js"]
+CMD ["NODE_ENV=production", "node", "main.js"]

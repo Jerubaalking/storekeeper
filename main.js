@@ -21,8 +21,11 @@ dotenv.config({ path: `./config/config.env` });
 // app.use(cors({
 //     origin: 'https://storekeeper.saincrafttechnologies.com'
 // }));
-
-app.use('/public', express.static('https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public'));
+if (process.env.NODE_ENV === 'production') {
+    app.use('/public', express.static(process.env.PUBLIC));
+} else {
+    app.use('/public', express.static(path.resolve(__dirname + process.env.D_PUBLIC)));
+}
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
@@ -42,7 +45,6 @@ const Query = require('./database/queries');
 const executiveQueries = require('./database/executiveQueries');
 routeManager(app);
 
-process.env.NODE_ENV = 'development';
 const port = process.env.PORT;
 const _env = process.env.NODE_ENV;
 // const corsOptions = {
