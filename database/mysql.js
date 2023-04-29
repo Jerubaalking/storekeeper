@@ -1,7 +1,6 @@
 const dbConfig = require("../database/config");
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const mysql = require("mysql2");
-process.env.NODE_ENV = 'production';
 const connection = mysql.createConnection({
   host: dbConfig.DB_HOST,
   port: dbConfig.DB_PORT,
