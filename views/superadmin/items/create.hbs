@@ -1,22 +1,5 @@
 <form method="POST" class="d-block ajaxForm" action="/items/create">
   <div class="form-row">
-
-    <div class="form-group col-md-12">
-      <label for="classId_on_create">Items category
-      </label>
-      <select name="itemCategoryId" id="classId_on_create" class="form-control select2" data-toggle="select2" required>
-        <option value="">select category
-        </option>
-        {{#each categories}}
-        <option value="{{id}}">
-          {{name}}
-        </option>
-        {{/each}}
-      </select>
-      <small id="class_help" class="form-text text-muted">
-        provide category
-      </small>
-    </div>
     <div class="form-group col-md-12">
       <label for="storeId">Store
       </label>
@@ -33,7 +16,22 @@
         provide store
       </small>
     </div>
-
+    <div class="form-group col-md-12">
+      <label for="classId_on_create">Items category
+      </label>
+      <select name="itemCategoryId" id="classId_on_create" class="form-control select2" data-toggle="select2" required>
+        <option value="">select category
+        </option>
+        {{#each categories}}
+        <option value="{{id}}">
+          {{name}}
+        </option>
+        {{/each}}
+      </select>
+      <small id="class_help" class="form-text text-muted">
+        provide category
+      </small>
+    </div>
     <div class="form-group col-md-12">
       <label for="name">
         Item name
@@ -71,27 +69,6 @@
       <input type="text" class="form-control" id="barcode" name="barcode" required>
       <small id="barcode_help" class="form-text text-muted">
         provide item barcode
-      </small>
-    </div>
-
-
-    <div class="form-group col-md-12">
-      <label for="batch">
-        Item batch
-      </label>
-      <input type="text" class="form-control" id="batch" name="batch" required>
-      <small id="batch_help" class="form-text text-muted">
-        provide item batch
-      </small>
-    </div>
-
-    <div class="form-group col-md-12">
-      <label for="serial_number">
-        Item serial number
-      </label>
-      <input type="text" class="form-control" id="serial_number" name="serial_number" required>
-      <small id="serial_number_help" class="form-text text-muted">
-        provide item serial number
       </small>
     </div>
 

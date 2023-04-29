@@ -46,8 +46,9 @@ module.exports = {
         const control = await new Controllers(req);
         if (req.method == 'GET' && req.url.includes('/edit')) {
             let items = await (await control.single()).item(req.params.id);
-            let items_categories = JSON.parse(JSON.stringify(await (await control.findBy()).item_categories({ where: { businessId: await (await control.getCurrentSession()).businessId } })));
-            res.render('superadmin/items/edit', { layout: false, items_categories: items_categories, items: items });
+            let items_categories = JSON.parse(JSON.stringify(await (await control.findBy()).item_categories()));
+            let stores = JSON.parse(JSON.stringify(await (await control.findBy()).store({ where: {} })));
+            res.render('superadmin/items/edit', { layout: false, items_categories: items_categories, items: items, stores: stores });
             return;
         } else {
             if (req.method == 'POST' && req.url.includes('/edit')) {

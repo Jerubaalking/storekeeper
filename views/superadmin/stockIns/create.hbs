@@ -5,7 +5,7 @@
                 <label for="item_batch_number">batch</label>
                 <input type="text" class="form-control" value="{{batch_number}}" id="item_batch_number"
                     name="item_batch_number" required disabled>
-                <small class="form-text text-muted">our batch number</small>
+                <small class="form-text text-muted">auto batch number</small>
             </div>
             <div class="form-group col-md-6">
                 <label for="date">received date</label>
@@ -78,33 +78,31 @@
                             <div class="form-group col-xl-1 col-lg-1 col-md-6 col-sm-12">
                                 <label for="inspected[]">Inspected</label><br>
 
-                                <input type="checkbox" name="inspected[]" value="false" onchange="toogle(this)"
+                                <input type="checkbox" name="inspected[]" value="false" onchange="toogle(this, '1')"
                                     id="inspected1" data-switch="success">
                                 <label for="inspected1" data-on-label="Yes" data-off-label="No"></label>
                                 <small class="form-text text-muted">inspection status</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 collapse" id="manufacturer1">
                                 <label for="manufacturer">Manufacturer</label>
-                                <input type="text" class="form-control" id="manufacturer[]" placeholder="manufacturer"
-                                    name="manufacturer[]" required>
+                                <input type="text" class="form-control collapse" placeholder="manufacturer"
+                                    name="manufacturer[]">
                                 <small class="form-text text-muted">manufacturer-number</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 collapse" id="expire_date1">
                                 <label for="expire_date">Expire Date</label>
-                                <input type="date" class="form-control" id="expire_date[]" placeholder="expire date"
-                                    name="expire_date[]" required>
+                                <input type="date" class="form-control" placeholder="expire date" name="expire_date[]">
                                 <small class="form-text text-muted">expire date</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 collapse " id="item_weight1">
                                 <label for="item_weight">Unit/Item weight</label>
-                                <input type="text" class="form-control" id="item_weight[]" placeholder="item weight"
-                                    name="item_weight[]" required>
+                                <input type="text" class="form-control" placeholder="item weight" name="item_weight[]">
                                 <small class="form-text text-muted">unit weight or volume</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 collapse" id="other_specs1">
                                 <label for="other_specs">other specs</label>
-                                <textarea type="other_specs" name="other_specs[]" class="form-control" value=""
-                                    placeholder="other specs..."></textarea>
+                                <textarea type="other_specs" name="other_specs[]" id="other_specs[]"
+                                    class="form-control " value="" placeholder="other specs..."></textarea>
                                 <small class="form-text text-muted">other specifications</small>
                             </div>
                             <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
@@ -184,33 +182,33 @@
                                 <small class="form-text text-muted">receipt-number</small>
                             </div>
                              <div class="form-group col-xl-1 col-lg-1 col-md-6 col-sm-12">
-                                <input type="checkbox" value="false" name="inspected[]" onchange="toogle(this)" id="inspected${id + 1}"
+                                <input type="checkbox" value="false" name="inspected[]" onchange="toogle(this, '${id + 1}')" id="inspected${id + 1}"
                                     data-switch="success">
                                 <label for="inspected${id + 1}" data-on-label="Yes" data-off-label="No"></label>
                                 <small class="form-text text-muted">inspection status</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
-                                <input type="text" class="form-control" id="manufacturer[]" placeholder="manufacturer"
-                                    name="manufacturer[]" required>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 collapse" id="manufacturer${id + 1}">
+                                <input type="text" class="form-control " id="manufacturer[]" placeholder="manufacturer"
+                                    name="manufacturer[]" >
                                 <small class="form-text text-muted">manufacturer name</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
-                                <input type="date" class="form-control" id="expire_date[]" placeholder="expire date"
-                                    name="expire_date[]" required>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 collapse" id="expire_date${id + 1}">
+                                <input type="date" class="form-control " id="expire_date[]" placeholder="expire date"
+                                    name="expire_date[]" >
                                 <small class="form-text text-muted">expire date</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 ">
-                                <input type="text" class="form-control" id="item_weight[]" placeholder="item weight"
-                                    name="item_weight[]" required>
+                            <div class="form-group col-xl-2 col-lg-2 col-md-6 col-sm-12 collapse" id="item_weight${id + 1}">
+                                <input type="text" class="form-control " id="item_weight[]" placeholder="item weight"
+                                    name="item_weight[]" >
                                 <small class="form-text text-muted">unit weight or volume</small>
                             </div>
-                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                                <textarea type="other_specs" name="other_specs[]" class="form-control" value=""
+                            <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 collapse" id="other_specs${id + 1}">
+                                <textarea type="other_specs" name="other_specs[]" id="other_specs[]" class="form-control collapse" value=""
                                     placeholder="other specs..."></textarea>
                                 <small class="form-text text-muted">other specifications</small>
                             </div>
                             <div class="form-group col-xl-2 col-lg-2 col-md-12 col-sm-12 ">
-                                <textarea type="comment" name="comment[]" class="form-control" value=""
+                                <textarea type="comment" name="comment[]" id="comment" class="form-control" value=""
                                     placeholder="comment..."></textarea>
                                 <small class="form-text text-muted">comment or note</small>
                             </div>
@@ -230,14 +228,22 @@
         let children = $('.customer-row').children().length;
         t.append(blank_field(t.children().length));
     }
-    function toogle(item) {
+    function toogle(item, id) {
         let t1 = $(item);
         let t = t1.val();
         console.log(t1, t);
         if (t == 'false') {
             $(item).val('true');
+            $('#manufacture' + id).removeClass('collapse');
+            $('#item_weight' + id).removeClass('collapse');
+            $('#other_specs' + id).removeClass('collapse');
+            $('#expire_date' + id).removeClass('collapse');
         } else {
             $(item).val('false');
+            $('#manufacture' + id).addClass('collapse');
+            $('#item_weight' + id).addClass('collapse');
+            $('#other_specs' + id).addClass('collapse');
+            $('#expire_date' + id).addClass('collapse');
         }
     }
 

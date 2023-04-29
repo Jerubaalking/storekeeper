@@ -71,9 +71,18 @@ class FindBy {
         return JSON.parse(JSON.stringify(await deductions_charts.findAll(opt)));
     }
     async stockIn(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
-        return JSON.parse(JSON.stringify(await stockIns.findAll(opt)));
+        switch (!this._session.businessId && this._session.sessionId) {
+            case null || undefined:
+                opt.where['businessId'] = this._session.businessId.toString();
+                opt.where['sessionId'] = this._session.sessionId.toString();
+                return JSON.parse(JSON.stringify(await stockIns.findAll(opt)));
+                break;
+
+            default:
+                opt.where['sessionId'] = this._session.sessionId.toString();
+                return JSON.parse(JSON.stringify(await stockIns.findAll(opt)));
+                break;
+        }
     }
     async employees_permissions(opt) {
         opt.where['businessId'] = this._session.businessId.toString();
