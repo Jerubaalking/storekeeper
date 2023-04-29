@@ -6,5 +6,5 @@ COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm install --production --silent && mv node_modules ../
 COPY . .
 EXPOSE 3001
-USER node
-CMD ["node", "main.js"]
+USER node NODE_ENV=production node app.js
+CMD ["NODE_ENV=production", "node main.js"]
