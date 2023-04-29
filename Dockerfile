@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm install --production --silent && mv node_modules ../
 COPY . .
-RUN set NODE_ENV=production
+RUN export NODE_ENV=production
 EXPOSE 3001
 USER node
 CMD ["node", "main.js"]
