@@ -1,10 +1,10 @@
+process.env.DB_HOST
 module.exports = {
-    "DB_HOST": "srv-captain--mysql-db",
-    "DB_USER": "root",
-    "DB_PASSWORD": "thina@2023",
-    "DB_HOST2": "srv-captain--mysql-db",
-    "DB_NAME": "storekeeper247_db",
-    "DB_PORT": 3306,
+    "DB_HOST": process.env.DB_HOST,
+    "DB_USER": process.env.DB_USER,
+    "DB_PASSWORD": process.env.DB_PASSWORD,
+    "DB_NAME": process.env.DB_NAME,
+    "DB_PORT": process.env.DB_PORT,
     "dialect": "mysql",
     pool: {
 
