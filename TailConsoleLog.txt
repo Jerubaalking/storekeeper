@@ -1,0 +1,1 @@
+docker service logs srv-captain--my-app --since 60m --follow
