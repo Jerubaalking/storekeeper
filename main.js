@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 dotenv.config({ path: `./config/config.env` });
 app.use(cors({
-    origin: 'storekeeper.saincrafttechnologies.com'
+    origin: 'https://storekeeper.saincrafttechnologies.com'
 }));
 
 app.use('/public', express.static(path.resolve(__dirname + '/public')));
