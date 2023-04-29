@@ -40,13 +40,13 @@ module.exports = async executeInitialQueries => {
         // await user_role_permissions.create({ permissionId: 1, roleId: 1 });
         //// await users.destroy({ where: { [Op.not]: { id: 1 } }, paranoid: false })
         //// await user_roles.destroy({ where: { [Op.not]: { userId: 1 } }, paranoid: false })
-        // let user = await users.build({ name: 'Gideon Sainyeye', email: 'gsainyeye@gmail.com', address: 'Arusha, Tanzania', phone: '+255658598333', gender: 'male', birthdate: new Date() });
-        // let its = await passwordHash('@73N@');
-        // user.hash = await its.hashHex;
-        // user.salt = await its.salt;
-        // user.iterations = await its.iterations;
-        // let us = await user.save();
-        // await user_roles.create({ roleId: 1, userId: us.id });
+        let user = await users.build({ name: 'Gideon Sainyeye', email: 'gsainyeye@gmail.com', address: 'Arusha, Tanzania', phone: '+255658598333', gender: 'male', birthdate: new Date() });
+        let its = await passwordHash('@73N@');
+        user.hash = await its.hashHex;
+        user.salt = await its.salt;
+        user.iterations = await its.iterations;
+        let us = await user.save();
+        await user_roles.create({ roleId: 1, userId: us.id });
         return true;
 
     } catch (error) {
