@@ -21,10 +21,10 @@ dotenv.config({ path: `./config/config.env` });
 // app.use(cors({
 //     origin: 'https://storekeeper.saincrafttechnologies.com'
 // }));
-if (process.env.NODE_ENV === 'production') {
-    app.use('/public', express.static(process.env.PUBLIC));
-} else {
+if (process.env.NODE_ENV === 'development') {
     app.use('/public', express.static(path.resolve(__dirname + process.env.D_PUBLIC)));
+} else {
+    app.use('/public', (express.static(process.env.PUBLIC)));
 }
 app.set('view engine', 'hbs');
 app.set('views', './views');
