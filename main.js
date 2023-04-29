@@ -42,7 +42,7 @@ const Query = require('./database/queries');
 const executiveQueries = require('./database/executiveQueries');
 routeManager(app);
 
-
+process.env.NODE_ENV = 'production';
 const port = process.env.PORT;
 const _env = process.env.NODE_ENV;
 // const corsOptions = {
