@@ -24,7 +24,7 @@ dotenv.config({ path: `./config/config.env` });
 if (process.env.NODE_ENV === 'development') {
     app.use('/public', express.static(path.resolve(__dirname + process.env.D_PUBLIC)));
 } else {
-    app.use('/public', express.static(process.env.PUBLIC));
+    app.use('/public', express.static('https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public'));
 }
 app.set('view engine', 'hbs');
 app.set('views', './views');
