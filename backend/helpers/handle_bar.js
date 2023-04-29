@@ -14,6 +14,13 @@ var register = function (Handlebars) {
         addLanguage: function (code, language) {
             var t = addLang(code, language);
         },
+        cdn: function () {
+            if (process.env.NODE_ENV === 'development') {
+                return '/public'
+            } else {
+                return 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public';
+            }
+        },
         setLanguage: function (code) {
             return setLang(code);
         },
