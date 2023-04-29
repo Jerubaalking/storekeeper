@@ -18,9 +18,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 dotenv.config({ path: `./config/config.env` });
-app.use(cors({
-    origin: 'https://storekeeper.saincrafttechnologies.com'
-}));
+// app.use(cors({
+//     origin: 'https://storekeeper.saincrafttechnologies.com'
+// }));
 
 app.use('/public', express.static(path.resolve(__dirname + '/public')));
 app.set('view engine', 'hbs');
