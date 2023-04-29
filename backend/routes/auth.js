@@ -57,7 +57,7 @@ router.post('/signin', async (req, res) => {
     let oldUser = JSON.parse(JSON.stringify(await (await new findby()).signin({ where: { email: email } })));
     console.log("old User", oldUser);
     // oldUser = oldUser[0];
-    if (!oldUser) {
+    if (!oldUser.salt) {
         res.render('auth/login', { layout: 'auth', message: `Users with email ${email} dont exist. Please register` });
     } else {
         //check if password match
