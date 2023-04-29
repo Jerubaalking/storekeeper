@@ -10,15 +10,13 @@ employees_permissions = sequelize.define('employees_permissions', {
         primaryKey: true,
         unique: true,
     },
-    sell: DataTypes.STRING,
-    buy: DataTypes.STRING,
-    access_store: DataTypes.STRING,
-    customer_care: DataTypes.STRING,
+    sell: DataTypes.BOOLEAN,
+    buy: DataTypes.BOOLEAN,
+    access_store: DataTypes.BOOLEAN,
+    customer_care: DataTypes.BOOLEAN,
 },);
 employees_permissions.belongsTo(stores);
 stores.hasMany(employees_permissions);
-employees_permissions.belongsTo(businesses);
-businesses.hasMany(employees_permissions);
 employees_permissions.belongsTo(employees);
 employees.hasMany(employees_permissions);
 module.exports = employees_permissions;

@@ -75,7 +75,7 @@ module.exports = {
         invoice = invoice[0];
         let storess = await (await control.findBy()).store({ where: { id: invoice.storeId } });
 
-        let itemss = await (await control.findBy()).stockIn({ where: {}, group: 'itemId', include: [{ model: items }] });
+        let itemss = await (await control.findBy()).stockIn({ where: {}, sort: 'itemId', include: [{ model: items }] });
         for (const item of invoice.stock_outs) {
             item['sum_qty'] = await (await control.sum()).stockIn('qty', { where: { itemId: item.itemId }, group: 'itemId' });
             item['sum_sold_qty'] = await (await control.sum()).stockOut('qty', { where: { itemId: item.itemId }, group: 'itemId' });

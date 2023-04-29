@@ -53,7 +53,9 @@ const authorizers = require("./authorizers")
 const stockIn_transactions = require("./stockIn_transactions")
 const roles = require("./roles")
 const user_role_permissions = require("./user_role_permissions")
-const user_roles = require("./user_roles")
+const user_roles = require("./user_roles");
+const authorizer_access = require("./authorizer_access")
+
 
 module.exports = {
     roles,
@@ -63,6 +65,7 @@ module.exports = {
     permissions,
     currencies, stockIns, transactions,
     stockOuts,
+    authorizer_access,
     businesses, item_categories, items, users, smtp_settings, settings, personels,
     departments, employees, customers, salaries, stock_out_invoices, stores, invoice_stockIns,
     invoice_stockOuts,

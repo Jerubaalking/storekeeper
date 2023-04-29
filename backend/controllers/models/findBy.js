@@ -90,9 +90,18 @@ class FindBy {
         return JSON.parse(JSON.stringify(await employees_permissions.findAll(opt)));
     }
     async stockOut(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
-        return JSON.parse(JSON.stringify(await stockOuts.findAll(opt)));
+        switch (!this._session.businessId && this._session.sessionId) {
+            case null || undefined:
+                opt.where['businessId'] = this._session.businessId.toString();
+                opt.where['sessionId'] = this._session.sessionId.toString();
+                return JSON.parse(JSON.stringify(await stockOuts.findAll(opt)));
+                break;
+
+            default:
+                opt.where['sessionId'] = this._session.sessionId.toString();
+                return JSON.parse(JSON.stringify(await stockOuts.findAll(opt)));
+                break;
+        }
     }
     async subject(opt) {
         opt.where['businessId'] = this._session.businessId.toString();
@@ -298,11 +307,12 @@ class FindBy {
     }
     async enrol(opt) {
         try {
-            opt.where['businessId'] = this._session.businessId.toString();
+            opt.where['businessId'] = (this._session.businessId) ? this._session.businessId.toString() : 1;
             opt.where['sessionId'] = this._session.sessionId.toString();
             console.log('opt>>>>>>', opt);
             return JSON.parse(JSON.stringify(await enrols.findAll(opt)));
         } catch (err) {
+            console.log(err);
             return err.message;
         }
     }

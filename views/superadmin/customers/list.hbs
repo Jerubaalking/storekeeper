@@ -85,16 +85,16 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item"
-                  onclick="largeModal('/customers/profile/{{id}}', '{{customer.name}} profile')">
+                  onclick="largeModal('/customers/profile/{{customer.id}}', '{{customer.name}} profile')">
                   profile
                 </a>
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item"
-                  onclick="rightModal('/customers/invoice/create/{{id}}', '{{customer.name}} invoice')">
+                  onclick="rightModal('/customers/invoice/create/{{customer.id}}', '{{customer.name}} invoice')">
                   add invoice
                 </a>
                 <!-- item-->
-                <a href="javascript:void(0);" onclick="largeModal('customers/edit/{{id}}', 'update customer')"
+                <a href="javascript:void(0);" onclick="largeModal('customers/edit/{{customer.id}}', 'update customer')"
                   class="dropdown-item">
                   edit
                 </a>

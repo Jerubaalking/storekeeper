@@ -15,7 +15,7 @@ const {
     invoice_authorizers,
     authorizers,
     stockIn_transactions,
-    noticeboard, menus, sales, expenses_categories, expenses, deductions, payment_methods, invoices, enrols, employees_permissions, employees_attendances, deductions_charts
+    noticeboard, menus, sales, expenses_categories, expenses, deductions, payment_methods, invoices, enrols, employees_permissions, employees_attendances, deductions_charts, authorizer_access
 } = require('./models/module_exporter');
 const { Op } = require('./mysql');
 module.exports = async executeInitialQueries => {
@@ -33,6 +33,10 @@ module.exports = async executeInitialQueries => {
         }
         // console.log(menuArray);
         await sessions.create({ name: '2023', status: 1 });
+        await authorizers.create({ title: 'invoice', accept: "['admin', 'employee-accountant', 'employee-manager']" });
+        await authorizers.create({ title: 'profoma', accept: "['admin', 'system-manager', 'employee-accountant', 'employee-sales', 'employee-marketing', 'employee-manager']" });
+        await authorizers.create({ title: 'payment', accept: "['admin', 'employee-accountant','employee-manager']" });
+        await authorizers.create({ title: 'transaction', accept: "['admin', 'employee-accountant', 'employee-sales', 'employee-manager']" });
         await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
         await permissions.bulkCreate([{ permission: 'all' }, { permission: 'create' }, { permission: 'edit' }, { permission: 'delete' }, { permission: 'view' }]);
 

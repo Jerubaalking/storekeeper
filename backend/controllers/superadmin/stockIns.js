@@ -60,7 +60,7 @@ module.exports = {
                 try {
                     console.log('its post:');
                     let data = req.body;
-                    console.log(data, req.body.item_batch_number);
+                    console.log('DATA 1>>>>>::', data, req.body.item_batch_number);
                     let added = await (await new Controllers(req).create()).stockIn(data);
                     (added) ?
                         res.json({ status: true, notification: 'successfully added stock!' }) :

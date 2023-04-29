@@ -24,9 +24,9 @@ module.exports = {
         const control = await new Controllers(req);
         console.log(req.query);
         let customerz = null;
-        (req.params.store == 'all') ?
-            customerz = await (await control.findBy()).enrol({ where: {}, include: [{ model: customers }, { model: personels, include: { model: users } }, { model: stores }] }) :
-            customerz = await (await control.findBy()).enrol({ where: { storeId: req.params.store }, include: [{ model: customers }, { model: personels, include: { model: users } }, { model: stores }] });
+        customerz = (req.params.store == 'all') ?
+            await (await control.findBy()).enrol({ where: {}, include: [{ model: customers }, { model: personels, include: { model: users } }, { model: stores }] }) :
+            await (await control.findBy()).enrol({ where: { storeId: req.params.store }, include: [{ model: customers }, { model: personels, include: { model: users } }, { model: stores }] });
         console.log('customers:::>>>>>>>||', customerz);
         res.render('superadmin/customers/list', { layout: false, customers: customerz });
     },
@@ -48,7 +48,7 @@ module.exports = {
                 try {
                     let data = req.body;
                     data.role = 'customer';
-                    await (await control.create()).user(data);
+                    await (await control.create()).customers(data);
                     res.json({ status: true, notification: 'successfully added admin!' })
                 } catch (err) {
                     res.json({ status: false, notification: 'failed to add admin: ' + err.message })
@@ -73,7 +73,7 @@ module.exports = {
             data['storeId'] = customers.store.id;
             let invoice = await (await control.create()).invoice(data);
             console.log(invoice, customers);
-            res.json({ status: true, notification: 'successfully added invoice'});
+            res.json({ status: true, notification: 'successfully added invoice' });
         } catch (err) {
             console.log(err);
             res.json({ status: false, notification: 'failed to add invoice\n\r' + err.message });

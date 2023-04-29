@@ -82,32 +82,39 @@ class Creates {
         }
     }
     async stockIn(data) {
-        if (this._instance.businessId, this._instance.sessionId) {
-            let valArray = [];
-            for (let i = 0; i < data.qty.length; i++) {
-                let dt = {
-                    storeId: data.storeId,
-                    item_batch_number: data.item_batch_number,
-                    manufacture_batch_number: data.manufacturer_batch_number[i],
-                    itemId: data.itemId[i],
-                    qty: data.qty[i],
-                    amount: data.amount[i],
-                    manufacturer: data.manufacturer[i],
-                    receive_date: data.receive_date,
-                    receipt: data.receipt[i],
-                    inspected: data.inspected[i],
-                    other_specs: data.other_specs[i],
-                    item_weight: data.item_weight[i],
-                    expire_date: data.expire_date[i],
-                    businessId: await this._instance.businessId,
-                    sessionId: await this._instance.sessionId,
-                    comment: data.comment[i]
+        try {
+            console.log("DATA>>>::", data);
+
+            if (this._instance.businessId, this._instance.sessionId) {
+                let valArray = [];
+                for (let i = 0; i < data.qty.length; i++) {
+                    let dt = {
+                        storeId: data.storeId,
+                        item_batch_number: data.item_batch_number,
+                        manufacture_batch_number: data.manufacturer_batch_number[i],
+                        itemId: data.itemId[i],
+                        qty: data.qty[i],
+                        amount: data.amount[i],
+                        manufacturer: data.manufacturer[i],
+                        receive_date: data.receive_date,
+                        receipt: data.receipt[i],
+                        inspected: (data['inspected']) ? true : false,
+                        other_specs: (data['other_specs'][i]) ? data.other_specs[i] : null,
+                        item_weight: (data['item_weight'][i]) ? data.item_weight[i] : '0 unknown',
+                        expire_date: (data['expire_date'][i]) ? data.expire_date[i] : null,
+                        businessId: await this._instance.businessId,
+                        sessionId: await this._instance.sessionId,
+                        comment: data.comment[i]
+                    }
+                    valArray.push(dt);
                 }
-                valArray.push(dt);
+                return await stockIns.bulkCreate(valArray);
+            } else {
+                throw new Error('user not authenticated!');
             }
-            return await stockIns.bulkCreate(valArray);
-        } else {
-            throw new Error('user not authenticated!');
+        } catch (error) {
+            console.log(error);
+            throw new Error(error);
         }
     }
 
@@ -415,13 +422,13 @@ class Creates {
                 console.log(data.name);
                 for (var i = 0; i < data.name.length; i++) {
                     let code = await generateUniqueIdentifier('CIN');
-                    let customer = { name: data.name[i], code: code, address: data.address[i], phone: data.phone[i], email: data.email[i], tin: data.tin[i], personelId: parseInt(data.personelId[i]), storeId: parseInt(data.storeId[i]), sessionId: this._instance.sessionId, businessId: this._instance.businessId };
+                    let customer = { name: data.name[i], code: code, address: data.address[i], phone: data.phone[i], email: data.email[i], tin: data.tin[i], personelId: parseInt(data.personelId[i]), storeId: parseInt(data.storeId[i]), sessionId: this._instance.sessionId, businessId: (this._instance.businessId) ? this._instance.businessId : 1 };
                     console.log('customer>>>>>>', customer);
                     let c = await customers.create(customer);
                     c = JSON.parse(JSON.stringify(await c));
                     console.log(c);
 
-                    let enr = { personelId: parseInt(data.personelId[i]), storeId: parseInt(data.storeId[i]), sessionId: this._instance.sessionId, businessId: this._instance.businessId, customerId: parseInt(c.id) };
+                    let enr = { personelId: parseInt(data.personelId[i]), storeId: parseInt(data.storeId[i]), sessionId: this._instance.sessionId, businessId: (this._instance.businessId) ? this._instance.businessId : 1, customerId: parseInt(c.id) };
 
                     all.push(enr);
                 }
