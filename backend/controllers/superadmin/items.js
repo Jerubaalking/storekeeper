@@ -1,9 +1,6 @@
 const { Op } = require("../../../database/mysql");
-const businesses = require("../../../database/models/businesses");
-const users = require("../../../database/models/users");
-const items = require("../../../database/models/items");
 const Controllers = require("../models/control");
-const item_categories = require("../../../database/models/item_categories");
+const { businesses, users, item_categories, items} = require("../../../database/models/module_exporter");
 let _many_module = 'businesses';
 let _single_module = 'business';
 module.exports = {

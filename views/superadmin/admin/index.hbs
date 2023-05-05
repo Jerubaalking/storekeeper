@@ -6,7 +6,7 @@
         <h4 class="page-title">
           <i class="mdi mdi-account-child-circle text-primary title_icon"></i> All Admins
           <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle"
-            onclick="rightModal('/admin/create', 'create admin')"> <i class="mdi mdi-plus"></i>
+            onclick="largeModal('/admin/create', 'create admin')"> <i class="mdi mdi-plus"></i>
             create admin
           </button>
         </h4>
@@ -25,10 +25,23 @@
 </div>
 
 <script>
-
+  var addAddress = () => {
+    $('#addressTray').append(`<textarea class="form-control" id="address[]" name="address[]" rows="5" required></textarea>
+                <small id="" class="form-text text-muted">
+                    provide admin address
+                </small>`)
+  }
+  var addPhone = () => {
+    $('#phoneTray').append(`
+                <input type="text" class="form-control" id="phone[]" name="phone[]" required>
+                <small id="" class="form-text text-muted">
+                    provide admin phone number
+                </small>`);
+  }
   $(document).ready(() => {
     showAllAdmins();
   });
+
   var showAllAdmins = function () {
     var url = '/admin/list';
 

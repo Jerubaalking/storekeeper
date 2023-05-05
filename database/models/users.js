@@ -17,7 +17,10 @@ users = sequelize.define('users', {
     hash: Sequelize.STRING,
     salt: Sequelize.STRING,
     iterations: Sequelize.INTEGER,
-    phone: Sequelize.STRING,
+    phone: {
+        type: Sequelize.STRING,
+        unique: true
+    },
     blood_group: Sequelize.STRING,
     gender: Sequelize.STRING,
     birthday: Sequelize.DATE,

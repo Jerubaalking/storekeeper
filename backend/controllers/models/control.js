@@ -17,20 +17,23 @@ const roles = require("../../../database/models/roles");
 class Controllers extends Session {
     constructor(req) {
         super(req);
-        this._session = this.getCurrentSession().then().catch(err => console.log(err))
+        this._session = this.getCurrentSession().then().catch(err => console.log(err));
     }
     async authorize(action) {
         // console.log(this._session);
-        let sessionss = await this._session;
-        let authorizer = await authorizers.findOne({ where: { title: action, businessId: await sessionss.businessId, sessionId: await sessionss.sessionId } });
-        authorizer = JSON.parse(JSON.stringify(await authorizer));
-        let role = await roles.findOne({ where: { id: sessionss.roleId } });
-        role = JSON.parse(JSON.stringify(role));
-        if (authorizer.accept.includes(role.role)) {
-            return true;
-        } else {
-            return false
-        }
+        // let sessionss = await this._session;
+        // let authorizer = await authorizers.findOne({ where: { title: action, businessId: await sessionss.businessId, sessionId: await sessionss.sessionId } });
+        // authorizer = JSON.parse(JSON.stringify(await authorizer));
+        // let role = await roles.findOne({ where: { id: sessionss.roleId } });
+        // role = JSON.parse(JSON.stringify(role));
+        // if (authorizer.accept.includes(role.role)) {
+        //     return true;
+        // } else {
+        //     return false
+        // }
+        let authority = JSON.parse(JSON.stringify(await authorizers.findOne({ where: { title: action } })));
+        
+        return await authority;
     }
     async find() {
         return await new Finds(await this.getCurrentSession());

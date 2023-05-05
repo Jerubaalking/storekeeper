@@ -1,3 +1,4 @@
+const clients = require('../../../database/models/clients');
 const {
     sessions,
     currencies, stockIns, stockOuts,
@@ -45,8 +46,8 @@ class Single {
     async userOpt(opt) {
         return JSON.parse(JSON.stringify(await users.findOne(opt)))
     }
-    async book(id) {
-        return JSON.parse(JSON.stringify(await books.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+    async stockIn(id) {
+        return JSON.parse(JSON.stringify(await stockIns.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
     }
 
     async bookIssue(id) {
@@ -88,6 +89,9 @@ class Single {
     }
     async user(id) {
         return JSON.parse(JSON.stringify(await users.findOne({ where: { id: id } })));
+    }
+    async client(id) {
+        return JSON.parse(JSON.stringify(await clients.findOne({ where: { id: id }, include: [{ model: users }, { model: businesses }] })));
     }
     async smtp_setting(opt) {
         return JSON.parse(JSON.stringify(await smtp_settings.findOne(opt)))

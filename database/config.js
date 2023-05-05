@@ -1,30 +1,13 @@
 
-if (process.env.NODE_ENV === 'production') {
 
-    var host = process.env.DB_HOST;
-    var user = process.env.DB_USER;
-    var password = process.env.DB_PASSWORD;
-    var name = process.env.DB_NAME;
-    var port = process.env.DB_PORT;
-    var dialect = process.env.DB_DIALECT;
-} else {
-
-    var host = process.env.D_DB_HOST;
-    var user = process.env.D_DB_USER;
-    var password = process.env.D_DB_PASSWORD;
-    var name = process.env.D_DB_NAME;
-    var port = process.env.D_DB_PORT;
-    var dialect = process.env.D_DB_DIALECT;
-}
-
-module.exports = (() => {
+module.exports = () => {
     return {
-        "DB_HOST": host,
-        "DB_USER": user,
-        "DB_PASSWORD": password,
-        "DB_NAME": name,
-        "DB_PORT": port,
-        "dialect": dialect,
+        "DB_HOST": process.env.D_DB_HOST || '127.0.0.1',
+        "DB_USER": process.env.D_DB_USER || 'root',
+        "DB_PASSWORD": process.env.D_DB_PASSWORD || 'thina2023',
+        "DB_NAME": process.env.D_DB_NAME || 'storekeeper247_db',
+        "DB_PORT": process.env.D_DB_PORT || 3307,
+        "dialect": process.env.D_DB_DIALECT || 'mysql',
         pool: {
 
             max: 5,
@@ -38,4 +21,4 @@ module.exports = (() => {
         }
 
     }
-})();
+};

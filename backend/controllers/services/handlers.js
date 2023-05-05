@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
-const businesses = require("../../../database/models/businesses");
 const findby = require("../models/findBy");
-
-
+const { businesses } = require("../../../database/models/module_exporter");
 const jwtExpirySeconds = 30;
+const passport = require('passport');
 const spawnJwtToken = async (data, salt, lifeInSeconds) => {
     return jwt.sign(data, salt, {
         algorithm: "HS256",
@@ -56,34 +55,31 @@ const signIn = async (req, res) => {
     res.cookie("token", token, { maxAge: jwtExpirySeconds * 1000 })
     res.end();
 }
-const isLoggedIn = async (req, res, next) => {
-    // We can obtain the session token from the requests cookies, which come with every request
-    const token = req.cookies._57or35
-    const salt = req.cookies.e5t_
-    // if the cookie is not set, return an unauthorized error
-    if (!token) {
-        // redirect to login
-        return res.redirect('/auth/signin');
-    } else {
-        try {
-            let payload = await spawnJwtPayload(token, salt);
-            console.log("payload: ", payload);
-            req.body['userId'] = payload.userId;
-            req.body['businessId'] = payload.businessId;
-            req.body['sessionId'] = payload.sessionId;
-
-            next()
-        } catch (err) {
-            superadmin
-            return res.redirect('/auth/signin');
-        }
-    }
 
 
-    // Finally, return the welcome message to the user, along with their
-    // username given in the token
-    // res.send(`Welcome ${payload.username}!`)
-}
+// if (!token) {
+//     // redirect to login
+//     return res.redirect('/auth/signin');
+// } else {
+//     try {
+//         let payload = await spawnJwtPayload(token, salt);
+//         console.log("payload: ", payload);
+//         req.body['userId'] = payload.userId;
+//         // req.body['businessId'] = payload.businessId;
+//         req.body['sessionId'] = payload.sessionId;
+
+//         next()
+//     } catch (err) {
+//         superadmin
+//         return res.redirect('/auth/signin');
+//     }
+// }
+
+
+// Finally, return the welcome message to the user, along with their
+// username given in the token
+// res.send(`Welcome ${payload.username}!`)
+// }
 const refresh = (req, res, next) => {
     // (BEGIN) The code uptil this point is the same as the first part of the `welcome` routes
     const jwtKey = req.cookies.e5t_;
@@ -127,4 +123,4 @@ const refresh = (req, res, next) => {
     next();
 }
 
-module.exports = { signIn, isLoggedIn, spawnJwtPayload, refresh, spawnJwtToken }
+module.exports = { signIn, spawnJwtPayload, refresh, spawnJwtToken }

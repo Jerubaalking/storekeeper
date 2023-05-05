@@ -1,11 +1,10 @@
 const { Model, Sequelize, DataTypes, sequelize } = require("../mysql");
-const businesses = require("./businesses");
+const businesses = require("./businessees/businesses");
 const customers = require("./customers");
 const items = require("./items");
 const sessions = require("./sessions");
-const stockIns = require("./stockIns");
-const stores = require("./stores");
-const users = require("./users");
+const stockIns = require("./puchase_items");
+const stores = require("./stores/stores");
 class stockOuts extends Model { };
 stockOuts = sequelize.define('stock_outs', {
     id: {

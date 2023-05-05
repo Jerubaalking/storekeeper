@@ -2,7 +2,7 @@ const express = require('express');
 const businesses = require('../../controllers/superadmin/businesses');
 const router = express.Router();
 
-const { isLoggedIn } = require('../../controllers/services/handlers');
+const { isLoggedIn } = require('../../../passport/passport');
 const { businessLogo, businessStamp } = require('../../controllers/services/multerConfig');
 
 router.get('/', isLoggedIn, businesses.index);

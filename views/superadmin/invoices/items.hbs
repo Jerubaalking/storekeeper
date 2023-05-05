@@ -30,23 +30,19 @@
     <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
         <thead class="thead-dark">
             <tr>
-                <th>item</th>
-                <th>model/version/tye</th>
-                <th>version</th>
-                <th>price</th>
+                <th>Date</th>
+                <th>Item</th>
+                <th>model/version/type & price</th>
                 <th>qty</th>
-                <th>value</th>
-                <th>date</th>
+                <th>cost</th>
                 <th>options</th>
             </tr>
         </thead>
         <tfoot class="tfoot" style="background-color: rgb(231, 228, 225);">
             <tr>
-                <td> <small><strong>invoice number</strong></small>
+                <td> --
                 </td>
-                <td> <small><strong>{{invoice.invoice_id}}</strong></small>
-                </td>
-                <td> <small><strong>--</strong></small>
+                <td> <small><strong>No. {{invoice.invoice_id}}</strong></small>
                 </td>
                 <td> <small><strong>value: {{money invoice.total_buying_amount}}</strong></small>
                 </td>
@@ -56,32 +52,27 @@
                 </td>
                 <td> --
                 </td>
-                <td> --
-                </td>
             </tr>
         </tfoot>
         <tbody>
             {{#each stockOuts}}
             <tr>
+                <td>{{setHomeDate createdAt}}
+                </td>
                 <td>
                     <option>{{item.name}}</option>
                     <option>{{invoice_id}}</option>
 
                 </td>
                 <td>
-                    {{item.model}}
-                </td>
-                <td>
-                    {{item.version}}
-                </td>
-                <td>{{money stock_in.selling_price}}
 
+                    <option><strong>Model:</strong>{{item.model}}</option>
+                    <option><strong>Version:</strong>{{item.version}}</option>
+                    <option><strong>Price:</strong>{{money stock_in.selling_price}}</option>
                 </td>
                 <td>{{qty}}
                 </td>
                 <td>{{money value}}
-                </td>
-                <td>{{setHomeDate createdAt}}
                 </td>
                 <td>
                     <div class="dropdown text-center">

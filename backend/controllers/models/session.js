@@ -1,14 +1,13 @@
-const businesses = require("../../../database/models/businesses");
-const permissions = require("../../../database/models/permissions");
-const roles = require("../../../database/models/roles");
-const user_roles = require("../../../database/models/user_roles");
+const { businesses, permissions, roles, user_roles, business_addresses } = require("../../../database/models/module_exporter");
+
 const { spawnJwtPayload } = require("../services/handlers");
 
 class Session {
     #_session;
     constructor(req) {
         this._request = req;
-        this.#_session = spawnJwtPayload(req.cookies._57or35, req.cookies.e5t_);
+        this.#_session = req.session.passport;
+        // this.#_session = spawnJwtPayload(req.cookies._57or35, req.cookies.e5t_);/
     }
     async getCurrentBusiness() {
         try {
@@ -52,7 +51,7 @@ class Session {
         return this.#_session.businessId;
     }
     async getCurrentSession() {
-        return this.#_session;
+        return await this.#_session;
     }
 }
 module.exports = Session;

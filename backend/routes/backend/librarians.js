@@ -2,7 +2,8 @@ const express = require('express');
 const librarian = require('../../controllers/superadmin/librarians');
 const router = express.Router();
 
-const { isLoggedIn } = require('../../controllers/services/handlers');
+
+const { isLoggedIn } = require('../../../passport/passport');;
 const { userImage, userCsv } = require('../../controllers/services/multerConfig');
 
 router.get('/', librarian.index);

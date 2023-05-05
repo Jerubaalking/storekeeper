@@ -69,25 +69,29 @@ module.exports = {
         res.render('superadmin/invoices/items', { layout: false, stockOuts: invoice.stock_outs, invoice: invoice });
     },
     add_items: async (req, res) => {
-        const control = await new Controllers(req);
+        var control = await new Controllers(req);
 
         let invoice = await (await control.findBy()).invoice({ where: { id: req.params.id }, include: [{ model: customers }, { model: stockOuts }, { model: stores }] });
-        invoice = invoice[0];
-        let storess = await (await control.findBy()).store({ where: { id: invoice.storeId } });
 
+        invoice = await invoice[0];
+        let storess = await (await control.findBy()).store({ where: { id: await invoice.storeId } });
+
+        console.log("invoice....11", await invoice);
         let itemss = await (await control.findBy()).stockIn({ where: {}, sort: 'itemId', include: [{ model: items }] });
-        for (const item of invoice.stock_outs) {
+        for (const item of await invoice.stock_outs) {
             item['sum_qty'] = await (await control.sum()).stockIn('qty', { where: { itemId: item.itemId }, group: 'itemId' });
             item['sum_sold_qty'] = await (await control.sum()).stockOut('qty', { where: { itemId: item.itemId }, group: 'itemId' });
             item['balance'] = parseFloat(await item['sum_qty']) - parseFloat(await item['sum_sold_qty']);
 
         }
-        let discountSetting = {
-            amount: await (await control.authorize('discount_amount')),
-            percent: await (await control.authorize('discount_percent')),
+        var control = await new Controllers(req);
+        var discountSetting = {
+
+            amount: await (await control.authorize)('discount_amount'),
+            percent: await (await control.authorize)('discount_percent'),
         };
-        console.log(discountSetting);
-        res.render('superadmin/invoices/create_item', { layout: false, items: itemss, invoice: invoice, stores: storess, discountSetting: discountSetting });
+        console.log("invoice....2", await discountSetting, await storess);
+        res.render('superadmin/invoices/create_item', { layout: false, items: itemss, invoice: invoice, stores: storess, discountSetting: await discountSetting });
     },
     save_items: async (req, res) => {
         let data = req.body;

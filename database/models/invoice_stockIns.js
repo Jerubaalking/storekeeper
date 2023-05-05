@@ -1,7 +1,7 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
 const invoices = require("./invoices");
 const items = require("./items");
-const stockIns = require("./stockIns");
+const stockIns = require("./puchase_items");
 class invoice_stockIns extends Model { };
 invoice_stockIns = sequelize.define('invoice_stockIns', {
     id: {

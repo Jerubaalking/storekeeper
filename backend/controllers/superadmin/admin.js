@@ -4,9 +4,8 @@ const finds = require("../models/finds");
 const single = require("../models/single");
 const findby = require("../models/findBy");
 const { Op } = require("../../../database/mysql");
-const businesses = require("../../../database/models/businesses");
+const { businesses, users } = require("../../../database/models/module_exporter");
 const Controllers = require("../models/control");
-const users = require("../../../database/models/users");
 let _many_module = 'businesses';
 let _single_module = 'school';
 module.exports = {
@@ -16,7 +15,7 @@ module.exports = {
     },
     list: async (req, res) => {
 
-        let roles = await (await new Controllers(req).findBy()).role({ where: { role: "admin" }, include: [{ model: users, include: [{ model: businesses, nested: true }] }] });
+        let roles = await (await new Controllers(req).findBy()).role({ where: { role: "admin" }, include: [{ model: users }] });
         console.log(roles[0].users[0]);
         if (roles[0].users) {
             res.render('superadmin/admin/list', { layout: false, admins: roles[0].users, message: "success!" });
@@ -27,8 +26,7 @@ module.exports = {
     create: async (req, res) => {
 
         if (req.method == 'GET' && req.url == '/create') {
-            let businesses = await (await new Controllers(req).find()).businesses();
-            res.render('superadmin/admin/create', { layout: false, businesses: JSON.parse(JSON.stringify(businesses)) });
+            res.render('superadmin/admin/create', { layout: false });
         } else {
             if (req.method == 'POST' && req.url.includes('/create')) {
                 try {

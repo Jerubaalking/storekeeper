@@ -1,4 +1,4 @@
-const stores = require("../../../database/models/stores");
+const stores = require("../../../database/models/stores/stores");
 const Controllers = require("../models/control");
 
 module.exports = {

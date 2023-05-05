@@ -1,5 +1,5 @@
 const { Model, Sequelize, sequelize } = require("../mysql");
-const businesses = require("./businesses");
+const businesses = require("./businessees/businesses");
 const sessions = require("./sessions");
 const users = require("./users");
 class personels extends Model { };

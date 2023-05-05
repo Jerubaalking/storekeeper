@@ -1,21 +1,37 @@
 const { passwordHash } = require('../backend/controllers/services/service');
 const {
     roles,
+    store_menus,
+    business_addresses,
+    business_assets,
+    business_authorizer_access,
+    business_bonuses,
+    business_contacts,
+    business_employees,
+    business_employees_attendances,
+    business_invoices,
+    business_menus,
+    business_notifications,
+    business_payment_methods,
+    store_asset_limits,
+    store_assets,
+    store_deductions,
+    stores,
     user_role_permissions,
-    user_roles,
+    user_roles, stockOuts,
     sessions, userRoles, userRolePermissions,
     permissions,
-    currencies, stockIns, transactions,
-    stockOuts,
+    currencies, transactions,
+    authorizer_access,
     businesses, item_categories, items, users, smtp_settings, settings, personels,
-    departments, employees, customers, salaries, stock_out_invoices, stores, invoice_stockIns,
+    departments, customers, salaries, stock_out_invoices, invoice_stockIns,
     invoice_stockOuts,
     invoice_transactions,
     transaction_authorizers,
     invoice_authorizers,
     authorizers,
     stockIn_transactions,
-    noticeboard, menus, sales, expenses_categories, expenses, deductions, payment_methods, invoices, enrols, employees_permissions, employees_attendances, deductions_charts, authorizer_access
+    noticeboard, menus, sales, expenses_categories, expenses, deductions, payment_methods, invoices, enrols, employees_permissions, deductions_charts
 } = require('./models/module_exporter');
 const { Op } = require('./mysql');
 module.exports = async executeInitialQueries => {

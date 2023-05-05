@@ -1,5 +1,4 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-const businesses = require("./businesses");
 const sessions = require("./sessions");
 class authorizers extends Model { };
 authorizers = sequelize.define('authorizers', {
@@ -9,13 +8,11 @@ authorizers = sequelize.define('authorizers', {
         primaryKey: true,
     },
     title: DataTypes.STRING,
-    accept: {
-        type: DataTypes.STRING,
-        defaultValue: "['superadmin', 'admin', 'system-manager', 'employee-accountant', 'employee-sales', 'employee-marketing', 'employee-manager', 'employee-hr']"
-    },
+    // accept: {
+    //     type: DataTypes.STRING,
+    //     defaultValue: "['superadmin', 'admin', 'system-manager', 'employee-accountant', 'employee-sales', 'employee-marketing', 'employee-manager', 'employee-hr']"
+    // },
 }, { timestamps: true, paranoid: true });
-authorizers.belongsTo(businesses);
-businesses.hasMany(authorizers);
 authorizers.belongsTo(sessions);
 sessions.hasMany(authorizers);
 module.exports = authorizers;

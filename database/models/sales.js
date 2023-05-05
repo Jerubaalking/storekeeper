@@ -1,6 +1,6 @@
 const { Model, Sequelize, sequelize } = require("../mysql");
-const businesses = require("./businesses");
-const employees = require("./employees");
+const businesses = require("./businessees/businesses");
+const employees = require("./stores/store_employees");
 const sessions = require("./sessions");
 const customers = require("./customers");
 const items = require("./items");

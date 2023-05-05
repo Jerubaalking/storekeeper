@@ -1,5 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-
+const countries = require("./countries");
 class currencies extends Model { };
 currencies = sequelize.define('currencies', {
     id: {
@@ -10,10 +10,13 @@ currencies = sequelize.define('currencies', {
     name: { type: DataTypes.STRING, },
     code: { type: DataTypes.STRING, },
     symbol: { type: DataTypes.STRING, },
-    country: { type: DataTypes.STRING, },
-    country_code: { type: DataTypes.STRING, },
-    comment: { type: DataTypes.STRING, },
-    paypal_supported: { type: DataTypes.STRING, },
-    stripe_supported: { type: DataTypes.STRING, },
+    paypal_supported: { type: DataTypes.BOOLEAN, },
+    stripe_supported: { type: DataTypes.BOOLEAN, },
+    vodacom_supported: { type: DataTypes.BOOLEAN, },
+    safaricom_supported: { type: DataTypes.BOOLEAN, },
+    tigo_supported: { type: DataTypes.BOOLEAN, },
+    airtel_supported: { type: DataTypes.BOOLEAN, },
 });
+currencies.belongsTo(countries);
+countries.hasMany(currencies);
 module.exports = currencies;

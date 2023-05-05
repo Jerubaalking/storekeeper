@@ -10,10 +10,15 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="#">
     <!-- App css -->
-    <link href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link
+        href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/icons.min.css"
+        rel="stylesheet" type="text/css" />
+    <link
+        href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/app.min.css"
+        rel="stylesheet" type="text/css" />
     <!--Notify for ajax-->
-    <link rel="stylesheet" href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/toastr.min.css">
+    <link rel="stylesheet"
+        href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/toastr.min.css">
 
 </head>
 
@@ -34,7 +39,9 @@
                     <!-- title-->
                     <h4 class="mt-0">Sign in</h4>
                     <p class="text-muted mb-4">Enter your email"</p>
-
+                    <div class="" id="notification">
+                        message : {{message.error}}
+                    </div>
                     <!-- form -->
                     <form action="/auth/signin" method="post" id="loginForm">
                         <div class="form-group">
@@ -100,9 +107,11 @@
     <!-- end auth-fluid-->
 
     <!-- App js -->
-    <script src="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/js/app.min.js"></script>
+    <script
+        src="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/js/app.min.js"></script>
 
     <!--Notify for ajax-->
-    <script src="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/js/toastr.min.js"></script>
+    <script
+        src="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/js/toastr.min.js"></script>
 
 </html>

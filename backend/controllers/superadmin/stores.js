@@ -1,11 +1,10 @@
 const { Op } = require("../../../database/mysql");
 // const schools = require("../../../database/models/schools");
-const users = require("../../../database/models/users");
 // const sections = require("../../../database/models/sections");
 // const vehicles = require("../../../database/models/vehicles");
 const { getPayload } = require('./getPayload');
 const Controllers = require("../models/control");
-const businesses = require("../../../database/models/businesses");
+const { businesses, users} = require("../../../database/models/module_exporter");
 let _many_module = 'schools';
 let _single_module = 'school';
 module.exports = {
@@ -15,7 +14,7 @@ module.exports = {
     },
     list: async (req, res) => {
 
-        let stores = JSON.parse(JSON.stringify(await (await new Controllers(req).findBy()).store({ where: { businessId: req.body.businessId }, include: { model: businesses } })));
+        let stores = JSON.parse(JSON.stringify(await (await new Controllers(req).findBy()).store({ where: { businessId: (req.body.businessId) ? req.body.businessId : null }, include: { model: businesses } })));
         console.log('stores_stores::::', stores);
         res.render('superadmin/stores/list', { layout: false, stores: stores });
     },

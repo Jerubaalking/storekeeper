@@ -1,7 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
 const invoices = require("./invoices");
-const items = require("./items");
-const stockIns = require("./stockIns");
 const stockOuts = require("./stockOuts");
 class invoice_stockOuts extends Model { };
 invoice_stockOuts = sequelize.define('invoice_stockOuts', {

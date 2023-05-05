@@ -2,7 +2,8 @@ const express = require('express');
 const buses = require('../../controllers/superadmin/buses');
 const router = express.Router();
 
-const { isLoggedIn } = require('../../controllers/services/handlers');
+
+const { isLoggedIn } = require('../../../passport/passport');;
 const { userImage } = require('../../controllers/services/multerConfig');
 
 router.get('/routes', buses.index);

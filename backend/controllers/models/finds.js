@@ -1,9 +1,36 @@
-const {
-    sessions,
-    currencies, stockIns, stockOuts,
-    businesses, users, personels, customers, item_categories, items, stores,
-    employees, employees_attendances, employees_permissions, smtp_settings, settings,
-    departments, deductions, salaries, noticeboard, menus, payment_methods, sales, invoices, sales_invoices, expenses_categories, expenses, enrols,
+const { roles,
+    main_menus,
+    store_menus,
+    business_addresses,
+    business_assets,
+    business_authorizer_access,
+    business_bonuses,
+    business_contacts,
+    business_employees,
+    business_employees_attendances,
+    business_invoices,
+    business_menus,
+    business_notifications,
+    business_payment_methods,
+    store_asset_limits,
+    store_assets,
+    store_deductions,
+    stores,
+    user_role_permissions,
+    user_roles, stockOuts,
+    sessions, userRoles, userRolePermissions,
+    permissions,
+    currencies, transactions,
+    authorizer_access,
+    businesses, item_categories, items, users, smtp_settings, settings, personels,
+    departments, customers, salaries, stock_out_invoices, invoice_stockIns,
+    invoice_stockOuts,
+    invoice_transactions,
+    transaction_authorizers,
+    invoice_authorizers,
+    authorizers,
+    stockIn_transactions,
+    noticeboard, menus, sales, expenses_categories, expenses, deductions, payment_methods, invoices, enrols, employees_permissions, deductions_charts
 } = require('../../../database/models/module_exporter');
 const { Op } = require('../../../database/mysql');
 const { spawnJwtPayload } = require('../services/handlers');
@@ -13,11 +40,16 @@ class Finds {
     }
 
     async stores() {
-        if (this._session.businessId, this._session.sessionId) {
-            return JSON.parse(JSON.stringify(await stores.findAll({ where: { businessId: this._session.businessId } })));
+        if (this._session.role != 'superadmin') {
+            if (this._session.businessId, this._session.sessionId) {
+                return JSON.parse(JSON.stringify(await stores.findAll({ where: { businessId: this._session.businessId } })));
+            } else {
+                return new Error('denied! - user is not authenticated!');
+            }
         } else {
-            return new Error('denied! - user is not authenticated!');
+            return JSON.parse(JSON.stringify(await stores.findAll()));
         }
+
     }
     async item_categories() {
         if (this._session.businessId, this._session.sessionId) {
@@ -252,11 +284,11 @@ class Finds {
     }
 
     async sub_menus() {
-        if (this._session.businessId, this._session.sessionId) {
-            return JSON.parse(JSON.stringify(await menus.findAll({ where: { [Op.not]: { parent: 0 } } })));
-        } else {
-            return new Error('denied! - user is not authenticated!');
-        }
+        // if (this._session.businessId, this._session.sessionId) {
+        return JSON.parse(JSON.stringify(await menus.findAll({ where: { [Op.not]: { parent: 0 } } })));
+        // } else {
+        // return new Error('denied! - user is not authenticated!');
+        // }
     }
     async exams() {
         if (this._session.businessId, this._session.sessionId) {

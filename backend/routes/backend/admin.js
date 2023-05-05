@@ -2,7 +2,7 @@ const express = require('express');
 const admin = require('../../controllers/superadmin/admin');
 const router = express.Router();
 
-const { isLoggedIn } = require('../../controllers/services/handlers');
+const { isLoggedIn } = require('../../../passport/passport');
 const { userImage } = require('../../controllers/services/multerConfig');
 
 router.get('/', isLoggedIn, admin.index);

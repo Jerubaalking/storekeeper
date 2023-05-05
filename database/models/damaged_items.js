@@ -18,5 +18,5 @@ damaged_items = sequelize.define('damaged_items', {
 }, { paranoid: true });
 
 stockIns.belongsToMany(items, { through: damaged_items });
-items.belongsToMany(stockIns, { through: damaged_items })
+items.belongsToMany(stockIns, { through: damaged_items });
 module.exports = damaged_items;

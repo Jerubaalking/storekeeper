@@ -1,7 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-const stores = require("./stores");
-const employees = require("./employees");
-const businesses = require("./businesses");
+const stores = require("./stores/stores");
 class employees_permissions extends Model { };
 employees_permissions = sequelize.define('employees_permissions', {
     id: {
@@ -17,6 +15,4 @@ employees_permissions = sequelize.define('employees_permissions', {
 },);
 employees_permissions.belongsTo(stores);
 stores.hasMany(employees_permissions);
-employees_permissions.belongsTo(employees);
-employees.hasMany(employees_permissions);
 module.exports = employees_permissions;

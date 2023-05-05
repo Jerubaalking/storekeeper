@@ -2,7 +2,8 @@ const express = require('express');
 const deductions = require('../../controllers/superadmin/deductions');
 const router = express.Router();
 
-const { isLoggedIn } = require('../../controllers/services/handlers');
+
+const { isLoggedIn } = require('../../../passport/passport');;
 const upload = require('../../controllers/services/multerConfig');
 
 router.get('/', deductions.index);

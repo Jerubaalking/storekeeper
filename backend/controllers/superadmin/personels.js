@@ -1,11 +1,8 @@
 const { Op } = require("../../../database/mysql");
-const businesses = require("../../../database/models/businesses");
-const users = require("../../../database/models/users");
-const personels = require("../../../database/models/personels");
 const fs = require('fs');
 const { enrols } = require("../models/updates");
 const Controllers = require("../models/control");
-const customers = require("../../../database/models/customers");
+const { users, personels } = require("../../../database/models/module_exporter");
 module.exports = {
     index: async (req, res) => {
         try {

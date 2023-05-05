@@ -37,6 +37,7 @@
 <script>
     var itemArray = [];
     var Cart = [];
+    var TOTAL = 0;
     var removeFromCart = (itemss, id) => {
 
         console.log(itemArray, dt);
@@ -69,6 +70,7 @@
                 (!Cart.includes(itemArray[i])) ?
                     Cart.push(itemArray[i]) : null;
                 toastr.success('added!');
+                TOTAL += itemArray[i].price*
                 let value = parseInt($('#qty' + id).val());
                 $('#qty' + id).addClass('collapse');
                 $(itemsss).addClass('collapse');

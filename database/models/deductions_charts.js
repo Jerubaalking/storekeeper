@@ -1,7 +1,7 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
 const deductions = require("./deductions");
 const salaries = require("./salaries");
-const businesses = require("./businesses");
+const businesses = require("./businessees/businesses");
 const sessions = require("./sessions");
 class deductions_charts extends Model { };
 deductions_charts = sequelize.define('deduction_charts', {

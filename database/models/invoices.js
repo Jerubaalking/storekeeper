@@ -1,9 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-const stores = require("./stores");
 const sessions = require("./sessions");
-const customers = require("./customers");
-const sales = require("./sales");
-const sales_invoices = require("./stock_out_invoices");
 class invoices extends Model { };
 // class sales_invoices extends Model { };
 invoices = sequelize.define('invoices', {
@@ -12,7 +8,7 @@ invoices = sequelize.define('invoices', {
         autoIncrement: true,
         primaryKey: true,
     },
-    invoice_id: {
+    code: {
         type: DataTypes.STRING,
         unique: true,
     },
@@ -22,24 +18,20 @@ invoices = sequelize.define('invoices', {
     },
     mailed: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: false
     },
-    discount_percent: {
-        type: DataTypes.DOUBLE,
-        defaultValue: 0.0,
+    notice: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     },
     comment: {
         type: DataTypes.STRING,
     },
-    info: {
+    terms_and_conditions: {
         type: DataTypes.STRING,
     }
 }, { paranoid: true });
 
-invoices.belongsTo(stores);
-stores.hasMany(invoices);
 invoices.belongsTo(sessions);
 sessions.hasMany(invoices);
-invoices.belongsTo(customers);
-customers.hasMany(invoices);
 module.exports = invoices;

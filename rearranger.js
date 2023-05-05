@@ -11,6 +11,7 @@ let arrayList = [
     ['Currencies', '/currencies', 1, 'mdi mdi-currency-usd', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, null],
     ['Businesses', '/businesses', 1, 'mdi mdi-bank', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, null],
     ['Admins', '/admin', 1, 'mdi mdi-account-heart', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, null],
+    ['Clients', '/clients', 1, 'mdi mdi-account-heart', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, null],
     ['Home', '/home', 2, 'mdi mdi-home', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, null, 0, null],
     ['Departments', '/departments', 3, 'mdi mdi-graph-outline', 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, null, 0, null],
     ['Categories', '/categories', 3, 'mdi mdi-store', 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, null, 0, null],

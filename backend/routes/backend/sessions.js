@@ -2,7 +2,8 @@ const express = require('express');
 const sessions = require('../../controllers/superadmin/sessions');
 const router = express.Router();
 
-const { isLoggedIn } = require('../../controllers/services/handlers');
+
+const { isLoggedIn } = require('../../../passport/passport');;
 const upload = require('../../controllers/services/multerConfig');
 
 router.get('/', isLoggedIn, sessions.index);

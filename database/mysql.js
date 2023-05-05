@@ -1,11 +1,11 @@
-const dbConfig = require("../database/config");
+const dbConfig = require("../database/config")();
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const mysql = require("mysql2");
 const connection = mysql.createConnection({
-  host: dbConfig.DB_HOST,
-  port: dbConfig.DB_PORT,
-  user: dbConfig.DB_USER,
-  password: dbConfig.DB_PASSWORD
+  host: dbConfig.DB_HOST || '127.0.0.1',
+  port: dbConfig.DB_PORT || 3307,
+  user: dbConfig.DB_USER || 'root',
+  password: dbConfig.DB_PASSWORD || 'thina2023'
 });
 // connection.query(
 //   `DROP DATABASE IF EXISTS storekeeper247_db`,
@@ -37,7 +37,7 @@ const sequelize = new Sequelize(dbConfig.DB_NAME, dbConfig.DB_USER, dbConfig.DB_
     idle: dbConfig.pool.idle,
     timezone: '+03:00',
   },
-  logging: true
+  logging: false
 });
 
 const Op = Sequelize.Op;

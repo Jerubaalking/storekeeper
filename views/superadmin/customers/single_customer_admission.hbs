@@ -56,37 +56,23 @@
                 </div>
                 <div class="col-md-12 row">
                     <div class="form-group row mb-2 col-md-6">
-                        <label class="col-md-3 col-form-label" for="classId">
-                            class
+                        <label class="col-md-3 col-form-label" for="storeId">
+                            store
                         </label>
                         <div class="col-md-9">
-                            <select name="classId" id="classId" class="form-control select2" data-toggle="select2"
+                            <select name="storeId" id="storeId" class="form-control select2" data-toggle="select2"
                                 required onchange="classWiseSection(this.value)">
                                 <option value="">
-                                    select a class
+                                    select a store
                                 </option>
-                                {{#each classes}}
+                                {{#each stores}}
                                 <option value="{{id}}">
                                     {{name}}
                                 </option>
                                 {{/each}}
                             </select>
                         </div>
-                    </div>
-
-                    <div class="form-group row mb-2 col-md-6">
-                        <label class="col-md-3 col-form-label" for="sectionId">
-                            section
-                        </label>
-                        <div class="col-md-9" id="section_content">
-                            <select name="sectionId" id="sectionId" class="form-control select2" data-toggle="select2"
-                                required>
-                                <option value="">
-                                    select section
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+                    </div>  
                 </div>
                 <div class="col-md-12 row">
 

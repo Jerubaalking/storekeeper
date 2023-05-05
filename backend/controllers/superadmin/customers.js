@@ -1,17 +1,10 @@
 
 const { Op } = require("../../../database/mysql");
-const businesses = require("../../../database/models/businesses");
-const users = require("../../../database/models/users");
-const customers = require("../../../database/models/customers");
 const fs = require('fs');
 const { enrols } = require("../models/updates");
 const Controllers = require("../models/control");
-const personels = require("../../../database/models/personels");
-const stores = require("../../../database/models/stores");
 const { generateRandom } = require("../services/service");
-// const customers = require("../../../database/models/customers");
-// const classes = require("../../../database/models/classes");
-// const stores = require("../../../database/models/stores");
+const { businesses, users, personels, stores, customers } = require("../../../database/models/module_exporter");
 let _many_module = 'businesses';
 let _single_module = 'business';
 module.exports = {

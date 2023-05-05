@@ -1,5 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-const stores = require("./stores");
+const stores = require("./stores/stores");
 class item_categories extends Model { };
 item_categories = sequelize.define('item_categories', {
     id: {
@@ -17,6 +17,4 @@ item_categories = sequelize.define('item_categories', {
         defaultValue: 'none',
     },
 });
-item_categories.belongsTo(stores);
-stores.hasMany(item_categories);
 module.exports = item_categories;

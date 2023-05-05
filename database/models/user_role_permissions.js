@@ -1,5 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-const businesses = require("./businesses");
+const businesses = require("./businessees/businesses");
 const permissions = require("./permissions");
 const roles = require("./roles");
 const sessions = require("./sessions");

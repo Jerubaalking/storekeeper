@@ -1,11 +1,39 @@
-const {
-    sessions,
-    currencies, stockIns, stockOuts,
-    businesses, users, personels, customers, item_categories, items, stores,
-    employees, employees_attendances, employees_permissions, smtp_settings, settings,
-    departments, deductions, salaries, noticeboard, menus, payment_methods, sales, invoices, sales_invoices, expenses_categories, expenses, enrols, authorizers, roles,
+const client_business_roles = require('../../../database/models/client_business_roles');
+const clients = require('../../../database/models/clients');
+const { roles,
+    main_menus,
+    store_menus,
+    business_addresses,
+    business_assets,
+    business_authorizer_access,
+    business_bonuses,
+    business_contacts,
+    business_employees,
+    business_employees_attendances,
+    business_invoices,
+    business_menus,
+    business_notifications,
+    business_payment_methods,
+    store_asset_limits,
+    store_assets,
+    store_deductions,
+    stores,
+    user_role_permissions,
+    user_roles, stockOuts,
+    sessions, userRoles, userRolePermissions,
+    permissions,
+    currencies, transactions,
+    authorizer_access,
+    businesses, item_categories, items, users, smtp_settings, settings, personels,
+    departments, customers, salaries, stock_out_invoices, invoice_stockIns,
+    invoice_stockOuts,
+    invoice_transactions,
+    transaction_authorizers,
+    invoice_authorizers,
+    authorizers,
+    stockIn_transactions,
+    noticeboard, menus, sales, expenses_categories, expenses, deductions, payment_methods, invoices, enrols, employees_permissions, deductions_charts
 } = require('../../../database/models/module_exporter');
-const user_roles = require('../../../database/models/user_roles');
 const { spawnJwtPayload } = require('../services/handlers');
 const { passwordHash, generateUniqueIdentifier } = require('../services/service');
 
@@ -94,6 +122,7 @@ class Creates {
                         manufacture_batch_number: data.manufacturer_batch_number[i],
                         itemId: data.itemId[i],
                         qty: data.qty[i],
+                        selling_price: data.selling_price[i],
                         amount: data.amount[i],
                         manufacturer: data.manufacturer[i],
                         receive_date: data.receive_date,
@@ -277,7 +306,32 @@ class Creates {
         }
     }
     async user(data) {
-        if (this._instance.businessId, this._instance.sessionId) {
+        if (typeof data.phone == typeof []) {
+            let inData = {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                gender: data.gender,
+                role: data.role,
+                phone: data.phone[0],
+                address: data.address[0],
+            };
+            let usrPass = data.password;
+            console.log(inData);
+            let hash = await passwordHash(usrPass);
+            let nUser = await users.build(inData);
+            nUser.hash = hash.hashHex;
+            nUser.salt = hash.salt;
+            nUser.iterations = hash.iterations;
+            nUser.businessId = await inData.businessId;
+            nUser.sessionId = await this._instance.sessionId;
+            await nUser.save();
+            let role = await roles.findOne({ where: { role: inData.role } });
+            let user_role = JSON.parse(JSON.stringify(await nUser.addRole(role)));
+            console.log('user role....', user_role);
+            await user_roles.update({ businessId: inData.businessId }, { where: { id: user_role[0].id } })
+            return nUser;
+        } else {
             let usrPass = data.password;
             console.log(data);
             let hash = await passwordHash(usrPass);
@@ -293,9 +347,59 @@ class Creates {
             console.log('user role....', user_role);
             await user_roles.update({ businessId: data.businessId }, { where: { id: user_role[0].id } })
             return nUser;
+        }
+    }
+    async client(data) {
+
+        console.log('am here', data);
+
+        if (this._instance.sessionId) {
+
+            let usrPass = data.password;
+            console.log(data);
+            let addresses = data.address;
+            let phones = data.phone;
+            data.address = addresses[0];
+            data.phone = phones[0];
+            data.sessionId = await this._instance.sessionId;
+            let oldUser = JSON.parse(JSON.stringify(await users.findAndCountAll({ where: { email: data.email } })));
+            console.log(oldUser);
+            if (oldUser.count <= 0) {
+                let hash = await passwordHash(usrPass);
+                let nUser = await users.build(data);
+                nUser.hash = hash.hashHex;
+                nUser.salt = hash.salt;
+                nUser.iterations = hash.iterations;
+                console.log('added data01', nUser);
+                await nUser.save();
+                console.log('added data02', data);
+                // add user to clients
+                let client = await clients.create({ userId: nUser.id, sessionId: data.sessionId });
+                // add client to business roles
+                let business = await businesses.findOne({ where: { id: data.businessId } });
+                let role = await roles.findOne({ where: { role: 'admin' } });
+                // add client to business
+                try {
+                    await client.addBusiness(business);
+                    let clientRole = await client.addRole(role);
+                    let clientBusinessRole = await client_business_roles.update({ businessId: data.businessId }, { where: { id: JSON.parse(JSON.stringify(await clientRole)) } });
+                    // await role.addBusiness(business);
+                    console.log('client business role', clientBusinessRole);
+                } catch (errr) {
+                    console.log(errr);
+                }
+                // add role to client
+                let newClient = await clients.findOne({ where: { id: JSON.parse(JSON.stringify(await client)).id }, include: { model: users } });
+
+                return await newClient;
+            } else {
+                throw new Error('email registered already');
+            }
+
         } else {
             throw new Error('user not authenticated!');
         }
+
     }
 
     async signup(data) {
@@ -595,9 +699,9 @@ class Creates {
                     itemId: data.itemId[i],
                     stockInId: data.stockIn[i],
                     qty: data.qty[i],
-                    discount_amount: (data.discount_amount[i]) ?
+                    discount_amount: (data.discount_amount) ?
                         data.discount_amount[i] : 0.0,
-                    discount_percent: (data.discount_percent[i]) ?
+                    discount_percent: (data.discount_percent) ?
                         data.discount_percent[i] : 0.0,
                     sessionId: invoice.sessionId,
                     businessId: this._instance.businessId,

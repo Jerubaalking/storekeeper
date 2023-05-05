@@ -1,5 +1,5 @@
 const { Model, Sequelize, sequelize } = require("../mysql");
-const businesses = require("./businesses");
+const businesses = require("./businessees/businesses");
 
 class settings extends Model { };
 

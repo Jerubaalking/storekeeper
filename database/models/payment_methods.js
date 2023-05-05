@@ -1,7 +1,5 @@
 const { Model, Sequelize, sequelize } = require("../mysql");
-const stores = require("./stores");
 const sessions = require("./sessions");
-const businesses = require("./businesses");
 const currencies = require("./currencies");
 class payment_methods extends Model { };
 payment_methods = sequelize.define('payment_methods', {
@@ -23,12 +21,8 @@ payment_methods = sequelize.define('payment_methods', {
     comment: Sequelize.STRING,
 
 }, { paranoid: true });
-payment_methods.belongsTo(stores);
-stores.hasMany(payment_methods);
 payment_methods.belongsTo(currencies);
 currencies.hasMany(payment_methods);
-payment_methods.belongsTo(businesses);
-businesses.hasMany(payment_methods);
 payment_methods.belongsTo(sessions);
 sessions.hasMany(payment_methods);
 module.exports = payment_methods;

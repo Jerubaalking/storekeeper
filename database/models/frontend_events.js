@@ -1,10 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-const classes = require("./classes");
-const schools = require("./schools");
-const sessions = require("./sessions");
-const students = require("./students");
 const users = require("./users");
-const vehicles = require("./vehicles");
 class frontend_events extends Model { };
 frontend_events = sequelize.define('frontend_events', {
     id: {

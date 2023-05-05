@@ -1,5 +1,5 @@
 const { Model, Sequelize, sequelize } = require("../mysql");
-const businesses = require("./businesses");
+const businesses = require("./businessees/businesses");
 const roles = require("./roles");
 const users = require("./users");
 const user_role_permissions = require("./user_role_permissions");
@@ -12,9 +12,7 @@ user_roles = sequelize.define('user_roles', {
         unique: true
     }
 });
-
 roles.belongsToMany(users, { through: user_roles });
 users.belongsToMany(roles, { through: user_roles });
-users.belongsToMany(businesses, { through: user_roles });
-businesses.belongsToMany(users, { through: user_roles });
+
 module.exports = user_roles;

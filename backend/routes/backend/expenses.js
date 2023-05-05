@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { isLoggedIn } = require('../../controllers/services/handlers');
+
+const { isLoggedIn } = require('../../../passport/passport');;
 const { userImage } = require('../../controllers/services/multerConfig');
 
 const expenses = require('../../controllers/superadmin/expenses');

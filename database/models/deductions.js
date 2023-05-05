@@ -1,6 +1,6 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
 
-const businesses = require("./businesses");
+const businesses = require("./businessees/businesses");
 const sessions = require("./sessions");
 class deductions extends Model { };
 deductions = sequelize.define('deductions', {
@@ -9,12 +9,22 @@ deductions = sequelize.define('deductions', {
         autoIncrement: true,
         primaryKey: true,
     },
-    name: DataTypes.STRING,
-    percent: DataTypes.DOUBLE,
-    amount: DataTypes.DOUBLE,
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    percent: {
+        type: DataTypes.DOUBLE,
+        defaultValue: 0.0
+    },
+    amount: {
+        type: DataTypes.DOUBLE,
+        defaultValue: 0.0
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
 }, { paranoid: true });
-deductions.belongsTo(businesses);
-businesses.hasMany(deductions);
-deductions.belongsTo(sessions);
-sessions.hasMany(deductions);
 module.exports = deductions;

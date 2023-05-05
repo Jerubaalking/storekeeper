@@ -1,6 +1,5 @@
 const { Model, DataTypes, sequelize } = require("../mysql");
-const businesses = require("./businesses");
-const stores = require("./stores");
+const stores = require("./stores/stores");
 class departments extends Model { };
 departments = sequelize.define('departments', {
     id: {
@@ -12,8 +11,6 @@ departments = sequelize.define('departments', {
     purpose: { type: DataTypes.STRING },
     comments: { type: DataTypes.STRING },
 });
-departments.belongsTo(businesses);
-businesses.hasMany(departments);
 departments.belongsTo(stores);
 stores.hasMany(departments);
 module.exports = departments;
