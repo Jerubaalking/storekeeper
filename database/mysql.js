@@ -7,13 +7,13 @@ const connection = mysql.createConnection({
   user: dbConfig.DB_USER || 'root',
   password: dbConfig.DB_PASSWORD || 'thina2023'
 });
-// connection.query(
-//   `DROP DATABASE IF EXISTS storekeeper247_db`,
-//   function (err, results) {
-//     console.log('error............>', results);
-//     console.log(err);
-//   }
-// );
+connection.query(
+  `DROP DATABASE IF EXISTS storekeeper247_db`,
+  function (err, results) {
+    console.log('error............>', results);
+    console.log(err);
+  }
+);
 // Run create database statement
 connection.query(
   `CREATE DATABASE IF NOT EXISTS storekeeper247_db`,
