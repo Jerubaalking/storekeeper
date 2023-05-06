@@ -1,13 +1,31 @@
 
 
+if (process.env.NODE_ENV == 'production') {
+
+    var host = process.env.D_DB_HOST;
+    var user = process.env.D_DB_USER;
+    var password = process.env.D_DB_PASSWORD;
+    var name = process.env.D_DB_NAME;
+    var port = process.env.D_DB_PORT;
+    var dialect = process.env.D_DB_DIALECT;
+} else {
+
+    var host = process.env.D_DB_HOST;
+    var user = process.env.D_DB_USER;
+    var password = process.env.D_DB_PASSWORD;
+    var name = process.env.D_DB_NAME;
+    var port = process.env.D_DB_PORT;
+    var dialect = process.env.D_DB_DIALECT;
+}
+
 module.exports = () => {
     return {
-        "DB_HOST": process.env.D_DB_HOST,
-        "DB_USER": process.env.D_DB_USER,
-        "DB_PASSWORD": process.env.D_DB_PASSWORD,
-        "DB_NAME": process.env.D_DB_NAME,
-        "DB_PORT": process.env.D_DB_PORT ,
-        "dialect": process.env.D_DB_DIALECT,
+        "DB_HOST": host,
+        "DB_USER": user,
+        "DB_PASSWORD": password,
+        "DB_NAME": name,
+        "DB_PORT": port,
+        "dialect": dialect,
         pool: {
 
             max: 5,
