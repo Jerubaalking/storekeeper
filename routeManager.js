@@ -3,6 +3,7 @@ module.exports = async (app) => {
     app.use('/superadmin', require('./backend/routes/superadmin_home'));
     app.use('/admin', require('./backend/routes/backend/admin'));
     app.use('/client', require('./backend/routes/client_home'));
+    app.use('/clients', require('./backend/routes/backend/clients'));
     app.use('/auth', require('./backend/routes/auth'));
     /** SuperADMIN */
     app.use('/businesses', require('./backend/routes/backend/businesses'));
