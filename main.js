@@ -55,7 +55,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 // console.log(path.resolve(__dirname + '/config/config.env'));
-dotenv.config({ path: path.resolve(__dirname + '/config/config.env') });
+dotenv.config({ path: './config/config.env' });
 app.use(flash());
 app.use('/public', express.static(path.resolve(__dirname + process.env.D_PUBLIC)));
 app.set('view engine', 'hbs');
