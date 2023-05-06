@@ -1,125 +1,228 @@
 var multer = require('multer');
 const path = require('path');
-// const BaseUrl = require('../../../base');
-// var url = BaseUrl;
-// console.log("Multer:: ", url);
+const multerS3 = require("multer-s3");
+const { S3Client } = require("@aws-sdk/client-s3");
 
+// create s3 instance using S3Client 
+// (this is how we create s3 instance in v3)
+const s3 = new S3Client({
+    credentials: {
+        accessKeyId: "DO00XRHCZJXNHVCLM3BD", // store it in .env file to keep it safe
+        secretAccessKey: "Q/ocb3SsC7/85rYcjff5hEXcKqI2+hw6mpniz7KptlA"
+    },
+    region: "ap-south-1" // this is the region that you select in AWS account
+})
+const s3StorageUser = multerS3({
+    s3: s3, // s3 instance
+    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/users", // change it as per your project requirement
+    acl: "public-read", // storage access type
+    metadata: (req, file, cb) => {
+        cb(null, { fieldname: file.fieldname })
+    },
+    key: (req, file, cb) => {
+        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        cb(null, fileName);
+    }
+});
+const s3StorageLogo = multerS3({
+    s3: s3, // s3 instance
+    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/logos", // change it as per your project requirement
+    acl: "public-read", // storage access type
+    metadata: (req, file, cb) => {
+        cb(null, { fieldname: file.fieldname })
+    },
+    key: (req, file, cb) => {
+        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        cb(null, fileName);
+    }
+});
+const s3StorageGallery = multerS3({
+    s3: s3, // s3 instance
+    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/gallery", // change it as per your project requirement
+    acl: "public-read", // storage access type
+    metadata: (req, file, cb) => {
+        cb(null, { fieldname: file.fieldname })
+    },
+    key: (req, file, cb) => {
+        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        cb(null, fileName);
+    }
+});
+const s3StorageStamp = multerS3({
+    s3: s3, // s3 instance
+    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/stamps", // change it as per your project requirement
+    acl: "public-read", // storage access type
+    metadata: (req, file, cb) => {
+        cb(null, { fieldname: file.fieldname })
+    },
+    key: (req, file, cb) => {
+        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        cb(null, fileName);
+    }
+});
+const s3StorageCsv = multerS3({
+    s3: s3, // s3 instance
+    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/csv", // change it as per your project requirement
+    acl: "public-read", // storage access type
+    metadata: (req, file, cb) => {
+        cb(null, { fieldname: file.fieldname })
+    },
+    key: (req, file, cb) => {
+        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        cb(null, fileName);
+    }
+});
+const s3StorageFilePDF = multerS3({
+    s3: s3, // s3 instance
+    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/files/pdf", // change it as per your project requirement
+    acl: "public-read", // storage access type
+    metadata: (req, file, cb) => {
+        cb(null, { fieldname: file.fieldname })
+    },
+    key: (req, file, cb) => {
+        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        cb(null, fileName);
+    }
+});
+
+function sanitizeImage(file, cb) {
+    // Define the allowed extension
+    const fileExts = [".png", ".jpg", ".jpeg", ".gif"];
+
+    // Check allowed extensions
+    const isAllowedExt = fileExts.includes(
+        path.extname(file.originalname.toLowerCase())
+    );
+
+    // Mime type must be an image
+    const isAllowedMimeType = file.mimetype.startsWith("image/");
+
+    if (isAllowedExt && isAllowedMimeType) {
+        return cb(null, true); // no errors
+    } else {
+        // pass error msg to callback, which can be displaye in frontend
+        cb("Error: File type not allowed!");
+    }
+}
+function sanitizeFileCsv(file, cb) {
+    // Define the allowed extension
+    const fileExts = [".csv"];
+
+    // Check allowed extensions
+    const isAllowedExt = fileExts.includes(
+        path.extname(file.originalname.toLowerCase())
+    );
+
+    // Mime type must be an image
+    const isAllowedMimeType = file.mimetype.startsWith("application/vnd.ms-excel");
+
+    if (isAllowedExt && isAllowedMimeType) {
+        return cb(null, true); // no errors
+    } else {
+        // pass error msg to callback, which can be displaye in frontend
+        cb("Error: File type not allowed!");
+    }
+}
+function sanitizeFilePDF(file, cb) {
+    // Define the allowed extension
+    const fileExts = [".pdf"];
+
+    // Check allowed extensions
+    const isAllowedExt = fileExts.includes(
+        path.extname(file.originalname.toLowerCase())
+    );
+
+    // Mime type must be an image
+    const isAllowedMimeType = file.mimetype.startsWith("application/pdf");
+
+    if (isAllowedExt && isAllowedMimeType) {
+        return cb(null, true); // no errors
+    } else {
+        // pass error msg to callback, which can be displaye in frontend
+        cb("Error: File type not allowed!");
+    }
+}
+// our middleware
+// const uploadImage = multer({
+//     storage: s3Storage,
+//     fileFilter: (req, file, callback) => {
+//         sanitizeImage(file, callback)
+//     },
+//     limits: {
+//         fileSize: 1024 * 1024 * 2 // 2mb file size
+//     }
+// })
 
 function upload() {
-    this.setFilter = function (filterExtArray) {
-        return (req, file, cb) => {
-            let ext = path.extname(file.originalname);
-            filterExtArray.forEach(f => {
-                console.log('f', f, 'ext', ext);
-                if (ext === f) {
-                    cb(null, true);
-                    return;
-                }
-            });
-
-        }
-    };
-    this.setStorage = function (folder) {
-        return multer.diskStorage({
-            destination: function (req, file, cb) {
-                cb(null, folder);
-            },
-
-            filename: function (req, file, cb) {
-                (req.body.name) ?
-                    cb(null, req.body.name.split(' ').join('_') + path.extname(file.originalname)) :
-                    cb(null, file.originalname);
-            }
-        });
-    };
-    this.setStorages = function (folders) {
-        if (typeof folders == 'object') {
-            let ob = [];
-            for (const folder of folders) {
-                let ans = multer.diskStorage({
-                    destination: function (req, files, cb) {
-                        cb(null, folder);
-                    },
-
-                    filename: function (req, file, cb) {
-                        console.log(file);
-                        (req.body.name) ?
-                            cb(null, req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname)) :
-                            cb(null, file.originalname);
-
-                    }
-                });
-                ob.push(ans);
-            }
-            return ob;
-        }
-    };
-    this.settitleStorage = function (folder) {
-        return multer.diskStorage({
-            destination: function (req, file, cb) {
-                cb(null, folder);
-            },
-            filename: function (req, file, cb) {
-                (req.body.title) ?
-                    cb(null, req.body.title.split(' ').join('_') + path.extname(file.originalname)) :
-                    cb(null, file.originalname);
-            }
-        });
-    };
-
-    this.imageUploadPath = path.resolve(__dirname + '../../../../public/uploads/images/');
-    this.fileUploadPath = path.resolve(__dirname + '../../../../public/uploads/files/');
-    this.userImage = () => {
+    this.user = () => {
         return multer({
-            storage: this.setStorage(this.imageUploadPath + '/users/'),
-            fileFilter: this.setFilter(['.jpg', '.jpeg', '.png'])
+            storage: s3StorageUser,
+            fileFilter: (req, file, callback) => {
+                sanitizeImage(file, callback)
+            },
+            limits: {
+                fileSize: 1024 * 1024 * 2 // 2mb file size
+            }
         });
     }
-    this.businessLogo = () => {
-        let mults = this.setStorages([this.imageUploadPath + '/logos/', this.imageUploadPath + '/stamps/']);
-        // console.log(mults);
-        for (const mult of mults) {
-            return multer({
-                storage: mult,
-                fileFilter: this.setFilter(['.jpg', '.jpeg', '.png']),
-            });
-        }
-
-    }
-
     this.businessStamp = () => {
         return multer({
-            storage: this.setStorage(this.imageUploadPath + '/stamps/'),
-            fileFilter: this.setFilter(['.jpg', '.jpeg', '.png'])
+            storage: s3StorageStamp,
+            fileFilter: (req, file, callback) => {
+                sanitizeImage(file, callback)
+            },
+            limits: {
+                fileSize: 1024 * 1024 * 2 // 2mb file size
+            }
         });
     }
 
-    this.logo = () => {
+    this.businessLogo = () => {
         return multer({
-            storage: this.setStorage(this.fileUploadPath + '/logos/'),
-            fileFilter: this.setFilter(['.csv'])
+            storage: s3StorageLogo,
+            fileFilter: (req, file, callback) => {
+                sanitizeImage(file, callback)
+            },
+            limits: {
+                fileSize: 1024 * 1024 * 2 // 2mb file size
+            }
         });
     }
     this.gallery = () => {
         return multer({
-            storage: this.setStorage(this.imageUploadPath + '/gallery/january-2023/'),
-            fileFilter: this.setFilter(['.jpg', '.jpeg'])
+            storage: s3StorageGallery,
+            fileFilter: (req, file, callback) => {
+                sanitizeImage(file, callback)
+            },
+            limits: {
+                fileSize: 1024 * 1024 * 2 // 2mb file size
+            }
         });
     }
 
     this.userCsv = () => {
         return multer({
-            storage: this.setStorage(this.fileUploadPath + '/users/csv_folder/'),
-            fileFilter: this.setFilter(['.csv'])
+            storage: s3StorageCsv,
+            fileFilter: (req, file, callback) => {
+                sanitizeFileCsv(file, callback)
+            },
+            limits: {
+                fileSize: 1024 * 1024 * 2 // 2mb file size
+            }
         });
     }
-    this.syllabus = () => {
+    this.pdf = () => {
         return multer({
-            storage: this.settitleStorage(this.fileUploadPath + '/syllabus/'),
-            fileFilter: this.setFilter(['.pdf', '.csv', '.docx', 'xlsx', '.txt'])
+            storage: s3StorageFilePDF,
+            fileFilter: (req, file, callback) => {
+                sanitizeFilePDF(file, callback)
+            },
+            limits: {
+                fileSize: 1024 * 1024 * 2 // 2mb file size
+            }
         });
     }
 
 };
 
-module.exports = new upload;
+module.exports = new upload();

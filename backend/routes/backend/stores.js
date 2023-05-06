@@ -4,17 +4,17 @@ const router = express.Router();
 
 
 const { isLoggedIn } = require('../../../passport/passport');;
-const { userImage } = require('../../controllers/services/multerConfig');
+const { user } = require('../../controllers/services/multerConfig');
 
 router.get('/', stores.index);
 router.get('/list', stores.list);
 router.get('/create', stores.create);
 // router.get('/sections/:id', stores.sections);
 // router.post('/sections/:id', userImage().none(), stores.sections);
-router.post('/create', userImage().none(), stores.create);
+router.post('/create', user().none(), stores.create);
 router.get('/edit/:id', stores.edit);
 // router.get('/list/class/:id', stores.classSection);
-router.post('/edit/:id', userImage().none(), stores.edit);
+router.post('/edit/:id', user().none(), stores.edit);
 // router.get('/list', isLoggedIn, route.settings);
 // router.get('/create', isLogsgedIn, route.settings);
 // router.get('/:id', isLoggedIn, route.settings);

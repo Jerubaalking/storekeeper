@@ -3,15 +3,15 @@ const admin = require('../../controllers/superadmin/admin');
 const router = express.Router();
 
 const { isLoggedIn } = require('../../../passport/passport');
-const { userImage } = require('../../controllers/services/multerConfig');
+const { user } = require('../../controllers/services/multerConfig');
 
 router.get('/', isLoggedIn, admin.index);
 router.get('/list', isLoggedIn, admin.list);
 router.get('/create', isLoggedIn, admin.create);
-router.post('/create', isLoggedIn, userImage().none(), admin.create);
+router.post('/create', isLoggedIn, user().none(), admin.create);
 router.get('/edit/:id', isLoggedIn, admin.edit);
 router.post('/activate/:id', isLoggedIn, admin.activateSession);
-router.post('/edit/:id', isLoggedIn, userImage().none(), admin.edit);
+router.post('/edit/:id', isLoggedIn, user().none(), admin.edit);
 // router.get('/list', isLoggedIn, route.settings);
 // router.get('/create', isLogsgedIn, route.settings);
 // router.get('/:id', isLoggedIn, route.settings);

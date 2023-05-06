@@ -4,17 +4,17 @@ const router = express.Router();
 
 
 const { isLoggedIn } = require('../../../passport/passport');;
-const { userImage, userCsv } = require('../../controllers/services/multerConfig');
+const { user, userCsv } = require('../../controllers/services/multerConfig');
 
 router.get('/', personel.index);
 router.get('/profile/:id', personel.profile);
 router.get('/list', personel.list);
 router.get('/create', personel.create);
 
-router.post('/create', userImage().none(), personel.create);
+router.post('/create', user().none(), personel.create);
 
 router.get('/edit/:id', personel.edit);
-router.post('/edit/:id', userImage().none(), personel.edit);
+router.post('/edit/:id', user().none(), personel.edit);
 // router.get('/list', isLoggedIn, route.settings);
 // router.get('/create', isLogsgedIn, route.settings);
 // router.get('/:id', isLoggedIn, route.settings);
