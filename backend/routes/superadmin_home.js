@@ -19,7 +19,7 @@ router.get('/', isLoggedIn, async (req, res) => {
     let client_count = await clients.count();
     let store_count = await stores.count();
     let customer_count = await customers.count();
-    console.log('business>>>>>::', main, sub);
+    // console.log('business>>>>>::', main, sub);
     res.render('superadmin_home', {
         viewManager: req.session.passport.user,
         menus: await main, sub_menu: await sub, businesses: await business, customer_count: customer_count, store_count: store_count, business_count: business_count, client_count: client_count

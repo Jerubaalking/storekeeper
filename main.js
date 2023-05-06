@@ -26,7 +26,7 @@ passport.serializeUser(function (user, done) {
     return done(null, user);
 });
 passport.deserializeUser(function (user, done) {
-    console.log('am deserializing', user.id);
+    // console.log('am deserializing', user.id);
     try {
         return users.findOne({ where: { id: user.id }, include: [{ model: roles }] }).then(user => {
             let _user = JSON.parse(JSON.stringify(user));
