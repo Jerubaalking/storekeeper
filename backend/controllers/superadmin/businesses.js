@@ -29,11 +29,12 @@ module.exports = {
                     if (req.files) {
                         let data = req.body;
                         for (const file of req.files) {
+                            console.log('File==>>>>',file);
                             if (file.fieldname == 'business_logo') {
-                                data['logo'] = file.path.split('storekeeper')[1];
+                                data['logo'] = file.key;
                             }
                             if (file.fieldname == 'business_stamp') {
-                                data['stamp'] = file.path.split('storekeeper')[1];
+                                data['stamp'] = file.path.key;
                             }
                         }
                         console.log('its post:', data);
@@ -41,7 +42,7 @@ module.exports = {
                         res.json({ status: true, notification: 'successfully added admin!' });
                     }
                 } catch (err) {
-                    res.json({ status: false, notification: 'failed to add admin: ' + err.message })
+                    res.json({ status: false, notification: 'failed to add business: ' + err.message })
                 }
             }
         }
@@ -61,34 +62,34 @@ module.exports = {
                         let data = req.body;
                         for (const file of req.files) {
                             if (file.fieldname == 'business_logo') {
-                                data['logo'] = file.path.split('storekeeper')[1];
+                                data['logo'] = file.key;
                             }
                             if (file.fieldname == 'business_stamp') {
-                                data['stamp'] = file.path.split('storekeeper')[1];
+                                data['stamp'] = file.key;
                             }
                         }
                         console.log('its post:', data);
                         await (await new Controllers(req).update()).business(req.params.id, data);
-                        res.json({ status: true, notification: 'successfully added admin!' });
+                        res.json({ status: true, notification: 'successfully updated business!' });
                     } else {
                         if (req.file) {
                             let data = req.body;
                             if (req.file.fieldname == 'business_logo') {
-                                data['logo'] = file.path.split('storekeeper')[1];
+                                data['logo'] = req.file.key;
                             }
                             if (req.file.fieldname == 'business_stamp') {
-                                data['stamp'] = file.path.split('storekeeper')[1];
+                                data['stamp'] = req.file.key;
                             }
                             console.log('its post:', data);
                             await (await new Controllers(req).update()).business(req.params.id, data);
-                            res.json({ status: true, notification: 'successfully added admin!' });
+                            res.json({ status: true, notification: 'successfully added business!' });
                         } else {
                             await (await new Controllers(req).update()).business(req.params.id, data);
-                            res.json({ status: true, notification: 'successfully added admin!' });
+                            res.json({ status: true, notification: 'successfully added business!' });
                         }
                     }
                 } catch (err) {
-                    res.json({ status: false, notification: 'failed to update admin: ' + err.message })
+                    res.json({ status: false, notification: 'failed to update business: ' + err.message })
                 }
             }
         }

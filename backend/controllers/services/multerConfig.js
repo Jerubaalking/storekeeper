@@ -5,82 +5,120 @@ const { S3Client } = require("@aws-sdk/client-s3");
 
 // create s3 instance using S3Client 
 // (this is how we create s3 instance in v3)
+const pdfFileUrl = 'storekeeperapp/public/uploads/files/pdf/';
+const csvFileUrl = 'storekeeperapp/public/uploads/csv/';
+const userImageUrl = 'storekeeperapp/public/uploads/images/users/';
+const galleryImageUrl = 'storekeeperapp/public/uploads/images/users/';
+const businessStampUrl = 'storekeeperapp/public/uploads/images/stamps/';
+const logoUrl = 'storekeeperapp/public/uploads/images/logos/';
+const imageUrl = 'storekeeperapp/public/uploads/images/';
 const s3 = new S3Client({
+    forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+    endpoint: "https://fra1.digitaloceanspaces.com",
+    region: "fra-1",
     credentials: {
         accessKeyId: "DO00XRHCZJXNHVCLM3BD", // store it in .env file to keep it safe
         secretAccessKey: "Q/ocb3SsC7/85rYcjff5hEXcKqI2+hw6mpniz7KptlA"
-    },
-    region: "ap-south-1" // this is the region that you select in AWS account
+    }
 })
 const s3StorageUser = multerS3({
-    s3: s3, // s3 instance
-    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/users", // change it as per your project requirement
+    s3: new S3Client({
+        forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+        endpoint: "https://fra1.digitaloceanspaces.com",
+        region: "fra-1",
+        credentials: {
+            accessKeyId: "DO00XRHCZJXNHVCLM3BD", // store it in .env file to keep it safe
+            secretAccessKey: "Q/ocb3SsC7/85rYcjff5hEXcKqI2+hw6mpniz7KptlA"
+        }
+    }), // s3 instance
+    bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })
     },
     key: (req, file, cb) => {
-        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        const fileName = userImageUrl + req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
         cb(null, fileName);
     }
 });
 const s3StorageLogo = multerS3({
-    s3: s3, // s3 instance
-    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/logos", // change it as per your project requirement
+    s3: new S3Client({
+        forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+        endpoint: "https://fra1.digitaloceanspaces.com",
+        region: "fra-1",
+        credentials: {
+            accessKeyId: "DO00XRHCZJXNHVCLM3BD", // store it in .env file to keep it safe
+            secretAccessKey: "Q/ocb3SsC7/85rYcjff5hEXcKqI2+hw6mpniz7KptlA"
+        }
+    }),
+    bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
+    key: logoUrl,
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })
     },
     key: (req, file, cb) => {
-        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        const fileName = logoUrl + req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
         cb(null, fileName);
     }
 });
 const s3StorageGallery = multerS3({
     s3: s3, // s3 instance
-    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/gallery", // change it as per your project requirement
+    forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+    endpoint: "https://fra1.digitaloceanspaces.com",
+    region: "fra-1",
+    bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
+    prefix: galleryImageUrl,
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })
     },
     key: (req, file, cb) => {
-        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        const fileName = galleryImageUrl + req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
         cb(null, fileName);
     }
 });
 const s3StorageStamp = multerS3({
-    s3: s3, // s3 instance
-    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/images/stamps", // change it as per your project requirement
+    s3: s3,
+    bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
+    prefix: businessStampUrl,
+    key: businessStampUrl,
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })
     },
     key: (req, file, cb) => {
-        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        const fileName = businessStampUrl + '/' + req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
         cb(null, fileName);
     }
 });
 const s3StorageCsv = multerS3({
     s3: s3, // s3 instance
-    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/csv", // change it as per your project requirement
+    forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+    endpoint: "https://fra1.digitaloceanspaces.com",
+    region: "fra-1",
+    bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
+    prefix: csvFileUrl,
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })
     },
     key: (req, file, cb) => {
-        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        const fileName = csvFileUrl + req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
         cb(null, fileName);
     }
 });
+
 const s3StorageFilePDF = multerS3({
-    s3: s3, // s3 instance
-    bucket: "https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/public/uploads/files/pdf", // change it as per your project requirement
+    s3: s3,
+    bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
+    prefix: pdfFileUrl,
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })
     },
     key: (req, file, cb) => {
-        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+        const fileName = pdfFileUrl + req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
         cb(null, fileName);
     }
 });
