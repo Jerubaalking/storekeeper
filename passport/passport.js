@@ -6,11 +6,13 @@ const users = require('../database/models/users');
 // const SessionStore = require('session-file-store')(session);
 const roles = require('../database/models/roles');
 const passport = require('passport');
+const sessions = require('../database/models/sessions');
 // this.use(flash());
 module.exports = {
     authenticateUser: async function (req, email, password, done) {
         // console.log(email, password);
         const user = await users.findAll({ where: { email: email }, include: [{ model: roles }] });
+        const session = JSON.parse(JSON.stringify(await sessions.findOne({ where: { status: 1 } })));
         const _user = JSON.parse(JSON.stringify(await user))[0];
         let passVerify = await passwordHashVerify(password, _user.salt, _user.hash);
         if (user.length <= 0) {
@@ -24,6 +26,8 @@ module.exports = {
                 email: _user.email,
                 role: _user.roles[0],
                 userId: _user.id,
+                session: session.name,
+                sessionId: session.id,
             }
             return done(null, userData);
         } else {

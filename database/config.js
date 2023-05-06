@@ -20,49 +20,49 @@ if (process.env.NODE_ENV == 'development') {
 
 module.exports = () => {
 
-if (process.env.NODE_ENV == 'development') {
+    if (process.env.NODE_ENV == 'development') {
 
-    return {
-        "DB_HOST": host,
-        "DB_USER": user,
-        "DB_PASSWORD": password,
-        "DB_NAME": name,
-        "DB_PORT": port,
-        "dialect": dialect,
-        pool: {
+        return {
+            "DB_HOST": '127.0.0.1',
+            "DB_USER": 'root',
+            "DB_PASSWORD": 'thina2023',
+            "DB_NAME": 'storekeeper247_db',
+            "DB_PORT": '3307',
+            "dialect": 'mysql',
+            pool: {
 
-            max: 5,
+                max: 5,
 
-            min: 0,
+                min: 0,
 
-            acquire: 30000,
+                acquire: 30000,
 
-            idle: 10000
+                idle: 10000
 
-        }
-
-    }
-} else {
-    return {
-        "DB_HOST": 'srv-captain--mysql-db',
-        "DB_USER": 'root',
-        "DB_PASSWORD": 'thina@2023',
-        "DB_NAME": 'storekeeper247_db',
-        "DB_PORT": '3306',
-        "dialect": 'mysql',
-        pool: {
-
-            max: 5,
-
-            min: 0,
-
-            acquire: 30000,
-
-            idle: 10000
+            }
 
         }
+    } else {
+        return {
+            "DB_HOST": 'srv-captain--mysql-db',
+            "DB_USER": 'root',
+            "DB_PASSWORD": 'thina@2023',
+            "DB_NAME": 'storekeeper247_db',
+            "DB_PORT": '3306',
+            "dialect": 'mysql',
+            pool: {
 
+                max: 5,
+
+                min: 0,
+
+                acquire: 30000,
+
+                idle: 10000
+
+            }
+
+        }
     }
-}
-    
+
 };
