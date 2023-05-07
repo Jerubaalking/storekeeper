@@ -29,7 +29,7 @@ module.exports = {
                     if (req.files) {
                         let data = req.body;
                         for (const file of req.files) {
-                            if (process.env == 'production') {
+                            if (process.env.NODE_ENV  == 'production') {
                                 console.log('File==>>>>', file);
                                 if (file.fieldname == 'business_logo') {
                                     data['logo'] = file.key.split('public')[1];
@@ -52,7 +52,7 @@ module.exports = {
                         res.json({ status: true, notification: 'successfully added business!' });
                     } else {
                         if (req.file) {
-                            if (process.env == 'production') {
+                            if (process.env.NODE_ENV  == 'production') {
                                 if (req.file.fieldname == 'business_logo') {
                                     data['logo'] = req.file.key.split('public')[1];
                                 }
@@ -88,14 +88,14 @@ module.exports = {
             console.log(business);
             res.render('superadmin/businesses/edit', { layout: false, business: JSON.parse(JSON.stringify(business)) });
         } else {
-            if (req.method == 'POST' && req.url.includes('/edit')) {
+            if (req.method == 'POST' && req.url.includes('/edit'+req.params.id)) {
                 try {
                     console.log('its post:');
                     if (req.files) {
                         let data = req.body;
                         for (const file of req.files) {
                             console.log(file);
-                            if (process.env == 'production') {
+                            if (process.env.NODE_ENV  == 'production') {
                                 if (file.fieldname == 'business_logo') {
                                     data['logo'] = file.key.split('public')[1];
                                 }
@@ -117,7 +117,7 @@ module.exports = {
                         res.json({ status: true, notification: 'successfully updated business!' });
                     } else {
                         if (req.file) {
-                            if (process.env == 'production') {
+                            if (process.env.NODE_ENV == 'production') {
                                 if (req.file.fieldname == 'business_logo') {
                                     data['logo'] = req.file.key.split('public')[1];
                                 }
