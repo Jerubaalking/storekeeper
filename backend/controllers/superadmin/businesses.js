@@ -37,7 +37,7 @@ module.exports = {
                                 if (file.fieldname == 'business_stamp') {
                                     data['stamp'] = file.key.split('public')[1];
                                 }
-                            }else{
+                            } else {
                                 console.log('File==>>>>', file);
                                 if (file.fieldname == 'business_logo') {
                                     data['logo'] = file.path.split('public')[1];
@@ -50,6 +50,29 @@ module.exports = {
                         console.log('its post:', data);
                         await (await new Controllers(req).create()).business(data);
                         res.json({ status: true, notification: 'successfully added business!' });
+                    } else {
+                        if (req.file) {
+                            if (process.env == 'production') {
+                                if (req.file.fieldname == 'business_logo') {
+                                    data['logo'] = req.file.key.split('public')[1];
+                                }
+                                if (req.file.fieldname == 'business_stamp') {
+                                    data['stamp'] = req.file.key.split('public')[1];
+                                }
+                            } else {
+
+                                if (req.file.fieldname == 'business_logo') {
+                                    data['logo'] = req.file.path.split('public')[1];
+                                }
+                                if (req.file.fieldname == 'business_stamp') {
+                                    data['stamp'] = req.file.path.split('public')[1];
+                                }
+                            }
+
+                            console.log('its post:', data);
+                            await (await new Controllers(req).create()).business(data);
+                            res.json({ status: true, notification: 'successfully added business!' });
+                        }
                     }
                 } catch (err) {
                     res.json({ status: false, notification: 'failed to add business: ' + err.message })
@@ -94,12 +117,21 @@ module.exports = {
                         res.json({ status: true, notification: 'successfully updated business!' });
                     } else {
                         if (req.file) {
-                            let data = req.body;
-                            if (req.file.fieldname == 'business_logo') {
-                                data['logo'] = req.file.key;
-                            }
-                            if (req.file.fieldname == 'business_stamp') {
-                                data['stamp'] = req.file.key;
+                            if (process.env == 'production') {
+                                if (req.file.fieldname == 'business_logo') {
+                                    data['logo'] = req.file.key.split('public')[1];
+                                }
+                                if (req.file.fieldname == 'business_stamp') {
+                                    data['stamp'] = req.file.key.split('public')[1];
+                                }
+                            } else {
+
+                                if (req.file.fieldname == 'business_logo') {
+                                    data['logo'] = req.file.path.split('public')[1];
+                                }
+                                if (req.file.fieldname == 'business_stamp') {
+                                    data['stamp'] = req.file.path.split('public')[1];
+                                }
                             }
                             console.log('its post:', data);
                             await (await new Controllers(req).update()).business(req.params.id, data);
