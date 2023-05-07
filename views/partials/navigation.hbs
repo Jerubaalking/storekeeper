@@ -8,7 +8,7 @@
   </div>
   <!--- Sidemenu -->
   <ul class="metismenu side-nav side-nav-light">
-    <li class="side-nav-title side-nav-item">Navigation</li>
+    <li class="side-nav-title side-nav-item">{{viewManager.role.role}} Navigation</li>
 
     {{#ifEquals viewManager.role.role 'superadmin'}}
     {{#each menus}}

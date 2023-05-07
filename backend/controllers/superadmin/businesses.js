@@ -29,17 +29,17 @@ module.exports = {
                     if (req.files) {
                         let data = req.body;
                         for (const file of req.files) {
-                            console.log('File==>>>>',file);
+                            console.log('File==>>>>', file);
                             if (file.fieldname == 'business_logo') {
                                 data['logo'] = file.key;
                             }
                             if (file.fieldname == 'business_stamp') {
-                                data['stamp'] = file.path.key;
+                                data['stamp'] = file.key;
                             }
                         }
                         console.log('its post:', data);
                         await (await new Controllers(req).create()).business(data);
-                        res.json({ status: true, notification: 'successfully added admin!' });
+                        res.json({ status: true, notification: 'successfully added business!' });
                     }
                 } catch (err) {
                     res.json({ status: false, notification: 'failed to add business: ' + err.message })
@@ -98,15 +98,15 @@ module.exports = {
 
     activateSession: async (req, res) => {
         try {
-            let oldSession = JSON.parse(JSON.stringify(await findby.admin({ where: { status: 1 } })));
+            let oldSession = JSON.parse(JSON.stringify(await findby.business({ where: { status: 1 } })));
             if (oldSession) {
                 console.log(oldSession);
-                await update.admin(oldSession[0].id, { status: 0 });
+                await update.business(oldSession[0].id, { status: 0 });
             }
-            await update.admin(req.params.id, { status: 1 });
-            res.json({ status: true, notification: 'successfully activated admin!' })
+            await update.business(req.params.id, { status: 1 });
+            res.json({ status: true, notification: 'successfully activated business!' })
         } catch (err) {
-            res.json({ status: false, notification: 'failed to activate admin: ' + err.message })
+            res.json({ status: false, notification: 'failed to activate business: ' + err.message })
         }
 
     }

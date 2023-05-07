@@ -8,10 +8,10 @@ authorizers = sequelize.define('authorizers', {
         primaryKey: true,
     },
     title: DataTypes.STRING,
-    // accept: {
-    //     type: DataTypes.STRING,
-    //     defaultValue: "['superadmin', 'admin', 'system-manager', 'employee-accountant', 'employee-sales', 'employee-marketing', 'employee-manager', 'employee-hr']"
-    // },
+    accept: {
+        type: DataTypes.STRING,
+        defaultValue: "['superadmin', 'admin', 'system-manager', 'employee-accountant', 'employee-sales', 'employee-marketing', 'employee-manager', 'employee-hr']"
+    },
 }, { timestamps: true, paranoid: true });
 authorizers.belongsTo(sessions);
 sessions.hasMany(authorizers);

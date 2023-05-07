@@ -8,8 +8,8 @@ module.exports = async (app) => {
     /** SuperADMIN */
     app.use('/businesses', require('./backend/routes/backend/businesses'));
     app.use('/stores', require('./backend/routes/backend/stores'));
-    // app.use('/sessions', require('./backend/routes/backend/sessions'));
-    // app.use('/settings', require('./backend/routes/backend/settings'));
+    app.use('/sessions', require('./backend/routes/backend/sessions'));
+    app.use('/settings', require('./backend/routes/backend/settings'));
     app.use('/superadmins', require('./backend/routes/backend/superadmin'));
     app.use('/admin', require('./backend/routes/backend/admin'));
     app.use('/customers', require('./backend/routes/backend/customers'));

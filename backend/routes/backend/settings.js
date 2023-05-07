@@ -5,14 +5,14 @@ const router = express.Router();
 
 const { isLoggedIn } = require('../../../passport/passport');;
 
-const { userImage } = require('../../controllers/services/multerConfig');
+const { user } = require('../../controllers/services/multerConfig');
 
 router.get('/', settings.index);
 router.get('/system', settings.system);
-router.post('/system', userImage().none(), settings.system);
+router.post('/system', user().none(), settings.system);
 router.get('/smtp', isLoggedIn, settings.smtp);
 router.post('/smtp/:mail_sender', settings.smtp);
-router.post('/smtp', isLoggedIn, userImage().none(), settings.smtp);
+router.post('/smtp', isLoggedIn, user().none(), settings.smtp);
 router.get('/payment', settings.payment);
 router.get('/school', settings.school);
 // router.get('/list', isLoggedIn, route.settings);
