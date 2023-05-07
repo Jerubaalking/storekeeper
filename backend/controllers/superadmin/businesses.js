@@ -31,10 +31,10 @@ module.exports = {
                         for (const file of req.files) {
                             console.log('File==>>>>', file);
                             if (file.fieldname == 'business_logo') {
-                                data['logo'] = file.key;
+                                data['logo'] = file.key.split('public')[1];
                             }
                             if (file.fieldname == 'business_stamp') {
-                                data['stamp'] = file.key;
+                                data['stamp'] = file.key.split('public')[1];
                             }
                         }
                         console.log('its post:', data);
@@ -62,10 +62,10 @@ module.exports = {
                         let data = req.body;
                         for (const file of req.files) {
                             if (file.fieldname == 'business_logo') {
-                                data['logo'] = file.key;
+                                data['logo'] = file.key.split('public')[1];
                             }
                             if (file.fieldname == 'business_stamp') {
-                                data['stamp'] = file.key;
+                                data['stamp'] = file.key.split('public')[1];
                             }
                         }
                         console.log('its post:', data);
