@@ -126,6 +126,7 @@ const s3StorageFilePDF = multerS3({
 function sanitizeImage(file, cb) {
     // Define the allowed extension
     const fileExts = [".png", ".jpg", ".jpeg", ".gif"];
+    const MimeFile = ["image", "immage"];
 
     // Check allowed extensions
     const isAllowedExt = fileExts.includes(
@@ -133,9 +134,9 @@ function sanitizeImage(file, cb) {
     );
 
     // Mime type must be an image
-    const isAllowedMimeType = file.mimetype.startsWith("image/");
+    const isAllowedMimeType = file.mimetype.split("/")[0];
 
-    if (isAllowedExt && isAllowedMimeType) {
+    if (isAllowedExt && MimeFile.includes(isAllowedMimeType)) {
         return cb(null, true); // no errors
     } else {
         // pass error msg to callback, which can be displaye in frontend
@@ -145,6 +146,7 @@ function sanitizeImage(file, cb) {
 function sanitizeFileCsv(file, cb) {
     // Define the allowed extension
     const fileExts = [".csv"];
+    const MimeFile = ["application/vnd.ms-excel"];
 
     // Check allowed extensions
     const isAllowedExt = fileExts.includes(
@@ -152,7 +154,8 @@ function sanitizeFileCsv(file, cb) {
     );
 
     // Mime type must be an image
-    const isAllowedMimeType = file.mimetype.startsWith("application/vnd.ms-excel");
+    // const isAllowedMimeType = file.mimetype.split("/")[0];
+    const isAllowedMimeType = file.mimetype ? "application/vnd.ms-excel" : false;
 
     if (isAllowedExt && isAllowedMimeType) {
         return cb(null, true); // no errors
@@ -171,7 +174,7 @@ function sanitizeFilePDF(file, cb) {
     );
 
     // Mime type must be an image
-    const isAllowedMimeType = file.mimetype.startsWith("application/pdf");
+    const isAllowedMimeType = file.mimetype ? "application/pdf" : false;
 
     if (isAllowedExt && isAllowedMimeType) {
         return cb(null, true); // no errors
@@ -193,72 +196,197 @@ function sanitizeFilePDF(file, cb) {
 
 function upload() {
     this.user = () => {
-        return multer({
-            storage: s3StorageUser,
-            fileFilter: (req, file, callback) => {
-                sanitizeImage(file, callback)
-            },
-            limits: {
-                fileSize: 1024 * 1024 * 2 // 2mb file size
-            }
-        });
+        if (process.env == 'production') {
+            return multer({
+                storage: s3StorageUser,
+                fileFilter: (file, callback) => {
+                    sanitizeImage(file, callback)
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        } else {
+            return multer({
+                storage: multer.diskStorage({
+                    destination: (req, file, cb) => {
+                        cb(null, '/public/uploads/images/users')
+                    },
+                    filename: (req, file, cb) => {
+                        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+                        cb(null, fileName);
+                    }
+                }),
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback);
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        }
     }
     this.businessStamp = () => {
-        return multer({
-            storage: s3StorageStamp,
-            fileFilter: (req, file, callback) => {
-                sanitizeImage(file, callback)
-            },
-            limits: {
-                fileSize: 1024 * 1024 * 2 // 2mb file size
-            }
-        });
+        if (process.env == 'production') {
+
+            return multer({
+                storage: s3StorageStamp,
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback)
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        } else {
+            return multer({
+                storage: multer.diskStorage({
+                    destination: (req, file, cb) => {
+                        cb(null, '/public/uploads/images/stamps')
+                    },
+                    filename: (req, file, cb) => {
+                        const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+                        cb(null, fileName);
+                    }
+                }),
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback);
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        }
     }
 
     this.businessLogo = () => {
-        return multer({
-            storage: s3StorageLogo,
-            fileFilter: (req, file, callback) => {
-                sanitizeImage(file, callback)
-            },
-            limits: {
-                fileSize: 1024 * 1024 * 2 // 2mb file size
-            }
-        });
+        if (process.env == 'production') {
+            return multer({
+                storage: s3StorageLogo,
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback)
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        } else {
+            const storage = multer.diskStorage({
+                destination: (req, file, cb) => {
+                    cb(null, path.resolve('./public/uploads/images/logos'))
+                },
+                filename: (req, file, cb) => {
+                    const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+                    cb(null, fileName);
+                }
+            });
+            return multer({
+                storage: storage,
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback);
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        }
     }
     this.gallery = () => {
-        return multer({
-            storage: s3StorageGallery,
-            fileFilter: (req, file, callback) => {
-                sanitizeImage(file, callback)
-            },
-            limits: {
-                fileSize: 1024 * 1024 * 2 // 2mb file size
-            }
-        });
+        if (process.env == 'production') {
+            return multer({
+                storage: s3StorageGallery,
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback)
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        } else {
+            const storage = multer.diskStorage({
+                destination: (req, file, cb) => {
+                    cb(null, path.resolve('./public/uploads/images/gallery'))
+                },
+                filename: (req, file, cb) => {
+                    const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+                    cb(null, fileName);
+                }
+            });
+            return multer({
+                storage: storage,
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback);
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        }
     }
 
     this.userCsv = () => {
-        return multer({
-            storage: s3StorageCsv,
-            fileFilter: (req, file, callback) => {
-                sanitizeFileCsv(file, callback)
-            },
-            limits: {
-                fileSize: 1024 * 1024 * 2 // 2mb file size
-            }
-        });
+        if (process.env == 'production') {
+            return multer({
+                storage: s3StorageCsv,
+                fileFilter: (req, file, callback) => {
+                    sanitizeFileCsv(file, callback)
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        } else {
+            const storage = multer.diskStorage({
+                destination: (req, file, cb) => {
+                    cb(null, './public/uploads/csv')
+                },
+                filename: (req, file, cb) => {
+                    const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+                    cb(null, fileName);
+                }
+            });
+            return multer({
+                storage: storage,
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback);
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        }
     }
     this.pdf = () => {
-        return multer({
-            storage: s3StorageFilePDF,
-            fileFilter: (req, file, callback) => {
-                sanitizeFilePDF(file, callback)
-            },
-            limits: {
-                fileSize: 1024 * 1024 * 2 // 2mb file size
-            }
-        });
+        if (process.env == 'production') {
+            return multer({
+                storage: s3StorageFilePDF,
+                fileFilter: (req, file, callback) => {
+                    sanitizeFilePDF(file, callback)
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        } else {
+            const storage = multer.diskStorage({
+                destination: (req, file, cb) => {
+                    cb(null, path.resolve('./public/uploads/files/pdf'))
+                },
+                filename: (req, file, cb) => {
+                    const fileName = req.body.name.split(' ').join('_') + '_' + file.fieldname + '_' + path.extname(file.originalname);
+                    cb(null, fileName);
+                }
+            });
+            return multer({
+                storage: storage,
+                fileFilter: (req, file, callback) => {
+                    sanitizeImage(file, callback);
+                },
+                limits: {
+                    fileSize: 1024 * 1024 * 2 // 2mb file size
+                }
+            });
+        }
     }
 
 };
