@@ -196,7 +196,7 @@ function sanitizeFilePDF(file, cb) {
 
 function upload() {
     this.user = () => {
-        if (process.env == 'production') {
+        if (process.env.NODE_ENV == 'production') {
             return multer({
                 storage: s3StorageUser,
                 fileFilter: (file, callback) => {
@@ -227,7 +227,7 @@ function upload() {
         }
     }
     this.businessStamp = () => {
-        if (process.env == 'production') {
+        if (process.env.NODE_ENV == 'production') {
 
             return multer({
                 storage: s3StorageStamp,
@@ -260,7 +260,7 @@ function upload() {
     }
 
     this.businessLogo = () => {
-        if (process.env == 'production') {
+        if (process.env.NODE_ENV == 'production') {
             return multer({
                 storage: s3StorageLogo,
                 fileFilter: (req, file, callback) => {
@@ -292,7 +292,7 @@ function upload() {
         }
     }
     this.gallery = () => {
-        if (process.env == 'production') {
+        if (process.env.NODE_ENV == 'production') {
             return multer({
                 storage: s3StorageGallery,
                 fileFilter: (req, file, callback) => {
@@ -325,7 +325,7 @@ function upload() {
     }
 
     this.userCsv = () => {
-        if (process.env == 'production') {
+        if (process.env.NODE_ENV == 'production') {
             return multer({
                 storage: s3StorageCsv,
                 fileFilter: (req, file, callback) => {
@@ -357,7 +357,7 @@ function upload() {
         }
     }
     this.pdf = () => {
-        if (process.env == 'production') {
+        if (process.env.NODE_ENV == 'production') {
             return multer({
                 storage: s3StorageFilePDF,
                 fileFilter: (req, file, callback) => {
