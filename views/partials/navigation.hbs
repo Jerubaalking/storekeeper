@@ -12,7 +12,7 @@
 
     {{#ifEquals viewManager.role.role 'superadmin'}}
     {{#each menus}}
-    {{#ifEquals superadmin_access 1}}
+    {{#ifEquals superadmin 1}}
     <li class="side-nav-item">
       {{#ifEquals parent 0}}
       <a class="side-nav-link">
@@ -26,7 +26,7 @@
         {{#each ../sub_menu}}
 
         {{#ifEquals parent ../id}}
-        {{#ifEquals superadmin_access 1}}
+        {{#ifEquals superadmin 1}}
         {{#ifEquals route '/home'}}
         <a href="/superadmin" onclick="loadPage('/superadmin','{{display_name}}', '{{display_name}}')"
           class="side-nav-link">
@@ -58,7 +58,7 @@
 
     {{#ifEquals viewManager.role.role 'admin'}}
     {{#each menus}}
-    {{#ifEquals admin_access 1}}
+    {{#ifEquals admin 1}}
     <li class="side-nav-item">
       {{#ifEquals parent 0}}
       <a class="side-nav-link">
@@ -72,7 +72,7 @@
         {{#each ../sub_menu}}
 
         {{#ifEquals parent ../id}}
-        {{#ifEquals admin_access 1}}
+        {{#ifEquals admin 1}}
         {{#ifEquals route '/home'}}
         <a href="/admin" onclick="loadPage('/admin','{{display_name}}', '{{display_name}}')" class="side-nav-link">
           <i class="{{icon}}"></i>
@@ -152,7 +152,7 @@
 
     {{#ifEquals viewManager.role.role 'teacher'}}
     {{#each menus}}
-    {{#ifEquals teacher_access 1}}
+    {{#ifEquals teacher 1}}
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
@@ -177,7 +177,7 @@
 
         {{#ifEquals parent ../id}}
 
-        {{#ifEquals teacher_access 1}}
+        {{#ifEquals teacher 1}}
         <li class="side-nav-item _item" +{{display_name}}>
           <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
@@ -197,7 +197,7 @@
 
     {{#ifEquals viewManager.role.role 'parent'}}
     {{#each menus}}
-    {{#ifEquals parent_access 1}}
+    {{#ifEquals parent 1}}
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
@@ -222,7 +222,7 @@
 
         {{#ifEquals parent ../id}}
 
-        {{#ifEquals parent_access 1}}
+        {{#ifEquals parent 1}}
         <li class="side-nav-item _item" +{{display_name}}>
           <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
@@ -243,7 +243,7 @@
 
     {{#ifEquals viewManager.role.role 'student'}}
     {{#each menus}}
-    {{#ifEquals student_access 1}}
+    {{#ifEquals student 1}}
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
@@ -268,7 +268,7 @@
 
         {{#ifEquals parent ../id}}
 
-        {{#ifEquals student_access 1}}
+        {{#ifEquals student 1}}
         <li class="side-nav-item _item" +{{display_name}}>
           <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
@@ -289,7 +289,7 @@
 
     {{#ifEquals viewManager.role.role 'librarian'}}
     {{#each menus}}
-    {{#ifEquals librarian_access 1}}
+    {{#ifEquals librarian 1}}
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
@@ -314,7 +314,7 @@
 
         {{#ifEquals parent ../id}}
 
-        {{#ifEquals librarian_access 1}}
+        {{#ifEquals librarian 1}}
         <li class="side-nav-item _item" +{{display_name}}>
           <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>

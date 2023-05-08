@@ -10,53 +10,57 @@ menus = sequelize.define('menus', {
     route_name: Sequelize.STRING,
     parent: Sequelize.INTEGER,
     icon: Sequelize.STRING,
-    superadmin_access: {
+    superadmin: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    admin_access: {
+    admin: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    system_manager_access: {
+    business_admin: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    customer_personel_access: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    }, employee_manager_access: {
+    business_manager: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    employee_accountant_access: {
+    business_accountant: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    employee_sales_access: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    }, employee_marketing_access: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    }, employee_driver_access: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    }, employee_security_access: {
+    store_admin: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    employee_semi_skilled_access: {
+    store_manager: {
         type: Sequelize.INTEGER,
         defaultValue: 0
-    }, employee_hr_access: {
+    },
+    store_accountant: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    store_sales: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    }, 
+    store_marketing: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    store_stocker: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    customer: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
     sort_order: {
         type: Sequelize.INTEGER
     },
-
     is_addon: {
         type: Sequelize.INTEGER,
         defaultValue: 0,

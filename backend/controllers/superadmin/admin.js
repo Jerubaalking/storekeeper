@@ -36,6 +36,7 @@ module.exports = {
                     await (await new Controllers(req).create()).user(data);
                     res.json({ status: true, notification: 'successfully added admin!' })
                 } catch (err) {
+                    console.log(err);
                     res.json({ status: false, notification: 'failed to add admin: ' + err.message })
                 }
             }

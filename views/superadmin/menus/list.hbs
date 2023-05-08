@@ -1,0 +1,138 @@
+<table id="basic-datatable" class="table table-striped td-responsive nowrap" width="100%">
+    <thead>
+        <tr style="background-color: #313a46; color: #ababab;">
+            <th>display-name</th>
+            {{!-- <th>route</th> --}}
+            <th>parent</th>
+            <th>icon</th>
+            {{#ifEquals role.role 'superadmin'}}
+            <th>superadmin</th>
+            {{/ifEquals}}
+            <th>admin</th>
+            <th>business-admin</th>
+            <th>business-manager</th>
+            <th>business-accountant</th>
+            <th>store-admin</th>
+            <th>store-manager</th>
+            <th>store-accountant</th>
+            <th>store-sales</th>
+            <th>store-marketing</th>
+            <th>store-keeper</th>
+            <th>customer</th>
+            <th>options</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each menus}}
+        <tr>
+            <td>{{display_name}}
+            </td>
+            {{!-- <td>{{route_name}}
+            </td> --}}
+            <td>
+                {{#ifEquals parent 0}}
+                {{display_name}}
+                {{else}}
+
+                {{#each ../menus}}
+                {{#ifEquals ../parent id}}
+                {{display_name}}
+                {{/ifEquals}}
+                {{/each}}
+                {{/ifEquals}}
+            </td>
+            <td><i class="{{icon}}"></i>
+            </td>
+
+            {{#ifEquals ../role.role 'superadmin'}}
+            <td>
+                <input type="checkbox" value="{{superadmin}}" id="superadmin{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'superadmin', '{{id}}');" {{#ifEquals 1
+                    superadmin}}checked{{/ifEquals}}>
+                <label for="superadmin{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            {{/ifEquals}}
+            <td>
+                <input type="checkbox" value="{{admin}}" id="admin{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'admin', '{{id}}');" {{#ifEquals 1 admin}}checked{{/ifEquals}}>
+                <label for="admin{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{business_admin}}" id="business_admin{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'business_admin', '{{id}}');" {{#ifEquals 1
+                    business_admin}}checked{{/ifEquals}}>
+                <label for="business_admin{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{business_manager}}" id="business_manager{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'business_manager', '{{id}}');" {{#ifEquals 1
+                    business_manager}}checked{{/ifEquals}}>
+                <label for="business_manager{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{business_accountant}}" id="business_accountant{{id}}"
+                    data-switch="success" onchange="togglePermission(this, 'business_accountant', '{{id}}');"
+                    {{#ifEquals 1 business_accountant}}checked{{/ifEquals}}>
+                <label for="business_accountant{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{store_admin}}" id="store_admin{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'store_admin', '{{id}}');" {{#ifEquals 1
+                    store_admin}}checked{{/ifEquals}}>
+                <label for="store_admin{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{store_manager}}" id="store_manager{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'store_manager', '{{id}}');" {{#ifEquals 1
+                    store_manager}}checked{{/ifEquals}}>
+                <label for="store_manager{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{store_accountant}}" id="store_accountant{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'store_accountant', '{{id}}');" {{#ifEquals 1
+                    store_accountant}}checked{{/ifEquals}}>
+                <label for="store_accountant{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{store_sales}}" id="store_sales{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'store_sales', '{{id}}');" {{#ifEquals 1
+                    store_sales}}checked{{/ifEquals}}>
+                <label for="store_sales{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{store_marketing}}" id="store_marketing{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'store_marketing', '{{id}}');" {{#ifEquals 1
+                    store_marketing}}checked{{/ifEquals}}>
+                <label for="store_marketing{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{store_stocker}}" id="store_stocker{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'store_stocker', '{{id}}');" {{#ifEquals 1
+                    store_stocker}}checked{{/ifEquals}}>
+                <label for="store_stocker{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <input type="checkbox" value="{{customer}}" id="customer{{id}}" data-switch="success"
+                    onchange="togglePermission(this, 'customer', '{{id}}');" {{#ifEquals 1
+                    customer}}checked{{/ifEquals}}>
+                <label for="customer{{id}}" data-on-label="Yes" data-off-label="No"></label>
+            </td>
+            <td>
+                <div class="dropdown text-center">
+                    <button type="button"
+                        class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+                        data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="largeModal('/menus/edit/{{id}}', 'Update Menu');">edit</a>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="confirmModal('/menus/delete/{{id}}', showAllMenus)">delete</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

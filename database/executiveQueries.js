@@ -49,13 +49,24 @@ module.exports = async executeInitialQueries => {
         }
         // console.log(menuArray);
         await sessions.create({ name: '2023', status: 1 });
-        await authorizers.create({ title: 'invoice', accept: "['admin', 'employee-accountant', 'employee-manager']" });
-        await authorizers.create({ title: 'profoma', accept: "['admin', 'system-manager', 'employee-accountant', 'employee-sales', 'employee-marketing', 'employee-manager']" });
-        await authorizers.create({ title: 'payment', accept: "['admin', 'employee-accountant','employee-manager']" });
-        await authorizers.create({ title: 'transaction', accept: "['admin', 'employee-accountant', 'employee-sales', 'employee-manager']" });
-        await roles.bulkCreate([{ role: 'superadmin' }, { role: 'admin' }, { role: 'system-manager' }, { role: 'customer-personel' }, { role: 'employee-sales' }, { role: 'employee-marketing' }, { role: 'employee-driver' }, { role: 'employee-security' }, { role: 'employee-hr' }, { role: 'employee-semi-skilled' }]);
+        await roles.create({ role: 'superadmin' });
+        await roles.create({ role: 'admin' });
+        await roles.create({ role: 'business-admin' });
+        await roles.create({ role: 'business-manager' })
+        await roles.create({ role: 'business-accountant' });
+        await roles.create({ role: 'store-admin' });
+        await roles.create({ role: 'store-manager' });
+        await roles.create({ role: 'store-accountant' });
+        await roles.create({ role: 'store-sales' });
+        await roles.create({ role: 'store-marketing' });
+        await roles.create({ role: 'store-stocker' });
+        await roles.create({ role: 'customer' });
+        await roles.create({ role: 'generic' });
         await permissions.bulkCreate([{ permission: 'all' }, { permission: 'create' }, { permission: 'edit' }, { permission: 'delete' }, { permission: 'view' }]);
-
+        await authorizers.create({ title: 'invoice', accept: "['superadmin', 'admin','business-manager','business-admin','store-admin','store-accountant', 'store-manager']", sessionId: 1 });
+        await authorizers.create({ title: 'profoma', accept: "['superadmin', 'admin','business-manager','business-admin','store-admin','store-accountant', 'store-manager']", sessionId: 1 });
+        await authorizers.create({ title: 'payment', accept: "['store-admin', 'store-accountant','store-manager']", sessionId: 1 });
+        await authorizers.create({ title: 'transaction', accept: "['superadmin', 'admin','business-manager','business-admin','store-admin','store-accountant', 'store-manager']", sessionId: 1 });
         await user_role_permissions.create({ permissionId: 1, roleId: 1 });
         // await users.destroy({ where: { [Op.not]: { id: 1 } }, paranoid: false })
         // await user_roles.destroy({ where: { [Op.not]: { userId: 1 } }, paranoid: false })

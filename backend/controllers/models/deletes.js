@@ -1,4 +1,4 @@
-const {roles,
+const { roles,
     main_menus,
     store_menus,
     business_addresses,
@@ -222,11 +222,11 @@ class deletes {
         }
     }
     async menu(id) {
-        if (this._instance.schoolId, this._instance.sessionId) {
-            return await menus.destroy()
-        } else {
-            throw new Error('user not authenticated!');
-        }
+        // if (this._instance.schoolId, this._instance.sessionId) {
+        return await menus.destroy({ where: { id: id } });
+        // } else {
+        //     throw new Error('user not authenticated!');
+        // }
     }
     async main_menu(id) {
         if (this._instance.schoolId, this._instance.sessionId) {

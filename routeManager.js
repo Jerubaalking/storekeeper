@@ -1,7 +1,7 @@
 module.exports = async (app) => {
     app.use('/', require('./backend/routes/home'));
     app.use('/superadmin', require('./backend/routes/superadmin_home'));
-    app.use('/admin', require('./backend/routes/backend/admin'));
+    app.use('/superadmin/admin', require('./backend/routes/backend/admin'));
     app.use('/client', require('./backend/routes/client_home'));
     app.use('/clients', require('./backend/routes/backend/clients'));
     app.use('/auth', require('./backend/routes/auth'));
@@ -14,7 +14,7 @@ module.exports = async (app) => {
     app.use('/admin', require('./backend/routes/backend/admin'));
     app.use('/customers', require('./backend/routes/backend/customers'));
     app.use('/personels', require('./backend/routes/backend/personels'));
-    // app.use('/sections', require('./backend/routes/backend/sections'));
+    app.use('/menus', require('./backend/routes/backend/menus'));
     app.use('/items', require('./backend/routes/backend/items'));
     app.use('/categories', require('./backend/routes/backend/item_categories'));
     // app.use('/parents', require('./backend/routes/backend/parents'));

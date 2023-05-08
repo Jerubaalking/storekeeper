@@ -269,11 +269,11 @@ class Finds {
         }
     }
     async menus() {
-        if (this._session.businessId, this._session.sessionId) {
-            return JSON.parse(JSON.stringify(await menus.findAll()));
-        } else {
-            return new Error('denied! - user is not authenticated!');
-        }
+        // if (this._session.passport, this._session.sessionId) {
+        return JSON.parse(JSON.stringify(await menus.findAll()));
+        // } else {
+        //     return new Error('denied! - user is not authenticated!');
+        // }
     }
     async main_menus() {
         if (this._session.businessId, this._session.sessionId) {

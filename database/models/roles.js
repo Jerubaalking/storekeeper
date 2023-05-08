@@ -7,8 +7,8 @@ roles = sequelize.define('roles', {
         primaryKey: true,
     },
     role: {
-        type: Sequelize.ENUM('superadmin', 'admin', 'system-manager', 'customer-personel', 'employee-accountant', 'employee-sales', 'employee-marketing', 'employee-manager', 'employee-driver', 'employee-security', 'employee-hr', 'employee-semi-skilled'),
-        defaultValue: 'employee-semi-skilled',
+        type: Sequelize.ENUM('superadmin', 'admin', 'business-admin', 'business-manager', 'business-accountant', 'store-admin', 'store-manager', 'store-accountant', 'store-stocker', 'store-sales', 'store-marketing', 'customer', 'generic'),
+        defaultValue: 'generic',
     },
 }, { paranoid: true });
 module.exports = roles;

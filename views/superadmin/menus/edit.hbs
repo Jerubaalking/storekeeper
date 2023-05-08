@@ -1,0 +1,181 @@
+<form method="POST" class="d-block ajaxForm" action="/menus/edit/{{menu.id}}">
+    <div class="form-row">
+        {{!-- <input type="hidden" name="school_id" value=""> --}}
+        <div class="form-group col-md-12 row">
+            <div class="form-group col-md-6">
+                <label for="display_name">display name</label>
+                <input type="text" value="{{menu.display_name}}" class="form-control" placeholder="Menu name"
+                    id="display_name" name="display_name" required>
+                <small id="name_help" class="form-text text-muted">provide display name</small>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="parentId">
+                    parent
+                </label>
+                <select name="parentId" id="parentId" class="form-control select2" data-toggle="select2" required>
+
+                    {{#ifEquals menu.parent 0}}
+                    <option value="0" selected>self
+                    </option>
+                    {{else}}
+                    <option value="0">self
+                    </option>
+                    {{/ifEquals}}
+                    {{#each parents}}
+                    {{#ifEquals id ../menu.parent}}
+                    <option value="{{id}}" selected>
+                        {{display_name}}
+                    </option>
+                    {{else}}
+                    <option value="{{id}}">
+                        {{display_name}}
+                    </option>
+                    {{/ifEquals}}
+                    {{/each}}
+                </select>
+                <small id="" class="form-text text-muted">
+                    provide parent menu to assign the menu
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group col-md-12 row">
+            <div class="form-group col-md-6">
+                <label for="route_name">route name</label>
+                <input type="text" value="{{menu.route_name}}" class="form-control" id="route_name" placeholder="/route"
+                    name="route_name" required>
+                <small id="route_name_help" class="form-text text-muted">provide route name start with "/" </small>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="icon">icon</label>
+                <input type="text" value="{{menu.icon}}" class="form-control" id="icon" placeholder="mdi mdi-account"
+                    name="icon" required>
+                <small id="icon_help" class="form-text text-muted">provide icon (mdi) </small>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="sort_order">sort order</label>
+                <input type="number" value="{{menu.sort_order}}" class="form-control" id="sort_order"
+                    placeholder="mdi mdi-account" name="sort_order">
+                <small id="sort_order_help" class="form-text text-muted">provide sort hirachy order </small>
+            </div>
+        </div>
+
+        <div class="col-md-12 row">
+            <div class="form-group col-md-12">
+                <label for="" class="mb-0"><i class="mdi mdi-arrow-down"></i>
+                    <p style="text-decoration: underline;">Who can see the menu ?</p>
+                </label>
+                <hr class="mt-0">
+            </div>
+            <div class="form-group col-md-6 row">
+                <div class="form-group col-xl-6 col-lg-6  col-md-6 col-sm-3">
+                    <label for="admin">
+                        application admin
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{menu.admin}}" name="admin"
+                        id="admin" data-switch="success" {{#ifEquals menu.admin 1}}checked{{/ifEquals}} />
+                    <label for="admin" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="business_admin">
+                        business admin
+                    </label>
+                    <input type="checkbox" value="{{business_admin}}" onclick="changePermission(this);"
+                        name="business_admin" id="business_admin" data-switch="success" {{#ifEquals menu.business_admin
+                        1}}checked{{/ifEquals}} />
+                    <label for="business_admin" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="business_manager">
+                        business manager
+                    </label>
+                    <input type="checkbox" value="business_manager" onclick="changePermission(this);"
+                        name="business_manager" id="business_manager" data-switch="success" {{#ifEquals
+                        menu.business_manager 1}}checked{{/ifEquals}} />
+                    <label for="business_manager" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="business_accountant">
+                        business accountant
+                    </label>
+                    <input type="checkbox" value="{{business_accountant}}" onclick="changePermission(this);"
+                        name="business_accountant" id="business_accountant" data-switch="success" {{#ifEquals
+                        menu.business_accountant 1}}checked{{/ifEquals}} />
+                    <label for="business_accountant" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+            </div>
+            <div class="form-group col-md-6 row">
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="store_admin">
+                        store administrator
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{store_admin}}" name="store_admin"
+                        id="store_admin" data-switch="success" {{#ifEquals menu.store_admin 1}}checked{{/ifEquals}} />
+                    <label for="store_admin" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="store_manager">
+                        store manager
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{store_manager}}"
+                        name="store_manager" id="store_manager" data-switch="success" {{#ifEquals menu.store_manager
+                        1}}checked{{/ifEquals}} />
+                    <label for="store_manager" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="store_accountant">
+                        store accountant
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{store_accountant}}"
+                        name="store_accountant" id="store_accountant" data-switch="success" {{#ifEquals
+                        menu.store_accountant 1}}checked{{/ifEquals}} />
+                    <label for="store_accountant" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="store_sales">
+                        store sales dep
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{store_sales}}" name="store_sales"
+                        id="store_sales" data-switch="success" {{#ifEquals menu.store_sales 1}}checked{{/ifEquals}} />
+                    <label for="store_sales" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="store_sales">
+                        store marketing dep
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{store_marketing}}"
+                        name="store_marketing" id="store_marketing" data-switch="success" {{#ifEquals
+                        menu.store_marketing 1}}checked{{/ifEquals}} />
+                    <label for="store_marketing" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="store_sales">
+                        store keeper dep
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{store_stocker}}"
+                        name="store_stocker" id="store_stocker" data-switch="success" {{#ifEquals menu.store_stocker
+                        1}}checked{{/ifEquals}} />
+                    <label for="store_stocker" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <button class="btn btn-block btn-primary" type="submit">
+                create menu
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        initSelect2(['#parentId']);
+    });
+    $(".ajaxForm").validate({}); // Jquery form validation initialization
+    $(".ajaxForm").submit(function (e) {
+        var form = $(this);
+        ajaxSubmit(e, form, 'POST', showAllMenus);
+    });
+</script>

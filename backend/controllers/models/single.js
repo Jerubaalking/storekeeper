@@ -139,7 +139,7 @@ class Single {
         return JSON.parse(JSON.stringify(await noticeboard.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
     }
     async menu(id) {
-        return JSON.parse(JSON.stringify(await menus.findOne()))
+        return JSON.parse(JSON.stringify(await menus.findByPk(id)))
     }
     async main_menu(id) {
         return JSON.parse(JSON.stringify(await menus.findOne({ where: { parent: 0 } })));

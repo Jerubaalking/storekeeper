@@ -606,12 +606,13 @@ class Creates {
         }
     }
     async menu(data) {
-        if (this._instance.businessId, this._instance.sessionId) {
-            let menu = await menus.build(data);
-            return await menu.save()
-        } else {
-            throw new Error('user not authenticated!');
-        }
+        // if (this._instance.businessId, this._instance.sessionId) {
+        data['superadmin'] = 1;
+        let menu = await menus.build(data);
+        return await menu.save()
+        // } else {
+        //     throw new Error('user not authenticated!');
+        // }
     }
     async exam(data) {
         if (this._instance.businessId, this._instance.sessionId) {

@@ -52,7 +52,7 @@ const s3StorageLogo = multerS3({
         }
     }),
     bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
-    key: logoUrl,
+    prefix: logoUrl,
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })
@@ -82,7 +82,6 @@ const s3StorageStamp = multerS3({
     s3: s3,
     bucket: "saincrafttechnologies-static-public-2023", // change it as per your project requirement
     prefix: businessStampUrl,
-    key: businessStampUrl,
     acl: "public-read", // storage access type
     metadata: (req, file, cb) => {
         cb(null, { fieldname: file.fieldname })

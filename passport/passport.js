@@ -11,30 +11,38 @@ const sessions = require('../database/models/sessions');
 module.exports = {
     authenticateUser: async function (req, email, password, done) {
         // console.log(email, password);
-        const user = await users.findAll({ where: { email: email }, include: [{ model: roles }] });
-        const session = JSON.parse(JSON.stringify(await sessions.findOne({ where: { status: 1 } })));
-        const _user = JSON.parse(JSON.stringify(await user))[0];
-        let passVerify = await passwordHashVerify(password, _user.salt, _user.hash);
-        if (user.length <= 0) {
-            return done(null, false, { message: 'user do not exist!' });
-        }
-        if (passVerify) {
-            console.log('...password verified!');
-            let userData = {
-                id: _user.id,
-                name: _user.name,
-                email: _user.email,
-                role: _user.roles[0],
-                userId: _user.id,
-                session: session.name,
-                sessionId: session.id,
+        try {
+
+
+            const user = await users.findAll({ where: { email: email }, include: [{ model: roles }] });
+            const session = JSON.parse(JSON.stringify(await sessions.findOne({ where: { status: 1 } })));
+            const _user = JSON.parse(JSON.stringify(await user))[0];
+            let passVerify = await passwordHashVerify(password, _user.salt, _user.hash);
+            if (user.length <= 0) {
+                return done(null, false, { message: 'user do not exist!' });
             }
-            return done(null, userData);
-        } else {
+            if (passVerify) {
+                console.log('...password verified!');
+                let userData = {
+                    id: _user.id,
+                    name: _user.name,
+                    email: _user.email,
+                    role: _user.roles[0],
+                    userId: _user.id,
+                    session: session.name,
+                    sessionId: session.id,
+                }
+                return done(null, userData);
+            } else {
+                return done(null, false, {
+                    message: 'incorrect password!'
+                });
+            };
+        } catch (err) {
             return done(null, false, {
-                message: 'incorrect password!'
+                message: err.message
             });
-        };
+        }
     },
     isLoggedIn: async (req, res, next) => {
         try {
