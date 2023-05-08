@@ -122,7 +122,7 @@
                     <label for="store_sales" data-on-label="Yes" data-off-label="No"></label>
                 </div>
                 <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
-                    <label for="store_sales">
+                    <label for="store_marketing">
                         store marketing dep
                     </label>
                     <input type="checkbox" onclick="changePermission(this);" value="0" name="store_marketing"
@@ -131,12 +131,22 @@
                 </div>
 
                 <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
-                    <label for="store_sales">
+                    <label for="store_stocker">
                         store keeper dep
                     </label>
                     <input type="checkbox" onclick="changePermission(this);" value="0" name="store_stocker"
                         id="store_stocker" data-switch="success" />
                     <label for="store_stocker" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+
+
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="customer">
+                        customer dashboard
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="0" name="customer" id="customer"
+                        data-switch="success" />
+                    <label for="customer" data-on-label="Yes" data-off-label="No"></label>
                 </div>
             </div>
         </div>

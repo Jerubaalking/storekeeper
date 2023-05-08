@@ -141,7 +141,7 @@
                     <label for="store_sales" data-on-label="Yes" data-off-label="No"></label>
                 </div>
                 <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
-                    <label for="store_sales">
+                    <label for="store_marketing">
                         store marketing dep
                     </label>
                     <input type="checkbox" onclick="changePermission(this);" value="{{store_marketing}}"
@@ -151,13 +151,23 @@
                 </div>
 
                 <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
-                    <label for="store_sales">
+                    <label for="store_stocker">
                         store keeper dep
                     </label>
                     <input type="checkbox" onclick="changePermission(this);" value="{{store_stocker}}"
                         name="store_stocker" id="store_stocker" data-switch="success" {{#ifEquals menu.store_stocker
                         1}}checked{{/ifEquals}} />
                     <label for="store_stocker" data-on-label="Yes" data-off-label="No"></label>
+                </div>
+
+                <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-3">
+                    <label for="customer">
+                        customer dashboard
+                    </label>
+                    <input type="checkbox" onclick="changePermission(this);" value="{{customer}}"
+                        name="customer" id="customer" data-switch="success" {{#ifEquals menu.customer
+                        1}}checked{{/ifEquals}} />
+                    <label for="customer" data-on-label="Yes" data-off-label="No"></label>
                 </div>
             </div>
         </div>
