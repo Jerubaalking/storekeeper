@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="page-title"> <i class="mdi mdi-view-dashboard title_icon"></i>
-                    Dashboard
+                    {{trs 'Dashboard'}}
                 </h4>
             </div> <!-- end card body-->
         </div> <!-- end card -->
@@ -25,7 +25,8 @@
                                 </div>
                                 <h5 class="text-muted font-weight-normal mt-0" title="Number of Student"> <i
                                         class="mdi mdi-account-group title_icon"></i>
-                                    Clients <a href="#" onclick="loadPage('/clients', 'client_list', 'clients')"
+                                    {{trs 'Clients'}} <a href="#"
+                                        onclick="loadPage('/clients', 'client_list', 'clients')"
                                         style="color: #6c757d; display: none;" id="customer_list"><i
                                             class="mdi mdi-export"></i></a>
                                 </h5>
@@ -34,7 +35,7 @@
                                 </h3>
                                 <p class="mb-0 text-muted">
                                     <span class="text-nowrap">
-                                        total number of clients
+                                        {{trs 'total number of'}} {{trs 'Clients'}}
                                     </span>
                                 </p>
                             </div> <!-- end card-body-->
@@ -50,7 +51,8 @@
                                 </div>
                                 <h5 class="text-muted font-weight-normal mt-0" title="Number of Teacher"> <i
                                         class="mdi mdi-account-group title_icon"></i>
-                                    Business <a a href="#" onclick="loadPage('/businesses','businesses', 'Business')"
+                                    {{trs 'Business'}} <a href="#"
+                                        onclick="loadPage('/businesses','businesses', 'Business')"
                                         style="color: #6c757d; display: none;" id="teacher_list"><i
                                             class="mdi mdi-export"></i></a>
                                 </h5>
@@ -59,7 +61,7 @@
                                 </h3>
                                 <p class="mb-0 text-muted">
                                     <span class="text-nowrap">
-                                        total number of Businesses
+                                        {{trs 'total number of'}} {{trs 'Business'}}
                                     </span>
                                 </p>
                             </div> <!-- end card-body-->
@@ -76,7 +78,8 @@
                                 </div>
                                 <h5 class="text-muted font-weight-normal mt-0" title="Number of Personels"> <i
                                         class="mdi mdi-account-group title_icon"></i>
-                                    Stores<a a href="#" onclick="loadPage('/customers', 'parent_list', 'Personels')"
+                                    {{trs 'Stores'}}<a href="#"
+                                        onclick="loadPage('/customers', 'parent_list', 'Personels')"
                                         style="color: #6c757d; display: none;" id="parent_list"><i
                                             class="mdi mdi-export"></i></a>
                                 </h5>
@@ -85,7 +88,7 @@
                                 </h3>
                                 <p class="mb-0 text-muted">
                                     <span class="text-nowrap">
-                                        total number of stores
+                                        {{trs 'total number of'}} {{trs 'Stores'}}
                                     </span>
                                 </p>
                             </div> <!-- end card-body-->
@@ -100,7 +103,7 @@
                                 </div>
                                 <h5 class="text-muted font-weight-normal mt-0" title="Number of Personels"> <i
                                         class="mdi mdi-account-group title_icon"></i>
-                                    Customers<a a href="#"
+                                    {{trs 'Customers'}}<a a href="#"
                                         onclick="loadPage('/customers', 'customer_list', 'Customers')"
                                         style="color: #6c757d; display: none;" id="parent_list"><i
                                             class="mdi mdi-export"></i></a>
@@ -110,7 +113,7 @@
                                 </h3>
                                 <p class="mb-0 text-muted">
                                     <span class="text-nowrap">
-                                        total number of Customers
+                                        {{trs 'total number of'}} {{trs 'Customers'}}
                                     </span>
                                 </p>
                             </div> <!-- end card-body-->
@@ -122,7 +125,7 @@
                 <div class="card bg-primary">
                     <div class="card-body">
                         <h4 class="header-title text-grey mb-2">
-                            Employee attendance log
+                            {{trs 'Employee'}} {{trs 'attendance'}} {{trs 'log'}}
                         </h4>
                         <div class="text-center">
                             <h3 class="font-weight-normal text-grey mb-2">
@@ -132,13 +135,13 @@
                             <p class="text-grey text-uppercase font-13 font-weight-bold">
                                 {{!--
                                 <?php echo $this->crud_model->get_todays_attendance(); ?>
-                                <?php echo get_phrase('employees_are_attending_today'); ?> --}}
-                                employees are attending today
+                                <?php echo get_trs('employees_are_attending_today'); ?> --}}
+                                {{trs 'employees'}} {{trs 'attending'}} {{trs 'today'}}
                             </p>
                             <a href="/attendance" class="btn btn-outline-grey btn-sm mb-1">
                                 {{!--
-                                <?php echo get_phrase('go_to_attendance'); ?> --}}
-                                go to attendance
+                                <?php echo get_trs('go_to_attendance'); ?> --}}
+                                {{trs 'go'}} {{trs 'to'}} {{trs 'attendance'}}
                                 <i class="mdi mdi-arrow-right ml-1"></i>
                             </a>
 
@@ -148,7 +151,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">
-                            recent activities<a href="/event_calendar" style="color: #6c757d;"><i
+                            {{trs 'recent activities'}}<a href="/event_calendar" style="color: #6c757d;"><i
                                     class="mdi mdi-export"></i></a>
                         </h4>
                         {{!--
@@ -169,7 +172,7 @@
                     <div class="card-body">
                         <h4 class="header-title mb-3">
                             {{!--
-                            <?php echo get_phrase('accounts_of'); ?> --}}
+                            <?php echo get_trs('accounts_of'); ?> --}}
                             Businesses
                             <script>
                                 $(document).ready(() => {
@@ -192,7 +195,7 @@
                     <div class="card-body">
                         <h4 class="header-title mb-3">
                             {{!--
-                            <?php echo get_phrase('expense_of'); ?> --}}
+                            <?php echo get_trs('expense_of'); ?> --}}
                             Outstanding bills of <span id="pdate"></span> <a href="/businesses"
                                 style="color: #6c757d"><i class="mdi mdi-export"></i></a>
                         </h4>

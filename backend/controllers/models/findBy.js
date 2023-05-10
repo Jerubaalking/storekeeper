@@ -175,8 +175,7 @@ class FindBy {
         return JSON.parse(JSON.stringify(await sessions.findAll(opt)));
     }
     async currency(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        // opt.where['sessionId'] = this._session.passport.sessionId.toString();
         return JSON.parse(JSON.stringify(await currencies.findAll(opt)));
     }
     async business(opt) {

@@ -1,117 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="auth-fluid">
+    <!--Auth fluid left content -->
+    <div class="auth-fluid-form-box">
+        <div class="align-items-center d-flex h-100">
+            <div class="card-body">
+                <!-- Logo -->
+                <div class="text-center text-lg-left mb-3">
+                    <a href="/">
+                        <span><img src="<?php //echo $this->settings_model->get_logo_dark(); ?>" alt=""
+                                height=" 35"></span>
+                    </a>
+                </div>
+                <!-- title-->
+                <h5 class="m-1">
+                    {{trs 'Languages'}}
+                </h5>
 
-<head>
-    <meta charset="utf-8" />
-    <title>Store M System |login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="#">
-    <!-- App css -->
-    <link
-        href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/icons.min.css"
-        rel="stylesheet" type="text/css" />
-    <link
-        href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/app.min.css"
-        rel="stylesheet" type="text/css" />
-    <!--Notify for ajax-->
-    <link rel="stylesheet"
-        href="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/css/toastr.min.css">
-
-</head>
-
-<body class="auth-fluid-pages pb-0">
-
-    <div class="auth-fluid">
-        <!--Auth fluid left content -->
-        <div class="auth-fluid-form-box">
-            <div class="align-items-center d-flex h-100">
-                <div class="card-body">
-                    <!-- Logo -->
-                    <div class="text-center text-lg-left mb-3">
-                        <a href="/">
-                            <span><img src="<?php //echo $this->settings_model->get_logo_dark(); ?>" alt=""
-                                    height=" 35"></span>
-                        </a>
+                <div class="form-group" style="">
+                    <select class="form-control select2" name="lang" id="language-list" onchange="changeLanguage()">
+                    </select>
+                </div>
+                <h4 class="mt-0">{{{trs 'Sign in'}}}</h4>
+                <p class="text-muted mb-4">{{trs "Enter your email"}}</p>
+                <div class="" id="notification">
+                    {{trs 'message'}} : {{message.error}}
+                </div>
+                <!-- form -->
+                <form action="/auth/signin" method="post" id="loginForm">
+                    <div class="form-group">
+                        <label for="emailaddress">{{{trs "email"}}}</label>
+                        <input class="form-control" type="email" name="email" id="emailaddress" required=""
+                            placeholder="{{trs 'enter your email'}}">
                     </div>
-                    <!-- title-->
-                    <h4 class="mt-0">Sign in</h4>
-                    <p class="text-muted mb-4">Enter your email"</p>
-                    <div class="" id="notification">
-                        message : {{message.error}}
+                    <div class="form-group">
+                        <a href="javascript: void(0);" class="text-muted float-right"
+                            onclick="forgotPass();"><small>{{trs 'forgot password'}}</small></a>
+                        <label for="password">{{trs "password"}}</label>
+                        <input class="form-control" type="password" name="password" required="" id="password"
+                            placeholder=" {{trs 'enter your password'}}">
+                        <span class="text-danger" id="error_message"></span>
                     </div>
-                    <!-- form -->
-                    <form action="/auth/signin" method="post" id="loginForm">
-                        <div class="form-group">
-                            <label for="emailaddress">email</label>
-                            <input class="form-control" type="email" name="email" id="emailaddress" required=""
-                                placeholder="enter your email">
-                        </div>
-                        <div class="form-group">
-                            <a href="javascript: void(0);" class="text-muted float-right"
-                                onclick="forgotPass();"><small>forgot password</small></a>
-                            <label for="password">password</label>
-                            <input class="form-control" type="password" name="password" required="" id="password"
-                                placeholder=" enter your password">
-                            <span class="text-danger" id="error_message"></span>
-                        </div>
-                        <div class="form-group mb-0 text-center">
-                            <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i>
-                                login </button>
-                            <a href="/auth/signup" class="text-muted float-right"><small> register? </small></a>
-                        </div>
-                    </form>
+                    <div class="form-group mb-0 text-center">
+                        <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i>
+                            {{trs 'Sign in'}} </button>
+                        <a href="/auth/signup" class="text-muted float-right"><small> {{trs 'register'}}?
+                            </small></a>
+                    </div>
+                </form>
 
-                    <form action="/forgot" method="post" id="forgotForm" style="display: none;">
-                        <div class="form-group">
-                            <a href="/signin" class="text-muted float-right"><small>back to
-                                    login</small></a>
-                            <label for="forgotEmail">email</label>
-                            <input class="form-control" type="email" name="email" required="" id="forgotEmail"
-                                placeholder="enter your email">
-                        </div>
-                        <div class="form-group mb-0 text-center">
-                            <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i>sent
-                                password reset link</button>
-                        </div>
+                <form action="/forgot" method="post" id="forgotForm" style="display: none;">
+                    <div class="form-group">
+                        <a href="/signin" class="text-muted float-right"><small>{{trs 'back to login'}}</small></a>
+                        <label for="forgotEmail">{{trs 'email'}}</label>
+                        <input class="form-control" type="email" name="email" required="" id="forgotEmail"
+                            placeholder="enter your email">
+                    </div>
+                    <div class="form-group mb-0 text-center">
+                        <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i>sent
+                            password reset link</button>
+                    </div>
 
-                    </form>
-                    <!-- end form-->
-                </div> <!-- end .card-body -->
-            </div> <!-- end .align-items-center.d-flex.h-100-->
-        </div>
-        <!-- end auth-fluid-form-box-->
-
-        <!-- Auth fluid right content -->
-        <div class="row" style="width:100%; margin-top:20%;">
-            {{!-- <h3>WECLOME!</h3> --}}
-            <div class="col-md-2"></div>
-            <div style="width:100%;" class="col-md-8">
-
-                <marquee behavior="alternate" style="color: antiquewhite;" direction="left">
-                    <h2>This is <span>Sain</span><span style="color:green">craft</span> storekeeper app</h2>
-                    <h5>Please login to continue!</h5>
-
-                    <h5>If you dont have an account please contact your administrator!</h5>
-                    <h5>If you dont have an administrator please contact us on <a
-                            href="mailto:gsainyeye@gmail.com">gsainyeye@gmail.com!</a> </h5>
-
-                </marquee>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-        <!-- end Auth fluid right content -->
+                </form>
+                <!-- end form-->
+            </div> <!-- end .card-body -->
+        </div> <!-- end .align-items-center.d-flex.h-100-->
     </div>
-    <!-- end auth-fluid-->
+    <!-- end auth-fluid-form-box-->
 
-    <!-- App js -->
-    <script
-        src="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/js/app.min.js"></script>
+    <!-- Auth fluid right content -->
+    <div class="row" style="width:100%; margin-top:20%;">
+        {{!-- <h3>WECLOME!</h3> --}}
+        <div class="col-md-2"></div>
+        <div style="width:100%;" class="col-md-8">
 
-    <!--Notify for ajax-->
-    <script
-        src="https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/storekeeperapp/public/js/toastr.min.js"></script>
+            <marquee behavior="alternate" style="color: antiquewhite;" direction="left">
+                <h2>This is <span>Sain</span><span style="color:green">craft</span> storekeeper app</h2>
+                <h5>Please login to continue!</h5>
 
-</html>
+                <h5>If you dont have an account please contact your administrator!</h5>
+                <h5>If you dont have an administrator please contact us on <a
+                        href="mailto:gsainyeye@gmail.com">gsainyeye@gmail.com!</a> </h5>
+
+            </marquee>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <!-- end Auth fluid right content -->
+</div>
+
+<script src="{{cdn}}/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        initSelect2(["#language-list"]);
+    });
+    function getLanguageList() {
+        $.ajax({
+            url: "/translate/language/auth/list",
+            success: function (response) {
+                console.log(response);
+                $('#language-list').html(response);
+            }
+        });
+    }
+    getLanguageList();
+    function changeLanguage() {
+        let code = $('#language-list').val();
+        $.ajax({
+            url: "/translate/language/change/" + code,
+            success: (data) => {
+                if (data.status) {
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>
+<!-- end auth-fluid-->
+
+<!-- App js -->

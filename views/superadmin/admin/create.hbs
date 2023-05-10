@@ -3,27 +3,27 @@
         <div class="form-group col-md-12 row">
             <div class="form-group col-md-6">
                 <label for="name">
-                    name
+                    {{trs 'name'}}
                 </label>
                 <input type="text" class="form-control" id="name" name="name" required>
                 <small id="" class="form-text text-muted">
-                    provide fullname
+                    {{trs 'provide'}} {{trs 'fullname'}}
                 </small>
             </div>
             <div class="form-group col-md-6">
                 <label for="email">
-                    email
+                    {{trs 'email'}}
                 </label>
                 <input type="email" class="form-control" id="email" name="email" required>
                 <small id="" class="form-text text-muted">
-                    provide email
+                    {{trs 'provide'}} {{trs 'email'}}
                 </small>
             </div>
         </div>
         <div class="form-group col-md-12 row">
             <div class="form-group col-md-6">
                 <label for="phone">
-                    phone number
+                    {{trs 'phone'}} {{trs 'number'}}
                     {{!-- <a href="#" onclick="addPhone()" class="btn btn-sm btn-light"><i class="mdi mdi-plus"></i></a>
                     --}}
                 </label>
@@ -33,37 +33,39 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="password">
-                    password
+                    {{trs 'password'}}
                 </label>
                 <input type="password" class="form-control" id="password" name="password" required>
                 <small id="" class="form-text text-muted">
-                    provide password
+
+                    {{trs 'provide'}} {{trs 'password'}}
                 </small>
             </div>
         </div>
         <div class="form-group col-md-12 row">
             <div class="form-group col-md-6">
-                <label for="gender">
-                    gender
+                <label for="gender" >
+                    {{trs 'gender'}}
                 </label>
                 <select name="gender" id="gender" class="form-control select2" data-toggle="select2">
-                    <option value="">
-                        select gender
+                    <option value="" disabled selected>
+                        {{trs 'select'}} {{trs 'gender'}}
                     </option>
                     <option value="Male">
-                        male
+                        {{trs 'male'}}
                     </option>
                     <option value="Female">
-                        female
+                        {{trs 'female'}}
                     </option>
                 </select>
                 <small id="" class="form-text text-muted">
-                    provide admin gender
+
+                    {{trs 'provide'}} {{trs 'gender'}}
                 </small>
             </div>
             <div class="form-group col-md-6">
                 <label for="address">
-                    address <a href="#" onclick="addAddress()" class="btn btn-sm btn-light"><i
+                    {{trs 'address'}} <a href="#" onclick="addAddress()" class="btn btn-sm btn-light"><i
                             class="mdi mdi-plus"></i></a>
                 </label>
                 <div id="addressTray">
@@ -74,7 +76,7 @@
 
         <div class="form-group mt-2 col-md-12">
             <button class="btn btn-block btn-primary" type="submit">
-                create admin
+                {{trs 'create'}} {{trs 'admin'}}
             </button>
         </div>
     </div>

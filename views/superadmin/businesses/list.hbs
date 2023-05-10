@@ -1,14 +1,14 @@
 <table id="basic-datatable" class="table table-striped dt-responsive nowrap" width="100%">
 	<thead>
 		<tr style="background-color: #313a46; color: #ababab;">
-			<th>name</th>
-			<th>registration</th>
+			<th>{{trs 'name'}}</th>
+			<th>{{trs 'registration'}}</th>
 			<th>TIN</th>
-			<th>phone</th>
-			<th>address</th>
-			<th>stores</th>
-			<th>purpose</th>
-			<th>options</th>
+			<th>{{trs 'phone'}}</th>
+			<th>{{trs 'address'}}</th>
+			<th>{{trs 'stores'}}</th>
+			<th>{{trs 'purpose'}}</th>
+			<th>{{trs 'options'}}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -35,10 +35,12 @@
 					<div class="dropdown-menu dropdown-menu-right">
 						<!-- item-->
 						<a href="javascript:void(0);" class="dropdown-item"
-							onclick="largeModal('/businesses/edit/{{id}}', 'Update Business');">edit</a>
+							onclick="largeModal('/businesses/edit/{{id}}', '{{trs 'update'}} {{trs 'Business'}}');">{{trs
+							'edit'}}</a>
 						<!-- item-->
 						<a href="javascript:void(0);" class="dropdown-item"
-							onclick="confirmModal('/businesses/delete/{{id}}', showAllBusinesses)">delete</a>
+							onclick="confirmModal('/businesses/delete/{{id}}', showAllBusinesses)">{{trs
+							'delete'}}</a>
 					</div>
 				</div>
 			</td>

@@ -240,12 +240,12 @@ class Creates {
         }
     }
     async currency(data) {
-        if (this._instance.businessId, this._instance.sessionId) {
-            let currency = await currencies.build(data);
-            return await currency.save()
-        } else {
-            throw new Error('user not authenticated!');
-        }
+        // if (this._instance.businessId, this._instance.sessionId) {
+        let currency = await currencies.build(data);
+        return await currency.save()
+        // } else {
+        //     throw new Error('user not authenticated!');
+        // }
     }
     async school(data) {
         if (this._instance.businessId, this._instance.sessionId) {

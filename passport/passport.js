@@ -7,6 +7,7 @@ const users = require('../database/models/users');
 const roles = require('../database/models/roles');
 const passport = require('passport');
 const sessions = require('../database/models/sessions');
+const languages = require('../database/models/languages');
 // this.use(flash());
 module.exports = {
     authenticateUser: async function (req, email, password, done) {
@@ -14,7 +15,7 @@ module.exports = {
         try {
 
 
-            const user = await users.findAll({ where: { email: email }, include: [{ model: roles }] });
+            const user = await users.findAll({ where: { email: email }, include: [{ model: roles }, { model: languages }] });
             const session = JSON.parse(JSON.stringify(await sessions.findOne({ where: { status: 1 } })));
             const _user = JSON.parse(JSON.stringify(await user))[0];
             let passVerify = await passwordHashVerify(password, _user.salt, _user.hash);
@@ -31,7 +32,10 @@ module.exports = {
                     userId: _user.id,
                     session: session.name,
                     sessionId: session.id,
+                    language: _user.language
                 }
+                global.language = _user.languages[0];
+                console.log(global.language);
                 return done(null, userData);
             } else {
                 return done(null, false, {

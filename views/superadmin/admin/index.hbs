@@ -4,10 +4,11 @@
     <div class="card">
       <div class="card-body">
         <h4 class="page-title">
-          <i class="mdi mdi-account-child-circle text-primary title_icon"></i> All Admins
+          <i class="mdi mdi-account-child-circle text-primary title_icon"></i> {{trs 'all admins'}}
           <button type="button" class="btn btn-outline-primary btn-rounded alignToTitle"
-            onclick="largeModal('/admin/create', 'create admin')"> <i class="mdi mdi-plus"></i>
-            create admin
+            onclick="largeModal('/admin/create', ' {{trs "create"}} {{trs "admin" }}')"> <i
+              class="mdi mdi-plus"></i>
+            {{trs 'create'}} {{trs 'admin'}}
           </button>
         </h4>
       </div> <!-- end card body-->
@@ -28,14 +29,14 @@
   var addAddress = () => {
     $('#addressTray').append(`<textarea class="form-control" id="address[]" name="address[]" rows="5" required></textarea>
                 <small id="" class="form-text text-muted">
-                    provide admin address
+                   {{trs 'provide'}} {{trs 'address'}}
                 </small>`)
   }
   var addPhone = () => {
     $('#phoneTray').append(`
                 <input type="text" class="form-control" id="phone[]" name="phone[]" required>
                 <small id="" class="form-text text-muted">
-                    provide admin phone number
+                    {{trs 'provide'}} {{trs 'phone'}} {{trs 'number'}}
                 </small>`);
   }
   $(document).ready(() => {

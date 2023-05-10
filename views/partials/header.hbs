@@ -13,25 +13,25 @@
 
         <ul class="list-unstyled topbar-right-menu float-right mb-0">
 
-            {{!-- <li class="dropdown notification-list">
+            <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
-                    aria-haspopup="false" aria-expanded="false" onclick="getLanguageList()">
-                    <i class="mdi mdi-translate noti-icon"></i>
+                    aria-haspopup="false" aria-expanded="false" onclick="getLanguageList()"
+                    title="{{trs 'change'}} {{trs 'language'}}">
+                    <i class="mdi mdi-currency-twd noti-icon"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-sm">
 
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                            language
+                            {{trs 'Languages'}}
                         </h5>
                     </div>
 
-                    <div class="slimscroll" id="language-list" style="min-height: 150px;">
-                        <div>English</div>
+                    <div id="language-list" style="min-height: 150px; width:100%; margin:0;">
                     </div>
                 </div>
-            </li> --}}
+            </li>
 
 
             {{!-- profile naviagation --}}
@@ -44,7 +44,7 @@
                     </span>
                     <span>
                         <span class="account-user-name">{{viewManager.name}}</span>
-                        <span class="account-position">{{viewManager.role.role}}</span>
+                        <span class="account-position">{{trs viewManager.role.role}}</span>
 
                     </span>
                 </a>
@@ -53,30 +53,30 @@
                     class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                     <!-- item-->
                     <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">welcome!<br>{{viewManager.email}}</h6>
+                        <h6 class="text-overflow m-0">{{trs 'welcome'}}!<br>{{viewManager.email}}</h6>
                     </div>
 
                     <!-- item-->
                     <a href="#" onclick="loadPage('/profile', 'id', 'Profile')" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle mr-1"></i>
-                        <span>My Account</span>
+                        <span>{{trs 'My Account'}}</span>
                     </a>
                     <!-- item-->
                     <a href="#" onclick="loadPage('/settings','Settings')" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-edit mr-1"></i>
-                        <span>settings</span>
+                        <span>{{trs 'settings'}}</span>
                     </a>
                     <!-- item-->
                     <a href="mailto:support@saincrafttechnologies.com?Subject=Help%20On%20This" target="_blank"
                         class="dropdown-item notify-item">
                         <i class="mdi mdi-lifebuoy mr-1"></i>
-                        <span>Support</span>
+                        <span>{{trs 'Support'}}</span>
                     </a>
 
                     <!-- item-->
                     <a href="/auth/logout" class="dropdown-item notify-item">
                         <i class="mdi mdi-logout mr-1"></i>
-                        <span>Logout</span>
+                        <span>{{trs 'Logout'}}</span>
                     </a>
 
                 </div>
@@ -89,9 +89,26 @@
             </div>
         </a>
         <div class="visit_website">
-            <h4 style="color: #fff; float: left;">Stock-Keeper MS</h4>
-            <a href="/" target="" class="btn btn-outline-light ml-3">Visit Website</a>
+            <h4 style="color: #fff; float: left;">{{trs 'Storekeeper System'}}</h4>
+            <a href="/" target="" class="btn btn-outline-light ml-3">{{trs 'Visit Website'}}</a>
             <img class="hidden content-placeholder" src="{{cdn}}/images/loader.gif" alt="" height="35px;">
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function getLanguageList() {
+        $.ajax({
+            url: "/translate/language/list",
+            success: function (response) {
+                console.log(response);
+                $('#language-list').html(response);
+            }
+        });
+    }
+    $(document).ready(() => {
+        getLanguageList();
+
+    })
+    getLanguageList();
+</script>

@@ -11,13 +11,20 @@ const { business_addresses, users, roles } = require('../../database/models/modu
 const localStore = require('store2');
 const { LocalStorage } = require('node-localstorage');
 const passport = require('passport');
+const i18n = require('../helpers/languages/i18n.config');
 router.get('/signin', (req, res) => {
     console.log(req.session);
-    res.render('auth/login', { layout: "auth" })
+    res.render('auth/login', {
+        layout: "auth",
+        locale: i18n.getLocale(),
+    })
 });
 router.get('/signup', async (req, res) => {
     let oldUser = JSON.parse(JSON.stringify(await (await new Finds())._businesses()));
-    res.render('auth/register', { layout: "auth", business: oldUser })
+    res.render('auth/register', {
+        layout: "auth", business: oldUser,
+        locale: i18n.getLocale(),
+    })
 });
 
 router.post('/signin', passport.authenticate('local', {

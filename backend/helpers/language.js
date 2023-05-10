@@ -1,231 +1,67 @@
 const fs = require('fs');
 const path = require('path');
-var languageFolder_path = path.resolve("/backend/helpers/languages");
-var codes_path = languageFolder_path + "/codes.json";
+const languages = require('../../database/models/languages');
+const translations = require('../../database/models/transalations');
+const express = require('express');
+const { isLoggedIn } = require('../../passport/passport');
+const { default: axios } = require('axios');
+const router = express.Router();
 // console.log(languageFolder_path);
 
-const addLang = (code, language) => {
-
-    var lang_code = fs.readFileSync(codes_path, { encoding: "ascii" });
-    // var langs = JSON.parse(lang_code);
-    var languagesJson = JSON.parse(lang_code);
-    languagesJson[code] = language;
-    var jsonLang = JSON.stringify(languagesJson);
-    // console.log(jsonLang.toString());
-    var write = false;
+const addLang = async (code, language) => {
+    /**
+     * add language to the database
+     */
     try {
 
-        fs.writeFileSync(codes_path, jsonLang.toString(), (err) => {
-            if (err) {
-
-                return false;
-            }
-            return true;
-        });
-        write = true;
-        return write;
+        await languages.create({ name: language, abbreviation: code });
+        return true;
     } catch (err) {
-        return write;
-    }
-};
-const byCode = (code = "en" || new String()) => {
-    var t = code;
-    if (fs.existsSync(codes_path)) {
-
-        var languages = fs.readFileSync(codes_path, { encoding: "ascii" }, (err) => {
-            return err;
-        });
-        var languagesJson = JSON.parse(languages);
-        if (languagesJson[t] == undefined) {
-            return false;
-        }
-        return languagesJson[t].toString();
-    } else {
+        console.log(err);
         return false;
     }
 };
-
-const setLang = (code) => {
-    if (fs.existsSync(codes_path)) {
-
-        var languages = fs.readFileSync(codes_path, { encoding: "ascii" }, (err) => {
-            return err;
-        });
-        var languagesJson = JSON.parse(languages);
-        languagesJson['selected'] = code;
-        var json = JSON.stringify(languagesJson);
-        fs.writeFileSync(codes_path, json);
-        var languagesData = fs.readFileSync(codes_path, { encoding: "ascii" }, (err) => {
-            return err;
-        });
-
-        var languagesJsonData = JSON.parse(languagesData);
-        if (languagesJsonData[code] == undefined) {
-            // add language the issue is to get the meaning of the code
-            return false;
-        }
-        // console.log(languagesJsonData[code]);
-        return languagesJsonData[code].toString();
-    } else {
-        return false;
-    }
-}
-const selectedLang = (code) => {
-    if (fs.existsSync(codes_path)) {
-
-        var languages = fs.readFileSync(codes_path, { encoding: "ascii" }, (err) => {
-            return err;
-        });
-        var languagesJson = JSON.parse(languages);
-        return languagesJson['selected'].toString();
-    } else {
-        return false;
-    }
-}
-
-
-var getLanguage = (code = "en" || new String()) => {
-    if (byCode()) {
-        var langJsonFilePath = `${languageFolder_path}/${byCode(code)}.json`;
-        var fileExists = fs.existsSync(langJsonFilePath);
-        if (fileExists != true) {
-            //append to write file if it dont exist it creates it and write.
-            var data = new String();
-            var lang_code = fs.readFileSync(codes_path, { encoding: "ascii" });
-            var langs = JSON.parse(lang_code);
-            // var t =langs.map(item, item);
-            // console.log(langs);
-            var data = {
-                language: "language"
-            }
-            var json = JSON.stringify(data);
-            fs.appendFileSync(langJsonFilePath, json.toString(), (err) => {
-                if (err) {
-                    return false;
-                }
-                return true;
-            });
-
-            var language = fs.readFileSync(langJsonFilePath, { encoding: "ascii" }, (err) => {
-                return err;
-            });
-            var languageJson = JSON.parse(language);
-            return languageJson;
-        } else {
-            //open the file and read it
-
-            var language = fs.readFileSync(langJsonFilePath, { encoding: "ascii" }, (err) => {
-                return err;
-            });
-            var languageJson = JSON.parse(language);
-            // console.log("outside if Language::", languageJson);
-            return languageJson;
-            // return fs.readFileSync(langJsonFilePath, { encoding: "ascii" });
-
-        }
-    } else {
-        let jsonEmpty = {
-            code: 'No language'
-        }
-        // console.log(jsonEmpty);
-        return jsonEmpty;
-    }
-
-
-    // return langJsonFilePath;
+var setLanguage = async (code) => {
+    return code;
+};
+var getLanguage = async (code) => {
+    return code;
+};
+/** add a phrase to language translation */
+const addPhrase = async (code = "en" || new String(), phrase) => {
+    let lang = JSON.parse(JSON.stringify(await languages.findOne({ where: { abbreviation: code } })));
+    let trans = await translations.create({ phrase: phrase, translation: phrase, languageId: lang.id });
+    return await trans ? await trans.translation : null;
 };
 
-const addPhrase = (code = "en" || new String(), phrase) => {
+const translate = async (code, phrase) => {
 
-    var langJsonFilePath = `${languageFolder_path}/${byCode(code)}.json`;
-    var fileExists = fs.existsSync(langJsonFilePath);
-    if (fileExists != true) {
-        //append to write file if it dont exist it creates it and write.
-        var data = new String();
-        var lang_code = fs.readFileSync(codes_path, { encoding: "ascii" });
-        var langs = JSON.parse(lang_code);
-        // var t =langs.map(item, item);
-        var data = {
-            language: "language"
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let tphrase = '';
+            (code != undefined) ? code : 'en';
+            let lang = await languages.findOne({ where: { abbreviation: code } })
+            lang = JSON.parse(JSON.stringify(await lang));
+            let trans = await translations.findOne({ where: { languageId: lang.id, phrase: phrase } })
+            trans = JSON.parse(JSON.stringify(await trans));
+            // console.log('am at translation', trans);
+            tphrase = trans.translation;
+            resolve(await tphrase.toString());
+        } catch (err) {
+            console.log(err);
+            reject('language not found with error: ' + err.message);
         }
-        data[phrase] = phrase;
-        var json = JSON.stringify(data);
-        fs.writeFileSync(langJsonFilePath, json.toString(), (err) => {
-            if (err) {
-                return false;
-            }
-            return true;
-        });
-
-        var language = fs.readFileSync(langJsonFilePath, { encoding: "ascii" }, (err) => {
-            return err;
-        });
-        var languageJson = JSON.parse(language);
-        return languageJson;
-    } else {
-        //open the file and read it
-
-        var language = fs.readFileSync(langJsonFilePath, { encoding: "ascii" }, (err) => {
-            return err;
-        });
-        // if the json file happens to be empty then check
-        if (language) {
-            var languageJson = JSON.parse(language);
-            languageJson[phrase] = phrase;
-            // console.log(languageJson);
-        } else {
-            var languageJson = {};
-            languageJson[phrase] = phrase;
-        }
-
-        var json = JSON.stringify(languageJson);
-        fs.writeFileSync(langJsonFilePath, json.toString(), (err) => {
-            if (err) {
-                return false;
-            }
-            return true;
-        });
-        // console.log(languageJson);
-        return languageJson;
-
-    }
-
-    // return langJsonFilePath;
+    })
 };
-
-const translate = (code, phrase) => {
-    // selected language should be in session
-    let d = getLanguage(code);
-    // console.log("d::", d[phrase], phrase);
-    if (d[phrase] != undefined) {
-        var stringPhrase = new String();
-        stringPhrase = d[phrase];
-        var fstring = stringPhrase.charAt(0).toLocaleUpperCase();
-        var theRest = stringPhrase.slice(1, ((stringPhrase.length)));
-
-        var fullPhrase = fstring.concat(theRest);
-        // console.log(fullPhrase);
-        return fullPhrase;
-    } else {
-        let p = addPhrase(code, phrase)
-        // console.log("PP:: ", p);
-        if (p) {
-            // console.log("PP:: ", p);
-            d = getLanguage(code);
-
-            var stringPhrase = new String();
-            stringPhrase = d[phrase];
-            var fstring = stringPhrase.charAt(0).toLocaleUpperCase();
-            var theRest = stringPhrase.slice(1, ((stringPhrase.length)));
-
-            var fullPhrase = fstring.concat(theRest);
-            // console.log(fullPhrase);
-            return fullPhrase;
-        }
-    }
-};
-const phrase = (code, phrase) => {
-    return translate(code, phrase);
+const phrase = (code, phrase, cb) => {
+    translate(code, phrase).then(ans => {
+        console.log('answer first', ans);
+        return cb(null, ans);
+    }).catch(err => {
+        console.log(err)
+        return cb(err);
+    });
 }
 // translate('sw', "login").then((word)=>{
 //     console.log(word);
@@ -233,4 +69,4 @@ const phrase = (code, phrase) => {
 //     console.log(err);
 // });
 
-module.exports = { addLang, byCode, setLang, selectedLang, addPhrase, translate, phrase }
+module.exports = { getLanguage, addLang, addPhrase, phrase }

@@ -8,7 +8,7 @@
   </div>
   <!--- Sidemenu -->
   <ul class="metismenu side-nav side-nav-light">
-    <li class="side-nav-title side-nav-item">{{viewManager.role.role}} Navigation</li>
+    <li class="side-nav-title side-nav-item">{{trs viewManager.role.role}} {{trs 'Navigation'}}</li>
 
     {{#ifEquals viewManager.role.role 'superadmin'}}
     {{#each menus}}
@@ -18,7 +18,7 @@
       <a class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -28,19 +28,19 @@
         {{#ifEquals parent ../id}}
         {{#ifEquals superadmin 1}}
         {{#ifEquals route '/home'}}
-        <a href="/superadmin" onclick="loadPage('/superadmin','{{display_name}}', '{{display_name}}')"
+        <a href="/superadmin" onclick="loadPage('/superadmin','{{trs display_name}}', '{{trs display_name}}')"
           class="side-nav-link">
           <i class="{{icon}}"></i>
           <span>
-            {{display_name}}
+            {{trs display_name}}
           </span>
           <span class="menu-arrow"></span>
         </a>
         {{else}}
-        <li class="side-nav-item _item" +{{display_name}}>
-          <a onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" aria-expanded="false">
+        <li class="side-nav-item _item" +{{trs display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{trs display_name}}', '{{trs display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
-            <span>{{display_name}}</span>
+            <span>{{trs display_name}}</span>
           </a>
         </li>
         {{/ifEquals}}
@@ -64,7 +64,7 @@
       <a class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -74,18 +74,18 @@
         {{#ifEquals parent ../id}}
         {{#ifEquals admin 1}}
         {{#ifEquals route '/home'}}
-        <a href="/admin" onclick="loadPage('/admin','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+        <a href="/admin" onclick="loadPage('/admin','{{trs display_name}}', '{{trs display_name}}')" class="side-nav-link">
           <i class="{{icon}}"></i>
           <span>
-            {{display_name}}
+            {{trs display_name}}
           </span>
           <span class="menu-arrow"></span>
         </a>
         {{else}}
-        <li class="side-nav-item _item" +{{display_name}}>
-          <a onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" aria-expanded="false">
+        <li class="side-nav-item _item" +{{trs display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{trs display_name}}', '{{trs display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
-            <span>{{display_name}}</span>
+            <span>{{trs display_name}}</span>
           </a>
         </li>
         {{/ifEquals}}
@@ -110,7 +110,7 @@
       <a class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -120,19 +120,19 @@
         {{#ifEquals parent ../id}}
         {{#ifEquals system_manager 1}}
         {{#ifEquals route '/home'}}
-        <a href="/system_manager" onclick="loadPage('/system_manager','{{display_name}}', '{{display_name}}')"
+        <a href="/system_manager" onclick="loadPage('/system_manager','{{trs display_name}}', '{{trs display_name}}')"
           class="side-nav-link">
           <i class="{{icon}}"></i>
           <span>
-            {{display_name}}
+            {{trs display_name}}
           </span>
           <span class="menu-arrow"></span>
         </a>
         {{else}}
-        <li class="side-nav-item _item" +{{display_name}}>
-          <a onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" aria-expanded="false">
+        <li class="side-nav-item _item" +{{trs display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{trs display_name}}', '{{trs display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
-            <span>{{display_name}}</span>
+            <span>{{trs display_name}}</span>
           </a>
         </li>
         {{/ifEquals}}
@@ -156,10 +156,10 @@
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
-      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+      <a href="/" onclick="loadPage('{{route_name}}','{{trs display_name}}', '{{trs display_name}}')" class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -167,7 +167,7 @@
       <a class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -178,10 +178,10 @@
         {{#ifEquals parent ../id}}
 
         {{#ifEquals teacher 1}}
-        <li class="side-nav-item _item" +{{display_name}}>
-          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+        <li class="side-nav-item _item" +{{trs display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{trs display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
-            <span>{{display_name}}</span>
+            <span>{{trs display_name}}</span>
           </a>
         </li>
         {{/ifEquals}}
@@ -201,10 +201,10 @@
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
-      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+      <a href="/" onclick="loadPage('{{route_name}}','{{trs display_name}}', '{{trs display_name}}')" class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -212,7 +212,7 @@
       <a class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -223,10 +223,10 @@
         {{#ifEquals parent ../id}}
 
         {{#ifEquals parent 1}}
-        <li class="side-nav-item _item" +{{display_name}}>
-          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+        <li class="side-nav-item _item" +{{trs display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{trs display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
-            <span>{{display_name}}</span>
+            <span>{{trs display_name}}</span>
           </a>
         </li>
         {{/ifEquals}}
@@ -247,10 +247,10 @@
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
-      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+      <a href="/" onclick="loadPage('{{route_name}}','{{trs display_name}}', '{{trs display_name}}')" class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -258,7 +258,7 @@
       <a class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -269,10 +269,10 @@
         {{#ifEquals parent ../id}}
 
         {{#ifEquals student 1}}
-        <li class="side-nav-item _item" +{{display_name}}>
-          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+        <li class="side-nav-item _item" +{{trs display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{trs display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
-            <span>{{display_name}}</span>
+            <span>{{trs display_name}}</span>
           </a>
         </li>
         {{/ifEquals}}
@@ -293,10 +293,10 @@
     <li class="side-nav-item">
 
       {{#ifEquals route_name '/home'}}
-      <a href="/" onclick="loadPage('{{route_name}}','{{display_name}}', '{{display_name}}')" class="side-nav-link">
+      <a href="/" onclick="loadPage('{{route_name}}','{{trs display_name}}', '{{trs display_name}}')" class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -304,7 +304,7 @@
       <a class="side-nav-link">
         <i class="{{icon}}"></i>
         <span>
-          {{display_name}}
+          {{trs display_name}}
         </span>
         <span class="menu-arrow"></span>
       </a>
@@ -315,10 +315,10 @@
         {{#ifEquals parent ../id}}
 
         {{#ifEquals librarian 1}}
-        <li class="side-nav-item _item" +{{display_name}}>
-          <a onclick="loadPage('{{route_name}}','{{display_name}}')" aria-expanded="false">
+        <li class="side-nav-item _item" +{{trs display_name}}>
+          <a onclick="loadPage('{{route_name}}','{{trs display_name}}')" aria-expanded="false">
             <i class="{{icon}}"></i>
-            <span>{{display_name}}</span>
+            <span>{{trs display_name}}</span>
           </a>
         </li>
         {{/ifEquals}}

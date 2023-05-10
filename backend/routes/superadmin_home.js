@@ -6,8 +6,9 @@ const router = express.Router();
 
 
 const { isLoggedIn } = require('../../passport/passport');
-const { menus, roles, stockOuts, items, customers, transactions, businesses, stores } = require('../../database/models/module_exporter');
+const { menus, roles, stockOuts, items, customers, transactions, businesses, stores, languages } = require('../../database/models/module_exporter');
 const clients = require('../../database/models/clients');
+const i18n = require('../helpers/languages/i18n.config');
 // const upload = require('../controllers/services/multerConfig');
 
 router.get('/', isLoggedIn, async (req, res) => {
@@ -19,9 +20,12 @@ router.get('/', isLoggedIn, async (req, res) => {
     let client_count = await clients.count();
     let store_count = await stores.count();
     let customer_count = await customers.count();
+    console.log(req.sessionID);
+    let language = JSON.parse(JSON.stringify(await languages.findAll()));
     // console.log('business>>>>>::', main, sub);
     res.render('superadmin_home', {
-        viewManager: req.session.passport.user,
+        locale: i18n.getLocale(),
+        viewManager: req.session.passport.user, languages: language,
         menus: await main, sub_menu: await sub, businesses: await business, customer_count: customer_count, store_count: store_count, business_count: business_count, client_count: client_count
     });
 });

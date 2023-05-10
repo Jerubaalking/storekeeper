@@ -1,18 +1,17 @@
 
 const Handlebars = require("express-handlebars");
-const { phrase, addLang, byCode, setLang, selectedLang } = require('./language.js');
+const i18n = require("./languages/i18n.config");
+// const { phrase, addLang, byCode, setLang, getLanguage } = require('./language.js');
 
 // console.log(language("english"));
 
 
 var register = function (Handlebars) {
     var helpers = {
-        translate: function (text) {
-            // console.log(Phrase("sw", phrase));
-            return phrase(selectedLang(), text);
-        },
-        addLanguage: function (code, language) {
-            var t = addLang(code, language);
+        trs: function (str) {
+            return (!str) ?
+                '...' :
+                i18n.__(str).trimStart();
         },
         cdn: function () {
             if (process.env.NODE_ENV === 'development') {
@@ -20,9 +19,6 @@ var register = function (Handlebars) {
             } else {
                 return process.env.PUBLIC;
             }
-        },
-        setLanguage: function (code) {
-            return setLang(code);
         },
         sumOfColumn: function (name, format, object = new Array(), options) {
             console.log('here...... ', name.split('.').length);
@@ -371,4 +367,4 @@ var decimalSeparator = () => {
 
 }
 module.exports.register = register;
-module.exports.helpers = register(null); 
+module.exports.helpers = register(Handlebars.ExpressHandlebars); 

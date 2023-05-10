@@ -1,21 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{locale}}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <title>{{#trs "Storekeeper System"}}{{this}}{{/trs}} |{{{trs 'login'}}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{> includes_top}}
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="saincraft" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="#">
+    <!-- App css -->
+    <link href="{{cdn}}/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{cdn}}/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!--Notify for ajax-->
+    <link rel="stylesheet" href="{{cdn}}/css/toastr.min.css">
 
-    <title>Storekeeper | {{page_name}}</title>
 </head>
 
 <body data-layout="detached">
     {{{body}}}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initSelect2(["#language-list"]);
+        });
+        function getLanguageList() {
+            $.ajax({
+                url: "/translate/language/auth/list",
+                success: function (response) {
+                    console.log(response);
+                    $('#language-list').html(response);
+                }
+            });
+        }
+        getInLanguageList();
+        function changeLanguage() {
+            let code = $('#language-list').val();
+            $.ajax({
+                url: "/translate/language/change/" + code,
+                success: (data) => {
+                    if (data.status) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+    </script>
+
     {{> includes_bottom}}
     {{> notify}}
     <!-- bundle -->
 
+    <script src="{{cdn}}/js/app.min.js"></script>
+
+    <!--Notify for ajax-->
+    <script src="{{cdn}}/js/toastr.min.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{locale}}">
 
 <head>
     <!-- all the meta tags -->
@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{> includes_top}}
 
-    <title id="mainTitle">{{viewManager.business_name}} | Home</title>
+    <title id="mainTitle">{{viewManager.business_name}} | {{trs 'Home'}}</title>
     <!-- all the css files -->
 </head>
 
@@ -44,7 +44,7 @@
     <script>
         $(document).ready(() => {
         })
-        
+
         function loadPage(route, name, title) {
 
             if (typeof name == 'string' && parseInt(name) == NaN) {
@@ -69,6 +69,17 @@
             }
 
         }
+        function changeLanguage(code) {
+            $.ajax({
+                url: "/translate/language/change/" + code,
+                success: (data) => {
+                    if (data.status) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+        getInLanguageList();
     </script>
 </body>
 
