@@ -1,4 +1,5 @@
 const clients = require('../../../database/models/clients');
+const countries = require('../../../database/models/countries');
 const { roles,
     main_menus,
     store_menus,
@@ -36,61 +37,61 @@ const { roles,
 const { Op } = require('../../../database/mysql');
 class FindBy {
     constructor(session) {
-        this._session = session;
-        if (this._session) {
-            console.log('session', this._session);
+        this._SESSION = session;
+        if (this._SESSION.user) {
+            console.log('session', this._SESSION.user);
         }
     }
     async main_menus(opt) {
-        // opt['where']['sessionId'] = this._session.sessionId.toString();
+        // opt['where']['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await menus.findAll(opt)));
     }
     async vehicle(opt) {
 
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await vehicles.findAll(opt)));
     }
     async item(opt) {
-        // opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        // opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await items.findAndCountAll(opt)));
     }
     async client(opt) {
-        // opt.where['businessId'] = this._session.businessId.toString();
-        // opt.where['sessionId'] = this._session.sessionId.toString();
+        // opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        // opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await clients.findAndCountAll(opt)));
     }
 
     async store(opt) {
 
-        if (this._session.role !== 'superadmin') {
-            opt.where['businessId'] = this._session.businessId;
-            // opt.where['sessionId'] = this._session.sessionId.toString();
+        if (this._SESSION.user.role !== 'superadmin') {
+            opt.where['businessId'] = this._SESSION.user.businessId;
+            // opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
             return JSON.parse(JSON.stringify(await stores.findAll(opt)));
         } else {
             return JSON.parse(JSON.stringify(await stores.findAll(opt)));
         }
     }
     async role(opt) {
-        switch (this._session.businessId) {
+        switch (this._SESSION.user.businessId) {
             case undefined:
                 return JSON.parse(JSON.stringify(await roles.findAll(opt)));
                 break;
             default:
                 return JSON.parse(JSON.stringify(await roles.findAll(opt)));
         }
-        opt.where['businessId'] = this._session.businessId;
-        // opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId;
+        // opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
     }
     async customer(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await customers.findAll(opt)));
     }
     async employee(opt) {
         try {
-            console.log(await this._session);
+            console.log(await this._SESSION.user);
             return JSON.parse(JSON.stringify(await employees.findAll(opt)));
         } catch (error) {
             console.log(error);
@@ -98,115 +99,119 @@ class FindBy {
     }
     async personel(opt) {
         try {
-            console.log(await this._session);
+            console.log(await this._SESSION.user);
             return JSON.parse(JSON.stringify(await personels.findAll(opt)));
         } catch (error) {
             console.log(error);
         }
     }
     async deduction_charts(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await deductions_charts.findAll(opt)));
     }
     async stockIn(opt) {
-        switch (!this._session.businessId && this._session.sessionId) {
+        switch (!this._SESSION.user.businessId && this._SESSION.user.sessionId) {
             case null || undefined:
-                opt.where['businessId'] = this._session.businessId.toString();
-                opt.where['sessionId'] = this._session.sessionId.toString();
+                opt.where['businessId'] = this._SESSION.user.businessId.toString();
+                opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
                 return JSON.parse(JSON.stringify(await stockIns.findAll(opt)));
                 break;
 
             default:
-                opt.where['sessionId'] = this._session.sessionId.toString();
+                opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
                 return JSON.parse(JSON.stringify(await stockIns.findAll(opt)));
                 break;
         }
     }
     async employees_permissions(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await employees_permissions.findAll(opt)));
     }
     async stockOut(opt) {
-        switch (!this._session.businessId && this._session.sessionId) {
+        switch (!this._SESSION.user.businessId && this._SESSION.user.sessionId) {
             case null || undefined:
-                opt.where['businessId'] = this._session.businessId.toString();
-                opt.where['sessionId'] = this._session.sessionId.toString();
+                opt.where['businessId'] = this._SESSION.user.businessId.toString();
+                opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
                 return JSON.parse(JSON.stringify(await stockOuts.findAll(opt)));
                 break;
 
             default:
-                opt.where['sessionId'] = this._session.sessionId.toString();
+                opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
                 return JSON.parse(JSON.stringify(await stockOuts.findAll(opt)));
                 break;
         }
     }
     async subject(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await subjects.findAll(opt)));
     }
     async bus(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await bus_routes.findAll(opt)));
     }
     async attendance(opt) {
-        opt.where['businessId'] = this._session.businessId;
-        opt.where['sessionId'] = this._session.sessionId;
-        console.log('opt>>>>>>', this._session);
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId;
+        opt.where['sessionId'] = this._SESSION.user.sessionId;
+        console.log('opt>>>>>>', this._SESSION.user);
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await daily_attendances.findAll(opt)));
     }
 
     async syllabus(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await syllabuses.findAll(opt)));
     }
     async mark(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await marks.findAll(opt)));
     }
     async session(opt) {
         return JSON.parse(JSON.stringify(await sessions.findAll(opt)));
     }
     async currency(opt) {
-        // opt.where['sessionId'] = this._session.passport.sessionId.toString();
+        // opt.where['sessionId'] = this._SESSION.user.passport.sessionId.toString();
         return JSON.parse(JSON.stringify(await currencies.findAll(opt)));
+    }
+    async country(opt) {
+        // opt.where['sessionId'] = this._SESSION.user.passport.sessionId.toString();
+        return JSON.parse(JSON.stringify(await countries.findAll(opt)));
     }
     async business(opt) {
 
-        if (this._session.user.role.role === 'superadmin') {
+        if (this._SESSION.user.role.role === 'superadmin') {
             opt['include'] = { model: invoices, where: { [Op.not]: { level: ['sales'] } } }
             return JSON.parse(JSON.stringify(await businesses.findAll()));
         } else {
-            if (this._session.user.role.role === 'admin') {
+            if (this._SESSION.user.role.role === 'admin') {
                 return JSON.parse(JSON.stringify(await businesses.findAll(opt)));
             }
         }
     }
     async classroom(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await classrooms.findAll(opt)));
     }
     async item_categories(opt) {
-        // opt.where['businessId'] = this._session.businessId.toString();
+        // opt.where['businessId'] = this._SESSION.user.businessId.toString();
         return JSON.parse(JSON.stringify(await item_categories.findAll(opt)));
     }
     async section(opt) {
-        // opt.where['sessionId'] = this._session.sessionId.toString();
+        // opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await sections.findAll(opt)));
     }
     async user(opt) {
         try {
-            // opt.where['businessId'] = this._session.businessId.toString();
+            // opt.where['businessId'] = this._SESSION.user.businessId.toString();
             console.log(opt);
-            opt.where['sessionId'] = this._session.sessionId.toString();
+            opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
             let user = await users.findAndCountAll(opt);
             return { status: true, data: JSON.parse(JSON.stringify(user.rows)), count: user.count, notification: null }
         } catch (err) {
@@ -241,67 +246,67 @@ class FindBy {
         }
     }
     async smtp_setting(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await smtp_settings.findAll(opt)));
     }
     async setting(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await settings.findAll(opt)));
     }
     async parent(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await parents.findAll(opt)));
     }
     async department(opt) {
-        if (this._session.role === 'superadmin') {
-            console.log('session', this._session);
-            console.log(await this._session);
-            // opt.where['businessId'] = (this._session.businessId) ? this._session.businessId.toString() : null;
-            // opt.where['sessionId'] = this._session.sessionId.toString();
+        if (this._SESSION.user.role === 'superadmin') {
+            console.log('session', this._SESSION.user);
+            console.log(await this._SESSION.user);
+            // opt.where['businessId'] = (this._SESSION.user.businessId) ? this._SESSION.user.businessId.toString() : null;
+            // opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
             return JSON.parse(JSON.stringify(await departments.findAll(opt)));
         }
     }
     async teacher(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await teachers.findAll(opt)));
     }
     async student(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await students.findAll(opt)));
     }
     async bus_route(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await bus_routes.findAll(opt)));
     }
     async drop_off(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await drop_offs.findAll(opt)));
     }
     async students_route(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await students_routes.findAll(opt)));
     }
     async salaries(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await salaries.findAll(opt)));
     }
     async routine(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await routines.findAll(opt)));
     }
     async noticeboard(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await noticeboard.findAll(opt)));
     }
     async menu(opt) {
@@ -309,58 +314,58 @@ class FindBy {
     }
 
     async sub_menu(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await menus.findAll(opt)))
     }
     async exam(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await exams.findAll(opt)));
     }
 
     async expenses_category(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await expenses_categories.findAll(opt)));
     }
     async expense(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await expenses.findAll(opt)))
     }
     async frontend_setting(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await frontend_settings.findAll(opt)));
     }
     async frontend_gallery(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await frontend_gallery.findAll(opt)));
     }
 
     async frontend_event(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await frontend_events.findAll(opt)));
     }
 
     async grade(opt) {
-        opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await grades.findAll(opt)));
     }
 
     async invoice(opt) {
-        // opt.where['businessId'] = this._session.businessId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        // opt.where['businessId'] = this._SESSION.user.businessId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         return JSON.parse(JSON.stringify(await invoices.findAll(opt)))
     }
     async enrol(opt) {
         try {
-            opt.where['businessId'] = (this._session.businessId) ? this._session.businessId.toString() : 1;
-            opt.where['sessionId'] = this._session.sessionId.toString();
+            opt.where['businessId'] = (this._SESSION.user.businessId) ? this._SESSION.user.businessId.toString() : 1;
+            opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
             console.log('opt>>>>>>', opt);
             return JSON.parse(JSON.stringify(await enrols.findAll(opt)));
         } catch (err) {

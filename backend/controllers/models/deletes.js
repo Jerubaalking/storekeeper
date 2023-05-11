@@ -1,3 +1,4 @@
+const countries = require('../../../database/models/countries');
 const { roles,
     main_menus,
     store_menus,
@@ -85,6 +86,12 @@ class deletes {
     async currency(id) {
         if (this._instance.schoolId, this._instance.sessionId) {
             return await currencies.destroy({ where: { id: id } })
+        } else {
+            throw new Error('user not authenticated!');
+        }
+    }  async country(id) {
+        if (this._instance.schoolId, this._instance.sessionId) {
+            return await countries.destroy({ where: { id: id } })
         } else {
             throw new Error('user not authenticated!');
         }

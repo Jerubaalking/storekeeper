@@ -9,6 +9,7 @@ const Sum = require("./sum");
 const FindCountBy = require("./findcountby");
 const authorizers = require("../../../database/models/authorizers");
 const roles = require("../../../database/models/roles");
+const i18n = require("../../helpers/languages/i18n.config");
 /**
  * @class {Controllers} Controller used to extend session
  * used as a middleware between request and db query
@@ -17,7 +18,7 @@ const roles = require("../../../database/models/roles");
 class Controllers extends Session {
     constructor(req) {
         super(req);
-        this._session = this.getCurrentSession().then().catch(err => console.log(err));
+        this._session = this.getCurrentSession();
     }
     async authorize(action) {
         // console.log(this._session);
@@ -32,7 +33,7 @@ class Controllers extends Session {
         //     return false
         // }
         let authority = JSON.parse(JSON.stringify(await authorizers.findOne({ where: { title: action } })));
-        
+
         return await authority;
     }
     async find() {
@@ -48,7 +49,8 @@ class Controllers extends Session {
         return await new Single(await this.getCurrentSession());
     }
     async create() {
-        return await new Creates(await this.getCurrentSession());
+
+        return await new Creates(this._session);
     }
     async update() {
         return await new Update(await this.getCurrentSession());

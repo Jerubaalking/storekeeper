@@ -1,4 +1,5 @@
 const clients = require('../../../database/models/clients');
+const countries = require('../../../database/models/countries');
 const {
     sessions,
     currencies, stockIns, stockOuts,
@@ -9,10 +10,10 @@ const {
 const { Op } = require('../../../database/mysql');
 class Single {
     constructor(session) {
-        this._session = session;
+        this._SESSION = session;
     }
     async store(id) {
-        return JSON.parse(JSON.stringify(await stores.findOne({ where: { id: id, businessId: this._session.businessId } })));
+        return JSON.parse(JSON.stringify(await stores.findOne({ where: { id: id, businessId: this._SESSION.user.businessId } })));
     }
     async business(id) {
         try {
@@ -38,26 +39,26 @@ class Single {
     }
 
     async deduction(id) {
-        return JSON.parse(JSON.stringify(await deductions.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await deductions.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async bus(id) {
-        return JSON.parse(JSON.stringify(await bus_routes.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await bus_routes.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async userOpt(opt) {
         return JSON.parse(JSON.stringify(await users.findOne(opt)))
     }
     async stockIn(id) {
-        return JSON.parse(JSON.stringify(await stockIns.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await stockIns.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
 
     async bookIssue(id) {
-        return JSON.parse(JSON.stringify(await book_issues.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await book_issues.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async session(id) {
-        return JSON.parse(JSON.stringify(await sessions.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await sessions.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async attendance(id) {
-        return JSON.parse(JSON.stringify(await daily_attendances.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await daily_attendances.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async attendances(opt) {
         return JSON.parse(JSON.stringify(await daily_attendances.findOne(opt)))
@@ -67,22 +68,26 @@ class Single {
     }
 
     async subject(id) {
-        return JSON.parse(JSON.stringify(await subjects.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await subjects.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async teacher_permissions(opt) {
         return JSON.parse(JSON.stringify(await teachers_permissions.findOne(opt)));
     }
     async currency(id) {
-        return JSON.parse(JSON.stringify(await currencies.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await currencies.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
+    }
+
+    async country(id) {
+        return JSON.parse(JSON.stringify(await countries.findOne({ where: { id: id } })));
     }
     async school(id) {
-        return JSON.parse(JSON.stringify(await schools.findOne({ where: { id: id, businessId: this._session.businessId } })));
+        return JSON.parse(JSON.stringify(await schools.findOne({ where: { id: id, businessId: this._SESSION.user.businessId } })));
     }
     async classroom(id) {
-        return JSON.parse(JSON.stringify(await classrooms.findOne({ where: { id: id, businessId: this._session.businessId } })));
+        return JSON.parse(JSON.stringify(await classrooms.findOne({ where: { id: id, businessId: this._SESSION.user.businessId } })));
     }
     async class(id) {
-        return JSON.parse(JSON.stringify(await classes.findOne({ where: { id: id, businessId: this._session.businessId } })));
+        return JSON.parse(JSON.stringify(await classes.findOne({ where: { id: id, businessId: this._SESSION.user.businessId } })));
     }
     async section(id) {
         return JSON.parse(JSON.stringify(await sections.findOne({ where: { id: id } })));
@@ -97,16 +102,16 @@ class Single {
         return JSON.parse(JSON.stringify(await smtp_settings.findOne(opt)))
     }
     async setting(id) {
-        return JSON.parse(JSON.stringify(await settings.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await settings.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async parent(id) {
-        return JSON.parse(JSON.stringify(await parents.findOne({ where: { id: id, businessId: this._session.businessId }, include: users })));
+        return JSON.parse(JSON.stringify(await parents.findOne({ where: { id: id, businessId: this._SESSION.user.businessId }, include: users })));
     }
     async department(id) {
-        return JSON.parse(JSON.stringify(await departments.findOne({ where: { id: id, businessId: this._session.businessId } })));
+        return JSON.parse(JSON.stringify(await departments.findOne({ where: { id: id, businessId: this._SESSION.user.businessId } })));
     }
     async teacher(id) {
-        let teacher = await teachers.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId }, include: users });
+        let teacher = await teachers.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId }, include: users });
         teacher = JSON.parse(JSON.stringify(teacher));
         (teacher.social_link) ? teacher.social_link : teacher.social_link = ['', '', ''];
         teacher['facebook_link'] = JSON.parse(await teacher.social_link)[0];
@@ -118,25 +123,25 @@ class Single {
         return JSON.parse(JSON.stringify(await customers.findOne({ where: { id: id }, include: { model: stores } })));
     }
     async enrols(id) {
-        return JSON.parse(JSON.stringify(await enrols.findOne({ where: { id: id, businessId: (this._session.businessId) ? this._session.businessId : 1, sessionId: this._session.sessionId }, include: [{ model: customers, include: { model: stores } }, { model: personels, include: users }] })))
+        return JSON.parse(JSON.stringify(await enrols.findOne({ where: { id: id, businessId: (this._SESSION.user.businessId) ? this._SESSION.user.businessId : 1, sessionId: this._SESSION.user.sessionId }, include: [{ model: customers, include: { model: stores } }, { model: personels, include: users }] })))
     }
     async bus_route(id) {
-        return JSON.parse(JSON.stringify(await bus_routes.findOne({ where: { id: id, businessId: (this._session.businessId) ? this._session.businessId : 1, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await bus_routes.findOne({ where: { id: id, businessId: (this._SESSION.user.businessId) ? this._SESSION.user.businessId : 1, sessionId: this._SESSION.user.sessionId } })));
     }
     async drop_off(id) {
-        return JSON.parse(JSON.stringify(await drop_offs.findOne({ where: { id: id, businessId: (this._session.businessId) ? this._session.businessId : 1, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await drop_offs.findOne({ where: { id: id, businessId: (this._SESSION.user.businessId) ? this._SESSION.user.businessId : 1, sessionId: this._SESSION.user.sessionId } })));
     }
     async students_route(id) {
-        return JSON.parse(JSON.stringify(await students_routes.findOne({ where: { id: id, businessId: (this._session.businessId) ? this._session.businessId : 1, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await students_routes.findOne({ where: { id: id, businessId: (this._SESSION.user.businessId) ? this._SESSION.user.businessId : 1, sessionId: this._SESSION.user.sessionId } })));
     }
     async salary(id) {
-        return JSON.parse(JSON.stringify(await salaries.findOne({ where: { id: id, businessId: (this._session.businessId) ? this._session.businessId : 1 } })));
+        return JSON.parse(JSON.stringify(await salaries.findOne({ where: { id: id, businessId: (this._SESSION.user.businessId) ? this._SESSION.user.businessId : 1 } })));
     }
     async routine(id) {
-        return JSON.parse(JSON.stringify(await routines.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await routines.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async noticeboard(id) {
-        return JSON.parse(JSON.stringify(await noticeboard.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await noticeboard.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async menu(id) {
         return JSON.parse(JSON.stringify(await menus.findByPk(id)))
@@ -149,32 +154,32 @@ class Single {
         return JSON.parse(JSON.stringify(await menus.findOne({ where: { [Op.not]: { parent: 0 } } })));
     }
     async exam(id) {
-        return JSON.parse(JSON.stringify(await exams.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await exams.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
 
     async expenses_category(id) {
-        return JSON.parse(JSON.stringify(await expenses_categories.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await expenses_categories.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async expense(id) {
-        return JSON.parse(JSON.stringify(await expenses.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId }, include: { model: expenses_categories, nested: false } })));
+        return JSON.parse(JSON.stringify(await expenses.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId }, include: { model: expenses_categories, nested: false } })));
     }
     async frontend_setting(id) {
-        return JSON.parse(JSON.stringify(await frontend_settings.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await frontend_settings.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
     async frontend_gallery(id) {
-        return JSON.parse(JSON.stringify(await frontend_gallery.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await frontend_gallery.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
 
     async frontend_event(id) {
-        return JSON.parse(JSON.stringify(await frontend_events.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await frontend_events.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
 
     async grade(id) {
-        return JSON.parse(JSON.stringify(await grades.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId } })));
+        return JSON.parse(JSON.stringify(await grades.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId } })));
     }
 
     async invoice(id) {
-        return JSON.parse(JSON.stringify(await invoices.findOne({ where: { id: id, businessId: this._session.businessId, sessionId: this._session.sessionId }, include: [{ model: sessions, nested: false }, { model: classes, nested: false }, { model: students, include: [users, { model: parents, include: { model: users } }] }] })))
+        return JSON.parse(JSON.stringify(await invoices.findOne({ where: { id: id, businessId: this._SESSION.user.businessId, sessionId: this._SESSION.user.sessionId }, include: [{ model: sessions, nested: false }, { model: classes, nested: false }, { model: students, include: [users, { model: parents, include: { model: users } }] }] })))
     }
 }
 module.exports = Single;

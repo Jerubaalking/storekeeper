@@ -1,4 +1,5 @@
-const {roles,
+const countries = require('../../../database/models/countries');
+const { roles,
     main_menus,
     store_menus,
     business_addresses,
@@ -35,7 +36,7 @@ const {roles,
 const { passwordHashVerify, passwordHash } = require('../services/service');
 class Update {
     constructor(session) {
-        this._session = session;
+        this._SESSION = session;
     }
     async store(id, data) {
         return await stores.update(data, { where: { id: id } });
@@ -71,6 +72,9 @@ class Update {
     }
     async currency(id, data) {
         return await currencies.update(data, { where: { id: id } });
+    } 
+    async country(id, data) {
+        return await countries.update(data, { where: { id: id } });
     }
     async school(id, data) {
         return await schools.update(data, { where: { id: id } });

@@ -13,7 +13,7 @@ module.exports = {
     authenticateUser: async function (req, email, password, done) {
         // console.log(email, password);
         try {
-
+            email = email.trim()
 
             const user = await users.findAll({ where: { email: email }, include: [{ model: roles }, { model: languages }] });
             const session = JSON.parse(JSON.stringify(await sessions.findOne({ where: { status: 1 } })));

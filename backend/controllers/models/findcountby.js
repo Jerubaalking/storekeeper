@@ -7,7 +7,7 @@ const { sessions,
 const { Op } = require('../../../database/mysql');
 class FindCountBy {
     constructor(session) {
-        this._session = session;
+        this._SESSION = session;
     }
     async stockIns(opt) {
         return JSON.parse(JSON.stringify(await stockIns.findAndCountAll(opt)));
@@ -31,9 +31,9 @@ class FindCountBy {
         return JSON.parse(JSON.stringify(await bus_routes.findAndCountAll(opt)));
     }
     async attendance(opt) {
-        opt.where['schoolId'] = this._session.schoolId;
-        opt.where['sessionId'] = this._session.sessionId;
-        console.log('opt>>>>>>', this._session);
+        opt.where['schoolId'] = this._SESSION.user.schoolId;
+        opt.where['sessionId'] = this._SESSION.user.sessionId;
+        console.log('opt>>>>>>', this._SESSION.user);
         return JSON.parse(JSON.stringify(await daily_attendances.findAndCountAll(opt)));
     }
 
@@ -136,8 +136,8 @@ class FindCountBy {
         return JSON.parse(JSON.stringify(await invoices.findAndCountAll(opt)))
     }
     async enrol(opt) {
-        opt.where['schoolId'] = this._session.schoolId.toString();
-        opt.where['sessionId'] = this._session.sessionId.toString();
+        opt.where['schoolId'] = this._SESSION.user.schoolId.toString();
+        opt.where['sessionId'] = this._SESSION.user.sessionId.toString();
         console.log('opt>>>>>>', opt);
         return JSON.parse(JSON.stringify(await enrols.findAndCountAll(opt)))
     }

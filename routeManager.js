@@ -19,7 +19,7 @@ module.exports = async (app) => {
     app.use('/items', require('./backend/routes/backend/items'));
     app.use('/categories', require('./backend/routes/backend/item_categories'));
     app.use('/translate', require('./backend/routes/translate'));
-    // app.use('/parents', require('./backend/routes/backend/parents'));
+    app.use('/countries', require('./backend/routes/countries'));
     // app.use('/stocks/in', require('./backend/routes/backend/stockIns'));
     app.use('/departments', require('./backend/routes/backend/departments'));
     // app.use('/permissions', require('./backend/routes/backend/permissions'));

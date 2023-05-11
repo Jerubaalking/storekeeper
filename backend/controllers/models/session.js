@@ -1,4 +1,5 @@
 const { businesses, permissions, roles, user_roles, business_addresses } = require("../../../database/models/module_exporter");
+const i18n = require("../../helpers/languages/i18n.config");
 
 const { spawnJwtPayload } = require("../services/handlers");
 
@@ -7,7 +8,12 @@ class Session {
     constructor(req) {
         this._request = req;
         this.#_session = req.session.passport;
-        // this.#_session = spawnJwtPayload(req.cookies._57or35, req.cookies.e5t_);/
+        this.sessionID = req.sessionID;
+        this.init();
+    }
+    init() {
+        this.#_session.user['sessionLocale'] = i18n.getLocale();
+        this.#_session.user['sessionID'] = this.sessionID;
     }
     async getCurrentBusiness() {
         try {
@@ -50,8 +56,9 @@ class Session {
     async getCurrentBusinessId() {
         return this.#_session.businessId;
     }
-    async getCurrentSession() {
-        return await this.#_session;
+    getCurrentSession() {
+        console.log(this.#_session);
+        return this.#_session;
     }
 }
 module.exports = Session;

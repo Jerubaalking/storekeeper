@@ -6,6 +6,7 @@ const findby = require("../models/findBy");
 const { Op } = require("../../../database/mysql");
 const { businesses, users } = require("../../../database/models/module_exporter");
 const Controllers = require("../models/control");
+const i18n = require("../../helpers/languages/i18n.config");
 let _many_module = 'businesses';
 let _single_module = 'school';
 module.exports = {
@@ -34,10 +35,14 @@ module.exports = {
                     let data = req.body;
                     data.role = 'admin';
                     await (await new Controllers(req).create()).user(data);
-                    res.json({ status: true, notification: 'successfully added admin!' })
+                    res.json({ status: true, notification: i18n.__('successfully add') + ' ' + i18n.__('admin') + '!' })
                 } catch (err) {
                     console.log(err);
-                    res.json({ status: false, notification: 'failed to add admin: ' + err.message })
+                    if ((err.original.toString()).split(' ').includes('Duplicate')) {
+                        res.json({ status: false, notification: i18n.__('failed to add') + ' ' + i18n.__('admin') + ': ' + i18n.__('duplicate entry') })
+                    } else {
+                        res.json({ status: false, notification: i18n.__('failed to add') + ' ' + i18n.__('admin') + ': ' + i18n.__(err.message) + '\n' + err.original })
+                    }
                 }
             }
         }
@@ -55,9 +60,11 @@ module.exports = {
                     console.log('its post:');
                     let data = req.body;
                     await update.user(req.params.id, data);
-                    res.json({ status: true, notification: 'successfully updated admin!' })
+                    res.json({
+                        status: true, notification: i18n.__('successfully updated') + ' ' + 'admin!'
+                    })
                 } catch (err) {
-                    res.json({ status: false, notification: 'failed to update admin: ' + err.message })
+                    res.json({ status: false, notification: i18n.__('failed to update') + ' ' + i18n.__('admin') + ': ' + i18n.__(err.message) })
                 }
             }
         }
