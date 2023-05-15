@@ -12,7 +12,12 @@ const { passportInit, authenticateUser } = require('./passport/passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const cors = require('cors');
+
 const app = require('./applications/app');
+app.use(cors({
+    origin: ['https://www.saincrafttechnologies.com', 'https://captain.saincrafttechnologies.com','http://saincrafttechnologies.com', 'https://saincrafttechologies.com', 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/'],
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
+}));
 passport.use(new LocalStrategy(
     {
         usernameField: 'email',
