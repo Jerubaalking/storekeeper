@@ -1,17 +1,20 @@
 
 const Handlebars = require("express-handlebars");
 const i18n = require("./languages/i18n.config");
+const translations = require("../../database/models/transalations");
+const languages = require("../../database/models/languages");
+const fs = require('fs').promises
 // const { phrase, addLang, byCode, setLang, getLanguage } = require('./language.js');
-
-// console.log(language("english"));
+const translationFolder = __dirname + '/languages/';
 
 
 var register = function (Handlebars) {
     var helpers = {
         trs: function (str) {
+
             return (!str) ?
                 '...' :
-                i18n.__(str).trimStart();
+                i18n.__(str.trimStart(), i18n.getLocale());
         },
         cdn: function () {
             if (process.env.NODE_ENV === 'development') {
