@@ -15,7 +15,7 @@ const cors = require('cors');
 
 const app = require('./applications/app');
 app.use(cors({
-    origin: ['https://storekeeper.builds.saincrafttechnologies.com', 'http://storekeeper.builds.saincrafttechnologies.com', 'https://captain.builds.saincrafttechnologies.com', 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/'],
+    origin: ['https://www.saincrafttechnologies.com','https://storekeeper.builds.saincrafttechnologies.com', 'http://storekeeper.builds.saincrafttechnologies.com', 'https://captain.builds.saincrafttechnologies.com', 'https://saincrafttechnologies-static-public-2023.fra1.cdn.digitaloceanspaces.com/'],
     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
 }));
 passport.use(new LocalStrategy(
